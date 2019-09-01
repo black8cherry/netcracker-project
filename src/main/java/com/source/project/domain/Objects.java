@@ -17,8 +17,8 @@ public class Objects {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    /*@OneToMany(mappedBy = "objects")
-    private Set<Value> values = new HashSet<Value>();*/
+    @OneToMany(mappedBy = "objects")
+    private Set<Value> values = new HashSet<Value>();
 
     public Objects(String name, Type type) {
         this.name = name;

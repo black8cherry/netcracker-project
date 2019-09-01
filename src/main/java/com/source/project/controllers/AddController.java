@@ -20,16 +20,16 @@ public class AddController {
     @Autowired
     private TypeRep typeRep;
 
-    @GetMapping("/add_film")
+    @GetMapping("/addFilm")
     public String add_main(
             Model model
     ) {
         Iterable<Objects> objects = objectsRep.findAll();
         model.addAttribute("objects", objects);
-        return "add_film";
+        return "addFilm";
     }
 
-    @PostMapping("/add_film")
+    @PostMapping("/addFilm")
     public String add(
             @RequestParam String name,
             @RequestParam Integer type,
@@ -39,7 +39,7 @@ public class AddController {
         objectsRep.save(object);
         Iterable<Objects> objects = objectsRep.findAll();
         model.addAttribute("objects", objects);
-        return "add_film";
+        return "addFilm";
     }
 
 }

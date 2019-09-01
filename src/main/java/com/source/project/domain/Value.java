@@ -21,10 +21,7 @@ public class Value {
     @JoinColumn(name = "atr_id")
     private Atribute atributes;
 
-
     private String value;
-
-
 
 
     public Value() {}

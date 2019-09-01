@@ -4,9 +4,16 @@
         Object!
     </div>
     {{#att}}
-        <span>atributes.label</span>
-        <span>value.value</span>
-        {{/att}}
+        <div>
+        {{label}}
+
+     {{/att}}
+
+    {{#val}}
+        {{value}}
+
+        </div>
+    {{/val}}
     <form action="/main" method="post">
         <input type="text" name="objectName" value="{{objects.name}}"/>
         <input type="text" name="objectId" value="{{objects.id}}"/>
