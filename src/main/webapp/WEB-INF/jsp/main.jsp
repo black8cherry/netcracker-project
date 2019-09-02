@@ -34,7 +34,7 @@
         <c:forEach  items="${objects}" var ="object">
             <tr>
                 <td><a href="/main/${object.id}">${object.name}</a></td>
-                <td><a href="${pageContext.request.contextPath}/main/delete/&${object.id}">delete</a></td>
+                <td><a href="${pageContext.request.contextPath}/main/delete/${object.id}">delete</a></td>
             </tr>
         </c:forEach>
     </table>

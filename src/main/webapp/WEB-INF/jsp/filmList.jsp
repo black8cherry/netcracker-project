@@ -51,6 +51,16 @@
 
 </div>
 
+<div>
+    <table>
+        <c:forEach items="${fl}" var="fl">
+            <tr>
+                <td>${fl.label}</td>
+                <td>${fl.value}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 
 <form action="${pageContext.request.contextPath}/main" method="post">
     <input type="text" name="objectName" value="${objects.name}"/>

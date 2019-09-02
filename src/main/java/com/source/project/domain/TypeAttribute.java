@@ -1,0 +1,49 @@
+package com.source.project.domain;
+
+import javax.persistence.*;
+
+@Entity
+public class TypeAttribute {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "type_id")
+    private Type type;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "att_id")
+    private Attribute attribute;
+
+    TypeAttribute() {}
+
+    public TypeAttribute(Type type, Attribute attribute) {
+        this.type = type;
+        this.attribute = attribute;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
+}

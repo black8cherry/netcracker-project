@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface ObjectsRep extends
         CrudRepository<Objects, Long>,
-        JpaRepository<Objects, Long> {
+        JpaRepository<Objects, Long>
+{
     List<Objects> findByName(String name);
 
     List<Objects> findByNameOrderByName(String name);

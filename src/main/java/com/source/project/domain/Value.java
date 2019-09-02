@@ -19,16 +19,16 @@ public class Value {
 
     @ManyToOne
     @JoinColumn(name = "atr_id")
-    private Atribute atributes;
+    private Attribute attributes;
 
     private String value;
 
 
     public Value() {}
 
-    public Value(Objects objects, Atribute atributes, String value) {
+    public Value(Objects objects, Attribute attributes, String value) {
         this.objects = objects;
-        this.atributes = atributes;
+        this.attributes = attributes;
         this.value = value;
     }
 
@@ -48,12 +48,12 @@ public class Value {
         this.objects = objects;
     }
 
-    public Atribute getAtributes() {
-        return atributes;
+    public Attribute getAttributes() {
+        return attributes;
     }
 
-    public void setAtributes(Atribute atributes) {
-        this.atributes = atributes;
+    public void setAtributes(Attribute atributes) {
+        this.attributes = atributes;
     }
 
     public String getValue() {
@@ -64,3 +64,4 @@ public class Value {
         this.value = value;
     }
 }
+

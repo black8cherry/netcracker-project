@@ -1,11 +1,9 @@
 package com.source.project.controllers;
 
-import com.source.project.domain.Atribute;
-import com.source.project.domain.FilmList;
-import com.source.project.domain.Objects;
-import com.source.project.domain.Value;
-import com.source.project.repos.AtributeRep;
+import com.source.project.domain.*;
+import com.source.project.repos.AttributeRep;
 import com.source.project.repos.ObjectsRep;
+import com.source.project.repos.TypeAttributeRep;
 import com.source.project.repos.ValueRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -25,9 +23,11 @@ import java.util.Map;
 public class MainController {
 
     @Autowired
+    private TypeAttributeRep typeAttributeRep;
+    @Autowired
     private ValueRep valueRep;
     @Autowired
-    private AtributeRep atributeRep;
+    private AttributeRep attributeRep;
     @Autowired
     private ObjectsRep objectsRep;
 
@@ -69,27 +69,40 @@ public class MainController {
         Objects object = objectsRep.findById(Integer.valueOf(id));
         List<Value> values = valueRep.findAllByObjects(object);
 
-        List<Value> val = values;
-        List<Atribute> atr = new ArrayList<Atribute>();
+        /*List<Value> val = values;
+        List<Attribute> att = new ArrayList<Attribute>();
         for (Value val1:
              val) {
-                atr.add(val1.getAtributes());
-        }
-
-        /*List<FilmList> filmList = new ArrayList<FilmList>();
-        for (FilmList fl:
-             filmList) {
-            fl.setLabel();
-            fl.setValue();
+                att.add(val1.getAttributes());
         }*/
 
+        //--------------------------------------------------------------
 
-        System.out.println("ATTRIBUTES : " + atr);
+        List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(object.getType());
+        List<FilmList> filmList = new ArrayList<FilmList>();
+
+        for (TypeAttribute tp: typeAttributes
+             ) {
+            String value;
+
+            if(valueRep.findByAttributesAndObjects(tp.getAttribute(), object) == null) {
+                value = " ";
+            }
+            else {
+                value = valueRep.findByAttributesAndObjects(tp.getAttribute(), object).getValue();
+            }
+
+            filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
+        }
+
+        //--------------------------------------------------------------
+        //System.out.println("ATTRIBUTES : " + att);
        // List<Atribute> atributes = atributeRep.findAllByValues(val);
 
         model.addAttribute("objects", object);
-        model.addAttribute("att", atr);
-        model.addAttribute("val", values);
+        /*model.addAttribute("att", att);
+        model.addAttribute("val", values);*/
+        model.addAttribute("fl", filmList);
         return "filmList";
     }
 
