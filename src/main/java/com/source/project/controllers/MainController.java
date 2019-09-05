@@ -7,6 +7,7 @@ import com.source.project.repos.TypeAttributeRep;
 import com.source.project.repos.ValueRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,18 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/{id}/edit")
+    public String edit(
+            @PathVariable String id,
+            Model model
+    ) {
+        Objects objects = objectsRep.findById(Integer.valueOf(id));
+        model.addAttribute("objects", objects);
+        return "filmEdit";
+    }
+
+    @PostMapping("/{id}")
     public String filmSave(
             @RequestParam String objectName,
             @RequestParam("objectId") String id
@@ -57,24 +69,16 @@ public class MainController {
         Objects object = objectsRep.findById(Integer.valueOf(id));
         object.setName(objectName);
         objectsRep.save(object);
-        return "redirect:/main";
+        return "redirect:/main/{id}";
     }
 
     @GetMapping("/{id}")
     public String filter(
-            //@PathVariable Objects objects,
             Model model,
             @PathVariable String id
     ) {
         Objects object = objectsRep.findById(Integer.valueOf(id));
         List<Value> values = valueRep.findAllByObjects(object);
-
-        /*List<Value> val = values;
-        List<Attribute> att = new ArrayList<Attribute>();
-        for (Value val1:
-             val) {
-                att.add(val1.getAttributes());
-        }*/
 
         //--------------------------------------------------------------
 
@@ -96,8 +100,6 @@ public class MainController {
         }
 
         //--------------------------------------------------------------
-        //System.out.println("ATTRIBUTES : " + att);
-       // List<Atribute> atributes = atributeRep.findAllByValues(val);
 
         model.addAttribute("objects", object);
         /*model.addAttribute("att", att);

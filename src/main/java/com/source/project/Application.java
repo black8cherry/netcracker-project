@@ -1,11 +1,14 @@
 package com.source.project;
 
-import com.samskivert.mustache.Mustache;
-import org.omg.CORBA.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.mustache.MustacheEnvironmentCollector;
-import org.springframework.context.annotation.Bean;
+
+
+/*
+    killing work on 8080
+    1 netstat -ano | findstr :8080
+    2 taskkill /PID typeyourPIDhere /F
+ */
 
 @SpringBootApplication
 public class Application {

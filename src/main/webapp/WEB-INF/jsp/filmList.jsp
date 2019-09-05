@@ -10,45 +10,11 @@
 <html>
 <head>
     <title>filmList</title>
-    <style>
-        ul.hr {
-            margin: 0px;
-            padding: 4px;
-        }
-        ul.hr li {
-            display: inline-block;
-            margin-right: 5px;
-        }
-    </style>
 </head>
 <body>
 <div>
-    Object!
-</div>
-<div>
-    <ul class="hr">
-
-        <li>
-            <table>
-                <c:forEach  items="${att}" var = "att">
-                    <tr>
-                        <td>${att.label}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </li>
-
-        <li>
-            <table>
-                <c:forEach  items="${val}" var = "val">
-                    <tr>
-                        <td>${val.value}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </li>
-    </ul>
-
+    <img src="../img/${objects.filename}"/>
+    ${objects.name}
 </div>
 
 <div>
@@ -62,12 +28,7 @@
     </table>
 </div>
 
-<form action="${pageContext.request.contextPath}/main" method="post">
-    <input type="text" name="objectName" value="${objects.name}"/>
-    <input type="text" name="objectId" value="${objects.id}"/>
-    <input type="hidden" name="_csrf" value="${_csrf.token}}"/>
-    <button type="submit">save</button>
-</form>
+<a href="${pageContext.request.contextPath}/main/${id}/edit">edit</a>
 <a href="${pageContext.request.contextPath}/main" >link to main</a>
 </body>
 </html>

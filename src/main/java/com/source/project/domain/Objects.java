@@ -17,8 +17,10 @@ public class Objects {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    @OneToMany(mappedBy = "objects")
-    private Set<Value> values = new HashSet<Value>();
+    private String filename;
+
+    /*@OneToMany(mappedBy = "objects")
+    private Set<Value> values = new HashSet<Value>();*/
 
     public Objects(String name, Type type) {
         this.name = name;
@@ -27,6 +29,14 @@ public class Objects {
 
     public Objects() {
 
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public Type getType() {

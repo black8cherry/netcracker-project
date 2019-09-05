@@ -22,7 +22,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/","/registration").permitAll()
+                    .antMatchers("/","/registration","**/img/**",
+                                "/img","/main","/main/{id},","/main/img","/main/img/**",
+                                "C:/Users/79200/IdeaProjects/project/src/main/resources/uploads")
+                    .permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -38,4 +41,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
+
 }
