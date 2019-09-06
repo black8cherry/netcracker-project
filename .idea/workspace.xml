@@ -68,9 +68,9 @@
         <option value="HTML File" />
         <option value="Enum" />
         <option value="jsf" />
-        <option value="Jsp File" />
         <option value="Class" />
         <option value="Interface" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -98,6 +98,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\79200\IdeaProjects\project\src\main\webapp\WEB-INF\css" />
       <recent name="C:\Users\79200\IdeaProjects\project\src\main\webapp\WEB-INF\jsp" />
       <recent name="C:\Users\79200\IdeaProjects\project\src\main\resources\webapp\WEB-INF\jsp" />
       <recent name="C:\Users\79200\IdeaProjects\project\src\main\resources" />
@@ -139,27 +140,7 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@54c62206" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@54c62206" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@34707f14" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@54c62206" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1aad5d50" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@54c62206" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@31900aed" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
@@ -202,6 +183,12 @@
       <workItem from="1567175500223" duration="6079000" />
       <workItem from="1567339141080" duration="8093000" />
       <workItem from="1567434039508" duration="7523000" />
+      <workItem from="1567611009589" duration="2512000" />
+      <workItem from="1567626657593" duration="7144000" />
+      <workItem from="1567691462767" duration="7937000" />
+      <workItem from="1567700315324" duration="857000" />
+      <workItem from="1567714950596" duration="3783000" />
+      <workItem from="1567805779841" duration="1051000" />
     </task>
     <servers />
   </component>

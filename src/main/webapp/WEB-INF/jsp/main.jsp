@@ -5,6 +5,7 @@
   Time: 18:43
   To change this template use File | Settings | File Templates.
 --%>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE HTML>
@@ -19,15 +20,15 @@
         <input type="submit" value="sign out"/>
     </form>
 </div>
+
 <div>
-    <form method="get" action="${pageContext.request.contextPath}/main">
-        <label>
-            <input type="text" name="filter" />
-        </label>
+    <form method="get" class="d-flex" action="${pageContext.request.contextPath}/main">
+        <input class="form-control" type="text" name="filter" />
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button type="submit">find</button>
+        <button class="btn btn-primary" type="submit">find</button>
     </form>
 </div>
+
 <div>
     <table>
 

@@ -30,7 +30,7 @@ public class RegistrationController {
         if(userDB!=null)
             model.put("message","user exists");
         else {
-            user.setRole(Collections.singleton(Role.ADMIN));
+            user.setRole(Collections.singleton(Role.USER));
             userRep.save(user);
             return "redirect:/login";
         }
