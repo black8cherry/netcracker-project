@@ -57,17 +57,32 @@ public class MainController {
             Model model
     ) {
         Objects objects = objectsRep.findById(Integer.valueOf(id));
+        List<Value> values = valueRep.findAllByObjects(objects);
+
         model.addAttribute("objects", objects);
+        model.addAttribute("val", values);
         return "filmEdit";
     }
 
     @PostMapping("/{id}")
     public String filmSave(
             @RequestParam String objectName,
+            @RequestParam List<String> val,
             @RequestParam("objectId") String id
     ) {
         Objects object = objectsRep.findById(Integer.valueOf(id));
+        List<Value> values1 = valueRep.findAllByObjects(object);
+        //=======================================================
         object.setName(objectName);
+        int i = 0;
+        System.out.println("start working");
+        for (Value v: values1
+             ) {
+            v.setValue(val.get(i++));
+        }
+        i = 0;
+        System.out.println("yeap, its working");
+        //=======================================================
         objectsRep.save(object);
         return "redirect:/main/{id}";
     }

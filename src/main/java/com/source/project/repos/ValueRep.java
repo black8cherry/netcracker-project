@@ -13,5 +13,5 @@ public interface ValueRep extends CrudRepository<Value, Long> {
     Value findByAttributes(Attribute attribute);
     Value findByAttributesAndObjects(Attribute attribute, Objects objects);
     //@Query("select a.attribute, v.value from attribute a, value v where")
-
+    List<Value> findAllByObjectsOrderByAttributes(Objects objects);
 }
