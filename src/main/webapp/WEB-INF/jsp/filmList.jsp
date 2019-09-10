@@ -10,11 +10,8 @@
 <body>
 
 <div>
+    ${objects.name}<br/>
     <img src="../img/${objects.filename}"/>
-    ${objects.name}
-</div>
-
-<div>
     <table>
         <c:forEach items="${fl}" var="fl">
             <tr>

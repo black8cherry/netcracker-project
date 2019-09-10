@@ -13,5 +13,5 @@ public interface TypeAttributeRep extends
         CrudRepository<TypeAttribute, Long>,
         JpaRepository<TypeAttribute, Long>
 {
-    List<TypeAttribute> findByType(Type type);
+    List<TypeAttribute> findByTypeOrderByAttribute(Type type);
 }

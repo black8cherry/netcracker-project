@@ -18,7 +18,7 @@ Edit page
     <input type="text" name="objectId" value="${objects.id}"/>
 
         <c:forEach items="${val}" var="v">
-
+                <span>${v.label}</span>
                 <input type="text" name="val" value="${v.value}">
         </c:forEach>
 

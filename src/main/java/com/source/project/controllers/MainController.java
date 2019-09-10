@@ -57,10 +57,25 @@ public class MainController {
             Model model
     ) {
         Objects objects = objectsRep.findById(Integer.valueOf(id));
-        List<Value> values = valueRep.findAllByObjects(objects);
+        //List<Value> values = valueRep.findAllByObjects(objects);
+        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(objects.getType());
+        List<FilmList> filmList = new ArrayList<FilmList>();
+
+        for (TypeAttribute tp: typeAttributes
+        ) {
+            String value;
+            if(valueRep.findByAttributesAndObjects(tp.getAttribute(), objects) == null) {
+                value = " ";
+            }
+            else {
+                value = valueRep.findByAttributesAndObjects(tp.getAttribute(), objects).getValue();
+            }
+            filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
+        }
+
 
         model.addAttribute("objects", objects);
-        model.addAttribute("val", values);
+        model.addAttribute("val", filmList);
         return "filmEdit";
     }
 
@@ -71,19 +86,39 @@ public class MainController {
             @RequestParam("objectId") String id
     ) {
         Objects object = objectsRep.findById(Integer.valueOf(id));
-        List<Value> values1 = valueRep.findAllByObjects(object);
-        //=======================================================
-        object.setName(objectName);
-        int i = 0;
-        System.out.println("start working");
-        for (Value v: values1
-             ) {
-            v.setValue(val.get(i++));
+        List<Value> values = valueRep.findAllByObjects(object);
+        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(object.getType());
+
+        if(!values.isEmpty()){
+            System.out.println("update values there");
+            object.setName(objectName);
+            int i = 0;
+            for (Value v: values
+            ) {
+                v.setValue(val.get(i++));
+            }
+            i = 0;
         }
-        i = 0;
-        System.out.println("yeap, its working");
+        else {
+            System.out.println("adding new values there");
+            object.setName(objectName);
+            int i = 0;
+            for (String tmp: val
+            ) {
+                values.add(new Value(object, typeAttributes.get(i++).getAttribute(), tmp));
+            }
+            i = 0;
+            for (Value v: values
+            ) {
+                valueRep.save(v);
+            }
+        }
+        //=======================================================
+
+
         //=======================================================
         objectsRep.save(object);
+
         return "redirect:/main/{id}";
     }
 
@@ -97,7 +132,7 @@ public class MainController {
 
         //--------------------------------------------------------------
 
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(object.getType());
+        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(object.getType());
         List<FilmList> filmList = new ArrayList<FilmList>();
 
         for (TypeAttribute tp: typeAttributes

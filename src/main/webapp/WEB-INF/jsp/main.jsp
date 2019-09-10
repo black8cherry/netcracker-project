@@ -34,9 +34,9 @@
 
         <c:forEach  items="${objects}" var ="object">
             <tr>
-                <div>
-                    <img src="img/${object.filename}"/>
-                </div>
+
+                <td><img src="img/${object.filename}"/></td>
+
                 <td><a href="/main/${object.id}">${object.name}</a></td>
                 <td><a href="${pageContext.request.contextPath}/main/delete/${object.id}">delete</a></td>
             </tr>
