@@ -15,10 +15,20 @@
 </head>
 <body>
 <div>
-    <form action="${pageContext.request.contextPath}/logout" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <input type="submit" value="sign out"/>
-    </form>
+<c:choose>
+    <c:when test="${checkUser==true}" >
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <input type="submit" value="sign out"/>
+        </form>
+    </c:when>
+    <c:when test="${checkUser==false}">
+        <form action="${pageContext.request.contextPath}/login" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <input type="submit" value="sign in">
+        </form>
+    </c:when>
+</c:choose>
 </div>
 
 <div>
@@ -38,12 +48,18 @@
                 <td><img src="img/${object.filename}"/></td>
 
                 <td><a href="/main/${object.id}">${object.name}</a></td>
+                <c:if test="${role=='[ADMIN]'}">
                 <td><a href="${pageContext.request.contextPath}/main/delete/${object.id}">delete</a></td>
+                </c:if>
             </tr>
         </c:forEach>
     </table>
 </div>
-<a href="${pageContext.request.contextPath}/addFilm" >add film or serial</a>
+
+<c:if test="${role=='[ADMIN]'}">
+    <a href="${pageContext.request.contextPath}/addFilm" >add film or serial</a>
+</c:if>
 <a href="${pageContext.request.contextPath}/userList">user list</a>
+
 </body>
 </html>

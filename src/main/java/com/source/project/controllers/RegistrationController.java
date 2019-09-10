@@ -17,6 +17,9 @@ public class RegistrationController {
     @Autowired
     private UserRep userRep;
 
+    @GetMapping("/")
+    public String startPage() {return "redirect:/main";}
+
     @GetMapping("/registration")
     public String registration() {
         return "registration";

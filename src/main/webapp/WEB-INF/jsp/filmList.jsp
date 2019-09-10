@@ -21,8 +21,9 @@
         </c:forEach>
     </table>
 </div>
-
-<a href="${pageContext.request.contextPath}/main/${id}/edit">edit</a>
+<c:if test="${role=='[ADMIN]'}">
+    <a href="${pageContext.request.contextPath}/main/${id}/edit">edit</a>
+</c:if>
 <a href="${pageContext.request.contextPath}/main" >link to main</a>
 </body>
 </html>

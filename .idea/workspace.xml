@@ -2,18 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aad4475c-10ec-4071-9e33-e54cc3891555" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeAttributeRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeAttributeRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmEdit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmEdit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/RegistrationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/domain/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/domain/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmList.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/registration.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/registration.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/img/765ed7b0-c423-40c2-8ce4-099a240cc3dd.Big_Lebowski.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/config/WebSecurityConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeAttributeRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeAttributeRep.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/RegistrationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/RegistrationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/domain/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/domain/Role.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,9 +79,9 @@
         <option value="HTML File" />
         <option value="Enum" />
         <option value="jsf" />
-        <option value="Class" />
-        <option value="Interface" />
         <option value="Jsp File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -212,7 +210,7 @@
       <workItem from="1567879553236" duration="8353000" />
       <workItem from="1567935780558" duration="346000" />
       <workItem from="1568030045752" duration="3935000" />
-      <workItem from="1568127944830" duration="3896000" />
+      <workItem from="1568127944830" duration="12488000" />
     </task>
     <task id="LOCAL-00001" summary="files editing added">
       <created>1567887758442</created>
@@ -221,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567887758442</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="adding attributes for new objects added">
+      <created>1568136105042</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1568136105042</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -252,6 +257,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="files editing added" />
-    <option name="LAST_COMMIT_MESSAGE" value="files editing added" />
+    <MESSAGE value="adding attributes for new objects added" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding attributes for new objects added" />
   </component>
 </project>
