@@ -54,48 +54,58 @@ public class ObjectController {
 
 
         model.addAttribute("objects", objects);
-        model.addAttribute("val", filmList);
+        model.addAttribute("fl", filmList);
         return "filmEdit";
     }
 
     @PostMapping("/{id}")
     public String filmSave(
             @RequestParam String objectName,
-            @RequestParam List<String> val,
+            //@ModelAttribute("fl")ArrayList<FilmList> filmL,
+            @RequestParam List<String> label,
+            @RequestParam List<String> value,
             @RequestParam("objectId") String id
     ) {
         Objects object = objectsRep.findById(Integer.valueOf(id));
         List<Value> values = valueRep.findAllByObjects(object);
         List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(object.getType());
+        //=============================================
+        List<FilmList> filmL = new ArrayList<FilmList>();
+        for(int i = 0; i < label.size(); i++) {
+            filmL.add(new FilmList(label.get(i), value.get(i)));
+        }
 
+        // strange things
+        /*
+        System.out.println(label);
+        System.out.println(value);
+        System.out.println(filmL);
+        */
+        //----------------
         if(!values.isEmpty()){
             System.out.println("update values there");
             object.setName(objectName);
-            int i = 0;
-            for (Value v: values
+            for (FilmList tmp: filmL
             ) {
-                v.setValue(val.get(i++));
+                Value vall = valueRep.findByAttributesAndObjects(attributeRep.findByLabel(tmp.getLabel()), object);
+                vall.setValue(tmp.getValue());
+                valueRep.save(vall);
             }
-            i = 0;
         }
         else {
             System.out.println("adding new values there");
             object.setName(objectName);
-            int i = 0;
-            for (String tmp: val
+
+            for (FilmList tmp: filmL
             ) {
-                values.add(new Value(object, typeAttributes.get(i++).getAttribute(), tmp));
+                values.add(new Value(object, attributeRep.findByLabel(tmp.getLabel()) , tmp.getValue()));
             }
-            i = 0;
+
             for (Value v: values
             ) {
                 valueRep.save(v);
             }
         }
-        //=======================================================
-
-
-        //=======================================================
         objectsRep.save(object);
 
         return "redirect:/main/{id}";
@@ -145,4 +155,32 @@ public class ObjectController {
         model.addAttribute("fl", filmList);
         return "filmList";
     }
+
+
+    @GetMapping("/{id}/edit/editAttribute")
+    private String editAttributeGet(
+            Model model
+    ) {
+        List<Attribute> attributes = attributeRep.findAll();
+        model.addAttribute("attributes", attributes);
+        return "editAttribute";
+    }
+
+    @PostMapping("/{id}/edit/editAttribute")
+    private String editAttributePost(
+            Model model,
+            @RequestParam String label/*,
+            @RequestParam Integer type*/
+    ) {
+        if(label != attributeRep.findByLabel(label).getLabel()) {
+            Attribute attribute = new Attribute(label);
+            attributeRep.save(attribute);
+        }
+
+
+        return "editAttribute";
+    }
+
+
+
 }

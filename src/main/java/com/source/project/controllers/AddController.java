@@ -1,7 +1,10 @@
 package com.source.project.controllers;
 
+import com.source.project.domain.Attribute;
 import com.source.project.domain.Objects;
+import com.source.project.repos.AttributeRep;
 import com.source.project.repos.ObjectsRep;
+import com.source.project.repos.TypeAttributeRep;
 import com.source.project.repos.TypeRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.Attr;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -24,6 +29,10 @@ public class AddController {
     @Value("${upload.path}")
     private String uploadPath;
 
+    @Autowired
+    private AttributeRep attributeRep;
+    @Autowired
+    private TypeAttributeRep typeAttributeRep;
     @Autowired
     private ObjectsRep objectsRep;
     @Autowired
@@ -49,9 +58,9 @@ public class AddController {
         Objects object = new Objects(name, typeRep.findById(type));
 
         //===============================================================
-        if(file != null) {
+        if (file != null) {
             File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists()) {
+            if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
 
@@ -68,5 +77,6 @@ public class AddController {
         model.addAttribute("objects", objects);
         return "addFilm";
     }
+
 
 }

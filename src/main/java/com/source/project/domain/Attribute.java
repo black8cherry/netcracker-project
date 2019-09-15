@@ -17,6 +17,10 @@ public class Attribute {
 
     public Attribute() {}
 
+    public Attribute(String label) {
+        this.label = label;
+    }
+
     public Attribute(String label, Set<Value> values) {
         this.label = label;
         this.values = values;
