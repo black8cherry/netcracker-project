@@ -1,8 +1,7 @@
-<%--
-
---%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
 <html>
 <head>
     <title>filmList</title>
@@ -21,6 +20,11 @@
         </c:forEach>
     </table>
 </div>
+
+<c:if test="${checkUser==true}">
+    <a href="${pageContext.request.contextPath}/main/${id}/addFavorite">add to favorite</a>
+</c:if>
+
 <c:if test="${role=='[ADMIN]'}">
     <a href="${pageContext.request.contextPath}/main/${id}/edit">edit</a>
 </c:if>

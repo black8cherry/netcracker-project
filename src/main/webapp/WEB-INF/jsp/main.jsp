@@ -1,42 +1,44 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 79200
-  Date: 30.08.2019
-  Time: 18:43
-  To change this template use File | Settings | File Templates.
---%>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="../css/main.css" rel="stylesheet" type="text/css">
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE HTML>
 <html>
 <head>
     <title>netfilms</title>
 </head>
 <body>
-<div>
-<c:choose>
-    <c:when test="${checkUser==true}" >
-        <form action="${pageContext.request.contextPath}/logout" method="post">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input type="submit" value="sign out"/>
-        </form>
-    </c:when>
-    <c:when test="${checkUser==false}">
-        <form action="${pageContext.request.contextPath}/login" method="post">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input type="submit" value="sign in">
-        </form>
-    </c:when>
-</c:choose>
-</div>
+<div class="topnav">
+    <a class="active" href="/main">Home</a>
+    <a href="#about">About</a>
 
-<div>
-    <form method="get" class="d-flex" action="${pageContext.request.contextPath}/main">
-        <input class="form-control" type="text" name="filter" />
+    <form method="get" action="${pageContext.request.contextPath}/main">
+        <input type="text" name="filter" />
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button class="btn btn-primary" type="submit">find</button>
+        <button type="submit">find</button>
     </form>
+
+    <c:choose>
+        <c:when test="${checkUser==true}" >
+            <form action="${pageContext.request.contextPath}/logout" method="post">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input type="submit" value="sign out"/>
+            </form>
+            <form action="${pageContext.request.contextPath}/user/${userAcc.id}" method="get">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input type="submit" value="my account"/>
+            </form>
+            <%--<a href="${pageContext.request.contextPath}/user/${userAcc.id}">user list</a>--%>
+        </c:when>
+        <c:when test="${checkUser==false}">
+            <form action="${pageContext.request.contextPath}/login" method="post">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input type="submit" value="sign in">
+            </form>
+        </c:when>
+    </c:choose>
 </div>
 
 <div>
@@ -58,8 +60,9 @@
 
 <c:if test="${role=='[ADMIN]'}">
     <a href="${pageContext.request.contextPath}/addFilm" >add film or serial</a>
+    <a href="${pageContext.request.contextPath}/editAttribute">edit attributes</a>
+
 </c:if>
-<a href="${pageContext.request.contextPath}/userList">user list</a>
 
 </body>
 </html>

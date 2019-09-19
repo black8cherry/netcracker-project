@@ -12,8 +12,8 @@ public class Attribute {
     private Integer id;
     private String label;
 
-    @OneToMany(mappedBy = "attributes")
-    private Set<Value> values = new HashSet<Value>();
+    /*@OneToMany(mappedBy = "attributes")
+    private Set<Value> values = new HashSet<Value>();*/
 
     public Attribute() {}
 
@@ -21,10 +21,10 @@ public class Attribute {
         this.label = label;
     }
 
-    public Attribute(String label, Set<Value> values) {
+   /* public Attribute(String label, Set<Value> values) {
         this.label = label;
         this.values = values;
-    }
+    }*/
 
 
 
@@ -43,12 +43,12 @@ public class Attribute {
     public void setLabel(String label) {
         this.label = label;
     }
-
+/*
     public Set<Value> getValues() {
         return values;
     }
 
     public void setValues(Set<Value> values) {
         this.values = values;
-    }
+    }*/
 }

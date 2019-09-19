@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
 <html>
 <head>
     <title>Title</title>
@@ -20,8 +21,6 @@ Edit page
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <button type="submit">save</button>
 </form>
-
-<a href="/main/${id}/edit/editAttribute">edit attributes</a>
 
 </body>
 </html>

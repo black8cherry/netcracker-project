@@ -30,10 +30,6 @@ public class AddController {
     private String uploadPath;
 
     @Autowired
-    private AttributeRep attributeRep;
-    @Autowired
-    private TypeAttributeRep typeAttributeRep;
-    @Autowired
     private ObjectsRep objectsRep;
     @Autowired
     private TypeRep typeRep;

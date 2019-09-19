@@ -58,9 +58,13 @@ public class MainController {
                 checkUser = true;
                 //System.out.println("role = " + role);
                 model.addAttribute("role", role);
+                User userAcc = userRep.findByUsername(authentication.getName());
+                model.addAttribute("userAcc", userAcc);
             }
         }
         //=============================================================================
+
+
         model.addAttribute("checkUser", checkUser);
         model.addAttribute("objects", objects);
         model.addAttribute("filter", filter);

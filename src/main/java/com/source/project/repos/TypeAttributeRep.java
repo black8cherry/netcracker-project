@@ -6,6 +6,7 @@ import com.source.project.domain.Type;
 import com.source.project.domain.TypeAttribute;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.w3c.dom.Attr;
 
 import java.util.List;
 
@@ -14,4 +15,7 @@ public interface TypeAttributeRep extends
         JpaRepository<TypeAttribute, Long>
 {
     List<TypeAttribute> findByTypeOrderByAttribute(Type type);
+    TypeAttribute findByAttributeAndType(Attribute attribute, Type type);
+    void removeById(Integer id);
+    void removeByAttribute(Attribute attribute);
 }

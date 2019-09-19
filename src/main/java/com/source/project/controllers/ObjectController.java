@@ -3,6 +3,7 @@ package com.source.project.controllers;
 import com.source.project.domain.*;
 import com.source.project.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Transactional
 @Controller
-@RequestMapping(value = {"/main"})
+//@RequestMapping(value = {"/main"})
 public class ObjectController {
     @Autowired
     private TypeAttributeRep typeAttributeRep;
@@ -29,8 +30,13 @@ public class ObjectController {
     private ObjectsRep objectsRep;
     @Autowired
     private UserRep userRep;
+    @Autowired
+    private TypeRep typeRep;
+    @Autowired
+    private FavoritesRep favoritesRep;
 
-    @GetMapping("/{id}/edit")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/main/{id}/edit")
     public String edit(
             @PathVariable String id,
             Model model
@@ -58,8 +64,8 @@ public class ObjectController {
         return "filmEdit";
     }
 
-    @PostMapping("/{id}")
-    public String filmSave(
+    @PostMapping("/main/{id}")
+    public String objGet(
             @RequestParam String objectName,
             //@ModelAttribute("fl")ArrayList<FilmList> filmL,
             @RequestParam List<String> label,
@@ -75,13 +81,6 @@ public class ObjectController {
             filmL.add(new FilmList(label.get(i), value.get(i)));
         }
 
-        // strange things
-        /*
-        System.out.println(label);
-        System.out.println(value);
-        System.out.println(filmL);
-        */
-        //----------------
         if(!values.isEmpty()){
             System.out.println("update values there");
             object.setName(objectName);
@@ -108,11 +107,30 @@ public class ObjectController {
         }
         objectsRep.save(object);
 
+
+
+
         return "redirect:/main/{id}";
     }
 
-    @GetMapping("/{id}")
-    public String filter(
+    @GetMapping("/main/{id}/addFavorite")
+    public String addFav(
+            @PathVariable("id") Integer id
+    ) {
+        if(favoritesRep.findByUserAndObject(
+                userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+                objectsRep.findById(id)) == null)
+        {
+            favoritesRep.save(new Favorites(
+                    userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+                    objectsRep.findById(id)));
+        }
+        System.out.println("ADDED");
+        return "redirect:/main/{id}";
+    }
+
+    @GetMapping("/main/{id}")
+    public String editObj(
             Model model,
             @PathVariable String id
     ) {
@@ -120,7 +138,7 @@ public class ObjectController {
         List<Value> values = valueRep.findAllByObjects(object);
 
         //--------------------------------------------------------------
-
+        Boolean checkUser = false;
         SecurityContext context = SecurityContextHolder.getContext();
         if(context != null) {
             Authentication authentication = context.getAuthentication();
@@ -129,6 +147,8 @@ public class ObjectController {
                 String role = user.getRole().toString();
                 System.out.println("role = " + role);
                 model.addAttribute("role", role);
+                checkUser = true;
+                model.addAttribute("checkUser", checkUser);
             }
         }
         //=====================================================================
@@ -138,17 +158,14 @@ public class ObjectController {
         for (TypeAttribute tp: typeAttributes
         ) {
             String value;
-
             if(valueRep.findByAttributesAndObjects(tp.getAttribute(), object) == null) {
                 value = " ";
             }
             else {
                 value = valueRep.findByAttributesAndObjects(tp.getAttribute(), object).getValue();
             }
-
             filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
         }
-
         //--------------------------------------------------------------
 
         model.addAttribute("objects", object);
@@ -157,30 +174,24 @@ public class ObjectController {
     }
 
 
-    @GetMapping("/{id}/edit/editAttribute")
-    private String editAttributeGet(
-            Model model
+    @GetMapping("/editAttribute/delete/{label}")
+    public String deleteAtr(
+            @PathVariable("label") String label
     ) {
-        List<Attribute> attributes = attributeRep.findAll();
-        model.addAttribute("attributes", attributes);
-        return "editAttribute";
-    }
-
-    @PostMapping("/{id}/edit/editAttribute")
-    private String editAttributePost(
-            Model model,
-            @RequestParam String label/*,
-            @RequestParam Integer type*/
-    ) {
-        if(label != attributeRep.findByLabel(label).getLabel()) {
-            Attribute attribute = new Attribute(label);
-            attributeRep.save(attribute);
+        if(typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findById(1)) != null
+                || typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findById(2)) != null) {
+            typeAttributeRep.removeByAttribute(attributeRep.findByLabel(label));
         }
-
-
-        return "editAttribute";
+        attributeRep.removeByLabel(label);
+        return "redirect:/editAttribute";
     }
 
-
+    @GetMapping("/editAttribute/deleteTypeAtt/{id}")
+    public String deleteTypeAtt(
+            @PathVariable("id") Integer id
+    ) {
+        typeAttributeRep.removeById(id);
+        return "redirect:/editAttribute";
+    }
 
 }

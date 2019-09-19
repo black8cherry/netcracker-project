@@ -7,8 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface AttributeRep extends JpaRepository<Attribute, Long> {
-    List<Attribute> findAllByValues(List<Value> values);
+public interface AttributeRep extends
+        CrudRepository<Attribute, Long>,
+        JpaRepository<Attribute, Long>
+{
+    //List<Attribute> findAllByValues(List<Value> values);
     Attribute findByLabel(String label);
+    void removeById(Integer id);
+    void removeByLabel(String label);
     //List<Atribute> findAllBy
 }
