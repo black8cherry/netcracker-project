@@ -1,10 +1,18 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+
 .topnav {
     overflow: hidden;
     background-color: #e9e9e9;
+    display: flex;
+    justify-content: flex-start;
 }
 
 /* Style the links inside the navigation bar */
-.topnav a {
+.topnav a, .sign-button {
     float: left;
     display: block;
     color: black;
@@ -15,23 +23,60 @@
 }
 
 /* Change the color of links on hover */
-.topnav a:hover {
+.topnav a:hover, .sign-button {
     background-color: #ddd;
     color: black;
 }
 
 /* Style the "active" element to highlight the current page */
-.topnav a.active {
+.topnav a.active, .sign-button {
     background-color: #2196F3;
     color: white;
 }
 
+.sign-button {
+  border: 0;
+  height: 100%;
+}
+
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
-    float: right;
+    width: 100%;
     padding: 6px;
     border: none;
-    margin-top: 8px;
+    margin-top: 20px;
     margin-right: 16px;
     font-size: 17px;
+    border-radius: 20px;
+}
+
+.search {
+  width: 345px;
+  margin-left: 240px;
+  margin-right: 95px;
+}
+
+.search-button {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  left: 90%;
+  top: -24px;
+  border: 0;
+  background-image: url('../img/search.png');
+  background-repeat: no-repeat;
+  background-size: 16px 16px; 
+  background-color: #fff;
+}
+
+.account-menu {
+  display: flex;
+}
+
+.account-nav {
+  display: flex;
+}
+
+.account-sign-in-form {
+  height: 100%;
 }

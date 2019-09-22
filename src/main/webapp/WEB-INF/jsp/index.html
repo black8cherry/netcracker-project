@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>netfilms</title>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="topnav">
+
+    <a class="active" href="/main">Home</a>
+    <a href="#about">About</a>
+
+    <form class="search" method="get" action="${pageContext.request.contextPath}/main">
+        <input class="search-filter" type="text" name="filter" />
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <button class="search-button"
+                type="submit"></button>
+    </form>
+
+    <c:choose class="account-menu">
+        <c:when class="account-nav" test="${checkUser==true}" >
+            <form action="${pageContext.request.contextPath}/logout" method="post">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input class="sign-button" type="submit" value="sign out"/>
+            </form>
+            <form action="${pageContext.request.contextPath}/user/${userAcc.id}" method="get">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input class="sign-button" type="submit" value="my account"/>
+            </form>
+        </c:when>
+        <c:when test="${checkUser==false}">
+            <form class="account-sign-in-form" action="${pageContext.request.contextPath}/login" method="post">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input class="sign-button" type="submit" value="sign in">
+            </form>
+        </c:when>
+    </c:choose>
+</div>
+
+<div>
+    <table>
+
+        <c:forEach  items="${objects}" var ="object">
+            <tr>
+
+                <td><img src="img/${object.filename}"/></td>
+
+                <td><a href="/main/${object.id}">${object.name}</a></td>
+                <c:if test="${role=='[ADMIN]'}">
+                <td><a href="${pageContext.request.contextPath}/main/delete/${object.id}">delete</a></td>
+                </c:if>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
+<c:if test="${role=='[ADMIN]'}">
+    <a href="${pageContext.request.contextPath}/addFilm" >add film or serial</a>
+    <a href="${pageContext.request.contextPath}/editAttribute">edit attributes</a>
+
+</c:if>
+
+</body>
+</html>
