@@ -108,8 +108,6 @@ public class ObjectController {
         objectsRep.save(object);
 
 
-
-
         return "redirect:/main/{id}";
     }
 
@@ -129,6 +127,24 @@ public class ObjectController {
         return "redirect:/main/{id}";
     }
 
+    @GetMapping("/main/{id}/removeFavorite")
+    public String remFav(
+            @PathVariable("id") Integer id
+    ) {
+    if (favoritesRep.findByUserAndObject(
+            userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+            objectsRep.findById(id))
+            != null)
+    {
+        favoritesRep.delete(favoritesRep.findByUserAndObject(
+                userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+                objectsRep.findById(id))
+        );
+    }
+        System.out.println("REMOVED");
+        return "redirect:/main/{id}";
+    }
+
     @GetMapping("/main/{id}")
     public String editObj(
             Model model,
@@ -137,7 +153,8 @@ public class ObjectController {
         Objects object = objectsRep.findById(Integer.valueOf(id));
         List<Value> values = valueRep.findAllByObjects(object);
 
-        //--------------------------------------------------------------
+        //=====================================================================
+
         Boolean checkUser = false;
         SecurityContext context = SecurityContextHolder.getContext();
         if(context != null) {
@@ -145,16 +162,25 @@ public class ObjectController {
             if(!(authentication instanceof AnonymousAuthenticationToken)) {
                 User user = (User) authentication.getPrincipal();
                 String role = user.getRole().toString();
-                System.out.println("role = " + role);
+
+                // user & favorite film
+
                 model.addAttribute("role", role);
                 checkUser = true;
                 model.addAttribute("checkUser", checkUser);
+
+                Boolean checkFilm = false;
+                if(favoritesRep.findByUserAndObject(user , object)!=null) {
+                    checkFilm = true;
+                }
+                model.addAttribute("checkFilm", checkFilm);
             }
         }
+
         //=====================================================================
+
         List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(object.getType());
         List<FilmList> filmList = new ArrayList<FilmList>();
-
         for (TypeAttribute tp: typeAttributes
         ) {
             String value;
@@ -166,8 +192,12 @@ public class ObjectController {
             }
             filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
         }
-        //--------------------------------------------------------------
 
+        //=====================================================================
+
+
+
+        //=====================================================================
         model.addAttribute("objects", object);
         model.addAttribute("fl", filmList);
         return "filmList";
@@ -186,12 +216,16 @@ public class ObjectController {
         return "redirect:/editAttribute";
     }
 
-    @GetMapping("/editAttribute/deleteTypeAtt/{id}")
+
+    // deleting attribute of type aat main attribute page
+    @GetMapping("/main/{id}/deleteTypeAtt/{label}")
     public String deleteTypeAtt(
-            @PathVariable("id") Integer id
+            @PathVariable("id") Integer id,
+            @PathVariable("label") String label
     ) {
-        typeAttributeRep.removeById(id);
-        return "redirect:/editAttribute";
+        typeAttributeRep.removeByAttribute(attributeRep.findByLabel(label));
+        System.out.println("deleted");
+        return "redirect:/main/{id}/editObjectAttributes";
     }
 
 }

@@ -12,14 +12,14 @@ ${user.getUsername()}
 ${user.getRole()}
 
 your favorites movies
-
+<table>
 <c:forEach  items="${fav}" var ="fav">
     <tr>
         <td><img src="../img/${fav.object.getFilename()}"/></td>
         <td><a href="/main/${fav.object.getId()}">${fav.object.getName()}</a></td>
     </tr>
 </c:forEach>
-
+</table>
 <a href="${pageContext.request.contextPath}/main" >link to main</a>
 </body>
 </html>

@@ -1,0 +1,21 @@
+<html>
+<body>
+    <div>
+        <form method="post">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type="text" name="name" placeholder="input the name of object"/>
+            <input type="text" name="type" placeholder="input the type: 1. film 2. serial"/>
+            <button type="submit">add</button>
+        </form>
+    </div>
+    {{#objects}}
+        <div>
+            <b>{{id}}</b>
+            <span>{{name}}</span>
+            <span>{{type.type}}</span>
+
+        </div>
+    {{/objects}}
+    <a href="/main">to main</a>
+</body>
+</html>

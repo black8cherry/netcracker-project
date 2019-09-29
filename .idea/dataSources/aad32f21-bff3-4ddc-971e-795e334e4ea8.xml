@@ -12,7 +12,7 @@
     <database id="3" parent="1" name="project">
       <ObjectId>16722</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1441</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1464</IntrospectionStateNumber>
       <Current>1</Current>
     </database>
     <role id="4" parent="1" name="postgres">
@@ -42,7 +42,7 @@
       <Comment>standard public schema</Comment>
       <StateNumber>562</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1442</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1465</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="8" parent="3" name="btree">

@@ -78,4 +78,10 @@ public class MainController {
         objectsRep.removeById(Integer.valueOf(id));
         return "redirect:/main";
     }
+
+    @GetMapping("/test")
+    public String test()
+    {
+        return "test";
+    }
 }
