@@ -19,41 +19,31 @@
             <h3>NetFilms</h3>
         </div>
 
-        <div class="col mx-auto" style="/*width: 400px; */height: 40px;">
-            <form class="form-inline mx-auto"   method="get" action="${pageContext.request.contextPath}/main">
-                <input class="form-control mx-auto" style="width: 250px;" type="text" name="Search" />
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <button class="btn btn-success" type="submit">Search</button>
-            </form>
-        </div>
-
         <div class="col" >
             <div class=" float-right ">
-                <c:choose>
-                    <c:when  test="${checkUser==true}" >
-                        <div class="form-inline">
-                            <form class="" action="${pageContext.request.contextPath}/logout" method="post">
-                                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                                <input class="btn btn-dark mr-sm-2" type="submit" value="sign out"/>
-                            </form>
-
-                            <form class=" " action="${pageContext.request.contextPath}/user/${userAcc.id}" method="get">
-                                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                                <input class="btn btn-dark mr-sm-2" type="submit" value="my account"/>
-                            </form>
-                        </div>
-                    </c:when>
-
-                    <c:when test="${checkUser==false}">
-                        <form class="form-inline "  action="${pageContext.request.contextPath}/login" method="post">
+                <c:if test="${checkUser==true}">
+                    <div class="form-inline">
+                        <form class="" action="${pageContext.request.contextPath}/logout" method="post">
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                            <input class="btn btn-dark mr-sm-2" type="submit" value="sign in">
+                            <button class="btn btn-dark mr-sm-2" type="submit">sign out</button>
                         </form>
 
-                    </c:when>
-                </c:choose>
+                        <form class=" " action="${pageContext.request.contextPath}/user/${userAcc.id}" method="get">
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            <button class="btn btn-dark mr-sm-2" type="submit">my account</button>
+                        </form>
+                    </div>
+                </c:if>
+                <c:if test="${checkUser==false}">
+
+                    <form class="form-inline "  action="${pageContext.request.contextPath}/login" method="post">
+                        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                        <input class="btn btn-dark mr-sm-2" type="submit" value="sign in">
+                    </form>
+                </c:if>
             </div>
         </div>
+
     </div>
 
     <nav class=" navbar navbar-expand-lg navbar-fixed-top navbar-dark" style="height: 60px">
@@ -80,34 +70,64 @@
 
     </nav>
 
+<div class="mx-auto" style="width: 120px">
 
-    ${objects.name}<br/>
-    <img src="../img/${objects.filename}"/>
-    <table>
-        <c:forEach items="${fl}" var="fl">
+</div>
+<div class="row mt-5">
+    <div class="col-lg-5 " >
+        <img class="float-right" style="height: 225px; width: 225px; display: block;"
+                src="../img/${objects.filename}"/>
+    </div>
+
+    <div class="col float-left">
+        <h5 class="ml-5">${objects.name}</h5>
+        <table class="mt-4">
+            <c:forEach items="${fl}" var="fl">
             <tr>
                 <td>${fl.label}</td>
                 <td>${fl.value}</td>
             </tr>
-        </c:forEach>
-    </table>
+            </c:forEach>
+        </table>
 
-    <c:if test="${checkUser==true}">
+        <c:if test="${checkUser==true}">
 
-        <c:if test="${checkFilm==false}">
-            <a href="${pageContext.request.contextPath}/main/${id}/addFavorite">add to favorite</a>
+            <c:if test="${checkFilm==false}">
+                <form action="${pageContext.request.contextPath}/main/${id}/addFavorite">
+                    <button class="btn btn-dark mt-3" type="submit">add to favorite</button>
+                </form>
+            </c:if>
+
+            <c:if test="${checkFilm==true}">
+                <form action="${pageContext.request.contextPath}/main/${id}/removeFavorite">
+                    <button class="btn btn-dark mt-3" type="submit">remove from favorite</button>
+                </form>
+
+            </c:if>
         </c:if>
 
-        <c:if test="${checkFilm==true}">
-            <a href="${pageContext.request.contextPath}/main/${id}/removeFavorite">remove from favorite</a>
-        </c:if>
-    </c:if>
 
+
+    </div>
+
+    <div class="col col-lg-2">
     <c:if test="${role=='[ADMIN]'}">
-        <a href="${pageContext.request.contextPath}/main/${id}/edit">edit object</a>
-        <a href="${pageContext.request.contextPath}/main/${id}/editObjectAttributes">edit attributes</a>
+        <form action="${pageContext.request.contextPath}/main/${id}/edit">
+            <button class="btn btn-dark mt-3" type="submit">edit object</button>
+        </form>
+        <form action="${pageContext.request.contextPath}/main/${id}/editObjectAttributes">
+            <button class="btn btn-dark mt-3" type="submit">edit attributes</button>
+        </form>
+
     </c:if>
-    <a href="${pageContext.request.contextPath}/main" >link to main</a>
+    </div>
+
+
+</div>
+
+
+
+
 
 </div>
 </body>

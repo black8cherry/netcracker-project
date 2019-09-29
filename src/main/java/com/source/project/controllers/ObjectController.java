@@ -123,7 +123,6 @@ public class ObjectController {
                     userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
                     objectsRep.findById(id)));
         }
-        System.out.println("ADDED");
         return "redirect:/main/{id}";
     }
 
@@ -141,7 +140,6 @@ public class ObjectController {
                 objectsRep.findById(id))
         );
     }
-        System.out.println("REMOVED");
         return "redirect:/main/{id}";
     }
 
@@ -160,14 +158,16 @@ public class ObjectController {
         if(context != null) {
             Authentication authentication = context.getAuthentication();
             if(!(authentication instanceof AnonymousAuthenticationToken)) {
+
                 User user = (User) authentication.getPrincipal();
                 String role = user.getRole().toString();
+                User userAcc = userRep.findByUsername(authentication.getName());
 
-                // user & favorite film
-
-                model.addAttribute("role", role);
                 checkUser = true;
-                model.addAttribute("checkUser", checkUser);
+
+
+                model.addAttribute("userAcc", userAcc);
+                model.addAttribute("role", role);
 
                 Boolean checkFilm = false;
                 if(favoritesRep.findByUserAndObject(user , object)!=null) {
@@ -194,10 +194,7 @@ public class ObjectController {
         }
 
         //=====================================================================
-
-
-
-        //=====================================================================
+        model.addAttribute("checkUser", checkUser);
         model.addAttribute("objects", object);
         model.addAttribute("fl", filmList);
         return "filmList";
@@ -224,7 +221,6 @@ public class ObjectController {
             @PathVariable("label") String label
     ) {
         typeAttributeRep.removeByAttribute(attributeRep.findByLabel(label));
-        System.out.println("deleted");
         return "redirect:/main/{id}/editObjectAttributes";
     }
 

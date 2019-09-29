@@ -19,16 +19,7 @@
                 <h3>NetFilms</h3>
             </div>
 
-            <div class="col mx-auto" style="/*width: 400px; */height: 40px;">
-                <form class="form-inline mx-auto"   method="get" action="${pageContext.request.contextPath}/main">
-                    <input class="form-control mx-auto" style="width: 250px;" type="text" name="Search" />
-                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                    <button class="btn btn-success" type="submit">Search</button>
-                </form>
-            </div>
-
             <div class="col" >
-
             </div>
         </div>
     </div>

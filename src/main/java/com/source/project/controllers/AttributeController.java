@@ -83,7 +83,6 @@ public class AttributeController {
                 }
             }
         } catch (NullPointerException e) {}
-        System.out.println("aaa"+attributesNotInObj);
         model.addAttribute("attributes", attributes);
         model.addAttribute("mAttributes", attributesNotInObj);
 
@@ -121,7 +120,6 @@ public class AttributeController {
         try {
             if (typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), objectsRep.findById(id).getType()) == null) {
                 typeAttributeRep.save(new TypeAttribute(objectsRep.findById(id).getType(), attributeRep.findByLabel(label)));
-                System.out.println("added");
             }
         } catch (NullPointerException e) {}
 
