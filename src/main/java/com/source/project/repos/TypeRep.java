@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TypeRep extends CrudRepository<Type, Long> {
     Type findById(Integer id);
+    Type findByType(String type);
 }

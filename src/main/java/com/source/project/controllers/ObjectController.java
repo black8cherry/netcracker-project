@@ -201,6 +201,7 @@ public class ObjectController {
     }
 
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editAttribute/delete/{label}")
     public String deleteAtr(
             @PathVariable("label") String label
@@ -213,15 +214,14 @@ public class ObjectController {
         return "redirect:/editAttribute";
     }
 
-
-    // deleting attribute of type aat main attribute page
-    @GetMapping("/main/{id}/deleteTypeAtt/{label}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/editObjectAttributes/{type}/deleteTypeAtt/{label}")
     public String deleteTypeAtt(
-            @PathVariable("id") Integer id,
+            @PathVariable("type") String type,
             @PathVariable("label") String label
     ) {
-        typeAttributeRep.removeByAttribute(attributeRep.findByLabel(label));
-        return "redirect:/main/{id}/editObjectAttributes";
+        typeAttributeRep.removeByAttributeAndType(attributeRep.findByLabel(label), typeRep.findByType(type));
+        return "redirect:/editObjectAttributes/{type}";
     }
 
 }

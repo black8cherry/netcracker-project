@@ -70,13 +70,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/main">Home</a>
         </li>
+        <c:if test="${role=='[ADMIN]'}">
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/main">Films</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/main/administratorPanel">Administrator panel</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/main">Series</a>
-        </li>
-
+        </c:if>
     </ul>
     </div>
 
@@ -107,11 +105,7 @@
 </div>
 
 
-<c:if test="${role=='[ADMIN]'}">
-    <a href="${pageContext.request.contextPath}/addFilm" >add film or serial</a>
-    <a href="${pageContext.request.contextPath}/editAttribute">edit attributes</a>
 
-</c:if>
 
 </body>
 </html>

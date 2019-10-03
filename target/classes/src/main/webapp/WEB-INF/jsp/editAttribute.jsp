@@ -10,12 +10,32 @@
 </head>
 <body>
 <div class="container">
-        <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/editAttribute" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input class="form-control mr-sm-2" type="text" name="label" placeholder="label"/>
-            <button class="btn btn-success mr-sm-2" type="submit">Add attribute</button>
-        </form>
 
+    <div class="row">
+        <div class="col">
+            <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/editAttribute" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input class="form-control mt-4 mr-sm-2" type="text" name="label" placeholder="label"/>
+                <button class="btn btn-success mt-4 mr-sm-2" type="submit">Add attribute</button>
+            </form>
+        </div>
+
+        <div class="col">
+            <form action="/editObjectAttributes/${filmType}">
+                <button class="btn btn-dark mt-4 " type="submit" >Edit film attributes</button>
+            </form>
+
+            <form action="/editObjectAttributes/${seriesType}">
+                <button class="btn btn-dark " type="submit" >Edit series attributes</button>
+            </form>
+        </div>
+
+        <div class="col">
+            <form action="/main/administratorPanel">
+                <button class="btn btn-success mt-4" type="submit">Back</button>
+            </form>
+        </div>
+    </div>
 
     <h3>All attributes</h3>
     <c:forEach  items="${attributes}" var="att">
@@ -40,18 +60,9 @@
             </div>
         </div>
     </c:forEach>
+
+
 </div>
-<%--<table>
 
-        <tr>
-            <td></td>
-            <td></td>
-            &lt;%&ndash;<td><a href="${pageContext.request.contextPath}/editAttribute/deleteTypeAtt/${typeAtt.id}">delete</a> </td>
-        &ndash;%&gt;
-        </tr>
-    </c:forEach>
-</table>--%>
-
-<a href="${pageContext.request.contextPath}/main">to main</a>
 </body>
 </html>

@@ -13,26 +13,32 @@
 <div class="container ">
 
     <div class="mx-auto" style="width: 300px;">
-        <h3 class="mt-5">Object attributes</h3>
+
+        <form action="/editAttribute" >
+            <button class="btn btn-dark mt-2" type="submit">Back</button>
+        </form>
+
+        <h3 >Attributes of ${type}</h3>
         <table class="mt-2 ml-5">
             <c:forEach items="${attributes}" var="att">
                 <tr>
                     <td>${att.attribute.getLabel()}</td>
-                    <td><a href="${pageContext.request.contextPath}/main/${id}/deleteTypeAtt/${att.attribute.getLabel()}">Delete</a> </td>
+                    <td><a href="${pageContext.request.contextPath}/editObjectAttributes/${type}/deleteTypeAtt/${att.attribute.getLabel()}">Delete</a> </td>
                 </tr>
             </c:forEach>
         </table>
-        <h3 class="mt-5">Attributes which is not in object</h3>
+        <h3 class="mt-5">Attributes which is not in ${type} objects</h3>
         <table class="mt-2 ml-5">
             <c:forEach items="${mAttributes}" var="att">
                 <tr>
                     <td>${att.getLabel()}</td>
-                    <td><a href="${pageContext.request.contextPath}/main/${id}/addTypeAtt/${att.getLabel()}">Add</a> </td>
+                    <td><a href="${pageContext.request.contextPath}/editObjectAttributes/${type}/addTypeAtt/${att.getLabel()}">Add</a> </td>
                 </tr>
             </c:forEach>
         </table>
-        <a class="mt-5" href="${pageContext.request.contextPath}/main">to main</a>
-        <button class="mt-5 bt-primary"  >Main page</button>
+
+
+
     </div>
 
 

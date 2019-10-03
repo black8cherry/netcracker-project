@@ -34,6 +34,12 @@ public class MainController {
     @Autowired
     private UserRep userRep;
 
+    @GetMapping("/administratorPanel")
+    public String administratorPanel() {
+
+        return "administratorPanel";
+    }
+
     @GetMapping
     public String main(
             @RequestParam(required=false) String filter,

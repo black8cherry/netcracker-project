@@ -19,4 +19,5 @@ public interface TypeAttributeRep extends
     TypeAttribute findByAttributeAndType(Attribute attribute, Type type);
     void removeById(Integer id);
     void removeByAttribute(Attribute attribute);
+    void removeByAttributeAndType(Attribute attribute, Type type);
 }

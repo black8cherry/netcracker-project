@@ -17,7 +17,6 @@ your favorites movies
     <tr>
         <td><img src="../img/${fav.object.getFilename()}"/></td>
         <td><a href="/main/${fav.object.getId()}">${fav.object.getName()}</a></td>
-        <td><a href="${pageContext.request.contextPath}/main/${id}/removeFavorite">remove from favorite</a></td>
     </tr>
 </c:forEach>
 </table>

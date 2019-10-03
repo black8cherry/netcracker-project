@@ -3,35 +3,51 @@
 
 <html>
 <head>
-    <title>addFilm</title>
+    <title>NetFilms</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
-
-<div>
-    <form action="${pageContext.request.contextPath}/addFilm" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <input type="text" name="name" placeholder="input the name of object"/>
-        <input type="text" name="type" placeholder="input the type: 1. film 2. serial"/>
-        <input type="file" name="file"/>
-        <button type="submit">add</button>
-    </form>
+<div class="container">
+    <div class="row">
+    <div class="col-5">
+        <form  action="${pageContext.request.contextPath}/addFilm" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <input class="form-control" type="text" name="name" placeholder="Name"/><hr>
+            <input class="form-control" type="text" name="type" placeholder="Type"/><hr>
+            <input class="form-control" type="file" name="file"/><hr>
+            <button class="mt-5 btn btn-success mr-sm-2" type="submit">add</button>
+        </form>
+    </div>
+    <div class="col">
+        <form action="${pageContext.request.contextPath}/main">
+            <button class="mt-5 btn btn-success mr-sm-2" type="submit">To main page</button>
+        </form>
+    </div>
+    </div>
 </div>
 
-<table>
-    <c:forEach  items="${objects}" var = "object">
-        <tr>
-            <td>
-            <div>
-                <img src="img/${object.filename}"/>
-            </div>
-            </td>
-            <td>${object.id}</td>
-            <td>${object.name}</td>
-            <td>${object.type.type}</td>
-        </tr>
-    </c:forEach>
-</table>
+<div class="album py-5 bg-dark">
+    <div class="container">
+        <div class="row">
+            <c:forEach  items="${objects}" var ="object">
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="card-img-top" style="height: 225px; width: 100%; display: block;"
+                             src="img/${object.filename}">
+                        <div class="card-body  mx-auto">
+                            <p class="card-text">
+                            Id : ${object.id}<hr>
+                            Name : ${object.name}<hr>
+                            Type : ${object.type.type}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</div>
 
-<a href="${pageContext.request.contextPath}/main">to main</a>
 </body>
 </html>

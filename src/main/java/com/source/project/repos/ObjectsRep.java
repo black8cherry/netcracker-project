@@ -11,6 +11,7 @@ public interface ObjectsRep extends
         CrudRepository<Objects, Long>,
         JpaRepository<Objects, Long>
 {
+
     List<Objects> findByNameOrderByName(String name);
     Objects findById(Integer id);
     void removeById(Integer id);
