@@ -18,6 +18,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @PreAuthorize("hasAuthority('ADMIN')")
 @Controller
 public class AttributeController {
@@ -133,5 +134,30 @@ public class AttributeController {
 
         return "redirect:/editObjectAttributes/{type}";
     }
+
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/editAttribute/delete/{label}")
+    public String deleteAtr(
+            @PathVariable("label") String label
+    ) {
+        if(typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findById(1)) != null
+                || typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findById(2)) != null) {
+            typeAttributeRep.removeByAttribute(attributeRep.findByLabel(label));
+        }
+        attributeRep.removeByLabel(label);
+        return "redirect:/editAttribute";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/editObjectAttributes/{type}/deleteTypeAtt/{label}")
+    public String deleteTypeAtt(
+            @PathVariable("type") String type,
+            @PathVariable("label") String label
+    ) {
+        typeAttributeRep.removeByAttributeAndType(attributeRep.findByLabel(label), typeRep.findByType(type));
+        return "redirect:/editObjectAttributes/{type}";
+    }
+
 
 }

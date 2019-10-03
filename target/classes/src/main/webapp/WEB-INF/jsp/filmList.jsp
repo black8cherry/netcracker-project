@@ -58,76 +58,90 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/main">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/main">Films</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/main">Series</a>
-                </li>
-
+                <c:if test="${role=='[ADMIN]'}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/main/administratorPanel">Administrator panel</a>
+                    </li>
+                </c:if>
             </ul>
         </div>
 
     </nav>
 
-<div class="mx-auto" style="width: 120px">
 
-</div>
-<div class="row mt-5">
-    <div class="col-lg-5 " >
-        <img class="float-right" style="height: 225px; width: 225px; display: block;"
-                src="../img/${objects.filename}"/>
-    </div>
+    <div class="row mt-5">
+        <div class="col-lg-5 " >
+            <img class="float-right" style="height: 225px; width: 225px; display: block;"
+                    src="../img/${objects.filename}"/>
 
-    <div class="col float-left">
-        <h5 class="ml-5">${objects.name}</h5>
-        <table class="mt-4">
-            <c:forEach items="${fl}" var="fl">
-            <tr>
-                <td>${fl.label}</td>
-                <td>${fl.value}</td>
-            </tr>
-            </c:forEach>
-        </table>
 
-        <c:if test="${checkUser==true}">
+        </div>
 
-            <c:if test="${checkFilm==false}">
-                <form action="${pageContext.request.contextPath}/main/${id}/addFavorite">
-                    <button class="btn btn-dark mt-3" type="submit">add to favorite</button>
-                </form>
+        <div class="col float-left">
+            <h5 class="ml-5">${objects.name}</h5>
+            <table class="mt-4">
+                <c:forEach items="${fl}" var="fl">
+                <tr>
+                    <td>${fl.label}</td>
+                    <td>${fl.value}</td>
+                </tr>
+                </c:forEach>
+            </table>
+
+            <c:if test="${checkUser==true}">
+
+                <c:if test="${checkFilm==false}">
+                    <form action="${pageContext.request.contextPath}/main/${id}/addFavorite">
+                        <button class="btn btn-dark mt-3" type="submit">add to favorite</button>
+                    </form>
+                </c:if>
+
+                <c:if test="${checkFilm==true}">
+                    <form action="${pageContext.request.contextPath}/main/${id}/removeFavorite">
+                        <button class="btn btn-dark mt-3" type="submit">remove from favorite</button>
+                    </form>
+
+                </c:if>
             </c:if>
 
-            <c:if test="${checkFilm==true}">
-                <form action="${pageContext.request.contextPath}/main/${id}/removeFavorite">
-                    <button class="btn btn-dark mt-3" type="submit">remove from favorite</button>
-                </form>
 
-            </c:if>
+
+
+
+        </div>
+
+        <div class="col col-lg-2">
+        <c:if test="${role=='[ADMIN]'}">
+            <form action="${pageContext.request.contextPath}/main/${id}/edit">
+                <button class="btn btn-dark mt-3" type="submit">edit object</button>
+            </form>
+            <form action="${pageContext.request.contextPath}/main/${id}/editObjectAttributes">
+                <button class="btn btn-dark mt-3" type="submit">edit attributes</button>
+            </form>
+
         </c:if>
-
-
+        </div>
 
     </div>
 
-    <div class="col col-lg-2">
-    <c:if test="${role=='[ADMIN]'}">
-        <form action="${pageContext.request.contextPath}/main/${id}/edit">
-            <button class="btn btn-dark mt-3" type="submit">edit object</button>
-        </form>
-        <form action="${pageContext.request.contextPath}/main/${id}/editObjectAttributes">
-            <button class="btn btn-dark mt-3" type="submit">edit attributes</button>
-        </form>
+    <div class="row">
+        <div class="col">
+            <c:if test="${checkUser==true}">
+                <form class="mt-4 form-inline justify-content-center" action="/main/${id}" method="post">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                    <input class="form-control mr-2" style="width: 300px; height: 70px;" type="text" name="message" value="Make your review">
+                    <button class="btn btn-dark mb-4" type="submit">Add new review</button>
+                </form>
+            </c:if>
 
-    </c:if>
+            <c:forEach items="${messages}" var="mes">
+                <tr>
+                    <td>${mes.user.getUsername()} : </td>
+                    <td>${mes.message}</td> <hr>
+                </tr>
+            </c:forEach>
+        </div>
     </div>
-
-
-</div>
-
-
-
-
 
 </div>
 </body>

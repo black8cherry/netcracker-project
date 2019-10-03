@@ -6,12 +6,17 @@
 </head>
 <body class="text-center">
 <div class="container mt-5">
-        <form action="/editAttribute">
-            <button class="mt-5 btn btn-success mr-sm-" type="submit">Edit attributes</button>
-        </form>
-        <form action="${pageContext.request.contextPath}/addFilm">
-            <button type="submit" class="mt-5 btn btn-success mr-sm-2">Add new object</button>
-        </form>
+    <form action="/editAttribute">
+        <button class="mt-5 btn btn-success mr-sm-" type="submit">Edit attributes</button>
+    </form>
+
+    <form action="${pageContext.request.contextPath}/addFilm">
+        <button type="submit" class="mt-5 btn btn-success mr-sm-2">Add new object</button>
+    </form>
+
+    <form action="${pageContext.request.contextPath}/main">
+        <button type="submit" class="mt-5 btn btn-success mr-sm-2">Return to main page</button>
+    </form>
 </div>
 </body>
 </html>

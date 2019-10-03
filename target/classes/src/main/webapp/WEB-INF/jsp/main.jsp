@@ -22,7 +22,7 @@
 
         <div class="col mx-auto" style="/*width: 400px; */height: 40px;">
             <form class="form-inline mx-auto"   method="get" action="${pageContext.request.contextPath}/main">
-            <input class="form-control mx-auto" style="width: 250px;" type="text" name="Search" />
+            <input class="form-control mx-auto" style="width: 250px;" type="text" name="filter" />
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button class="btn btn-success" type="submit">Search</button>
             </form>
@@ -93,7 +93,9 @@
                         <p class="card-text">
                             <a href="/main/${object.id}">${object.name}</a>
                             <c:if test="${role=='[ADMIN]'}">
-                            <a href="${pageContext.request.contextPath}/main/delete/${object.id}">delete</a>
+                                <form class="form-inline" action="${pageContext.request.contextPath}/main/delete/${object.id}">
+                                    <button type="submit" class="btn btn-dark ">Delete</button>
+                                </form>
                             </c:if>
                         </p>
                     </div>

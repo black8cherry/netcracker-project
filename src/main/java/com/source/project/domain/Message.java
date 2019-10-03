@@ -12,13 +12,26 @@ public class Message {
     @JoinColumn(name = "entity_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "obj_id")
+    private Objects objects;
+
     private String message;
 
     Message() {}
 
-    public Message(User user, String message) {
+    public Message(User user, Objects objects, String message) {
         this.user = user;
+        this.objects = objects;
         this.message = message;
+    }
+
+    public Objects getObjects() {
+        return objects;
+    }
+
+    public void setObjects(Objects objects) {
+        this.objects = objects;
     }
 
     public Integer getId() {
