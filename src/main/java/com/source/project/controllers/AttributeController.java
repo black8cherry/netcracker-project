@@ -23,8 +23,7 @@ import java.util.List;
 @Controller
 public class AttributeController {
 
-    @Autowired
-    private ObjectsRep objectsRep;
+
     @Autowired
     private AttributeRep attributeRep;
     @Autowired
@@ -32,8 +31,16 @@ public class AttributeController {
     @Autowired
     private TypeRep typeRep;
 
+    /*@GetMapping("/editAttribute")
+    private String editAttGet(
+            Model model
+    ) {
+        model.addAttribute("attributes", attributeRep.findAll());
+        return "editAttributes";
+    }*/
+
     @GetMapping("/editAttribute")
-    private String editAttributeGet(
+    public String editAttributeGet(
         Model model
     ) {
         List<Attribute> attributes = attributeRep.findAll();
@@ -49,7 +56,7 @@ public class AttributeController {
     }
 
     @PostMapping("/editAttribute")
-    private String editAttributePost(
+    public String editAttributePost(
             Model model,
             @RequestParam String label
     ) {
@@ -73,7 +80,7 @@ public class AttributeController {
     }
 
     @GetMapping("/editObjectAttributes/{type}")
-    private String editObjAttGet(
+    public String editObjAttGet(
             @PathVariable("type") String type,
             Model model
     ) {
@@ -120,7 +127,7 @@ public class AttributeController {
     }*/
 
     @GetMapping("/editObjectAttributes/{type}/addTypeAtt/{label}")
-    private String addTypeAtt(
+    public String addTypeAtt(
             @PathVariable("label") String label,
             @PathVariable("type") String type,
             Model model

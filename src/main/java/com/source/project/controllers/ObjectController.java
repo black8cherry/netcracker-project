@@ -222,4 +222,8 @@ public class ObjectController {
         return "redirect:/main/{id}";
     }
 
+    // attributes
+
+
+
 }
