@@ -138,8 +138,18 @@
                 <tr>
                     <td>${mes.user.getUsername()} : </td>
                     <td>${mes.message}</td> <hr>
+                    <c:if test="${checkUser==true}">
+                        <c:if test="${userAcc.id==mes.user.getId() || role=='[ADMIN]'}">
+                            <td>
+                                <form action="/deleteMessage/${id}/${mes.id}">
+                                    <button class="btn btn-dark" type="submit">delete</button>
+                                </form>
+                            </td>
+                        </c:if>
+                    </c:if>
                 </tr>
             </c:forEach>
+
         </div>
     </div>
 

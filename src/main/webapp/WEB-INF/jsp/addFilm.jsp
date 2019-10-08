@@ -31,8 +31,8 @@
     <div class="container">
         <div class="row">
             <c:forEach  items="${objects}" var ="object">
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
+                <div class="col-md-3">
+                    <div class="card mb-3 shadow-sm">
                         <img class="card-img-top" style="height: 225px; width: 100%; display: block;"
                              src="img/${object.filename}">
                         <div class="card-body  mx-auto">

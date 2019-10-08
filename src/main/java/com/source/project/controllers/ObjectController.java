@@ -19,7 +19,6 @@ import java.util.List;
 
 @Transactional
 @Controller
-//@RequestMapping(value = {"/main"})
 public class ObjectController {
     @Autowired
     private TypeAttributeRep typeAttributeRep;
@@ -222,8 +221,12 @@ public class ObjectController {
         return "redirect:/main/{id}";
     }
 
-    // attributes
-
-
-
+    @GetMapping("/deleteMessage/{id}/{idm}")
+    public String delMes(
+            @PathVariable("idm") Integer idm,
+            @PathVariable("id") Integer id
+    ) {
+        messageRep.removeById(idm);
+        return "redirect:/main/{id}";
+    }
 }

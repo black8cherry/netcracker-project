@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-@PreAuthorize("hasAuthority('ADMIN')")
 @Controller
 public class AttributeController {
 
@@ -31,14 +30,7 @@ public class AttributeController {
     @Autowired
     private TypeRep typeRep;
 
-    /*@GetMapping("/editAttribute")
-    private String editAttGet(
-            Model model
-    ) {
-        model.addAttribute("attributes", attributeRep.findAll());
-        return "editAttributes";
-    }*/
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editAttribute")
     public String editAttributeGet(
         Model model
@@ -55,6 +47,7 @@ public class AttributeController {
         return "editAttribute";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/editAttribute")
     public String editAttributePost(
             Model model,
@@ -79,6 +72,7 @@ public class AttributeController {
         return "redirect:/editAttribute";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editObjectAttributes/{type}")
     public String editObjAttGet(
             @PathVariable("type") String type,
@@ -126,6 +120,7 @@ public class AttributeController {
         return "redirect:/main/{id}/editObjectAttributes";
     }*/
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editObjectAttributes/{type}/addTypeAtt/{label}")
     public String addTypeAtt(
             @PathVariable("label") String label,
