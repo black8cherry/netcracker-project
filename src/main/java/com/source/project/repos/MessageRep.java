@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface MessageRep extends JpaRepository<Message, Long> {
     List<Message> findByObjects(Objects objects);
+    void removeById(Integer id);
 }

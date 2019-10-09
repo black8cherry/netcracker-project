@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-@PreAuthorize("hasAuthority('ADMIN')")
 @Controller
 public class AttributeController {
 
@@ -31,14 +30,7 @@ public class AttributeController {
     @Autowired
     private TypeRep typeRep;
 
-    /*@GetMapping("/editAttribute")
-    private String editAttGet(
-            Model model
-    ) {
-        model.addAttribute("attributes", attributeRep.findAll());
-        return "editAttributes";
-    }*/
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editAttribute")
     public String editAttributeGet(
         Model model
@@ -55,6 +47,7 @@ public class AttributeController {
         return "editAttribute";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/editAttribute")
     public String editAttributePost(
             Model model,
@@ -79,6 +72,7 @@ public class AttributeController {
         return "redirect:/editAttribute";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editObjectAttributes/{type}")
     public String editObjAttGet(
             @PathVariable("type") String type,
@@ -105,27 +99,7 @@ public class AttributeController {
         return "editObjAttribute";
     }
 
-    /*@PostMapping("/main/{id}/editObjectAttributes")
-    private String editObjAttPost(
-            @RequestParam String label,
-            @PathVariable("id") Integer id
-    ) {
-        if(attributeRep.findByLabel(label) == null) {
-            attributeRep.save(new Attribute(label));
-        }
-
-        try {
-            if (typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), objectsRep.findById(id).getType()) == null) {
-                typeAttributeRep.save(new TypeAttribute(objectsRep.findById(id).getType(), attributeRep.findByLabel(label)));
-                System.out.println("added");
-            }
-        } catch (NullPointerException e) {}
-
-        System.out.println("not added");
-
-        return "redirect:/main/{id}/editObjectAttributes";
-    }*/
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editObjectAttributes/{type}/addTypeAtt/{label}")
     public String addTypeAtt(
             @PathVariable("label") String label,
