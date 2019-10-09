@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MessageRep extends JpaRepository<Message, Long> {
+public interface MessageRep extends
+        JpaRepository<Message, Long>
+{
     List<Message> findByObjects(Objects objects);
     void removeById(Integer id);
 }
