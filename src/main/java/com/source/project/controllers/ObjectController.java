@@ -1,8 +1,9 @@
 package com.source.project.controllers;
 
-import antlr.debug.MessageAdapter;
+
 import com.source.project.domain.*;
 import com.source.project.repos.*;
+import com.source.project.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,8 @@ public class ObjectController {
     private FavoritesRep favoritesRep;
     @Autowired
     private MessageRep messageRep;
+    @Autowired
+    private RatingService ratingService;
 
     @GetMapping("/main/{id}")
     public String ObjGet(
@@ -60,7 +64,12 @@ public class ObjectController {
 
                 checkUser = true;
 
+                boolean checkRate = false;
+                if(ratingService.findByObjectsAndUser(object, userAcc)!=null) {
+                    checkRate = true;
+                }
 
+                model.addAttribute("checkRate", checkRate);
                 model.addAttribute("userAcc", userAcc);
                 model.addAttribute("role", role);
 
@@ -95,6 +104,23 @@ public class ObjectController {
 
         //=====================================================================
 
+        float result = 0;
+        List<Rating> ratingList = ratingService.findByObjects(object);
+        for (Rating rat: ratingList
+             ) {
+            result += rat.getRate();
+        }
+
+        String res = "no one has rated this movie yet";
+
+        if(result != 0) {
+            res = new DecimalFormat("#0.00")
+                    .format(result / ratingService.countByObjects(object));
+        }
+
+        //=====================================================================
+
+        model.addAttribute("rate", res);
         model.addAttribute("checkUser", checkUser);
         model.addAttribute("objects", object);
         model.addAttribute("fl", filmList);
@@ -231,5 +257,27 @@ public class ObjectController {
     ) {
         messageRep.removeById(idm);
         return"redirect:/main/{id}";
+    }
+
+    // rating
+
+    @GetMapping("rate/{ido}/{idu}")
+    public String rate(
+            @PathVariable("ido") Integer ido,
+            @PathVariable("idu") Integer idu,
+            @RequestParam(required=false) Float rating
+    ) {
+        if(rating!=null) {
+            if (ratingService.findByObjectsAndUser(objectsRep.findById(ido), userRep.findById(idu)) != null) {
+                ratingService.rerate(userRep.findById(idu),
+                        objectsRep.findById(ido),
+                        rating);
+            } else {
+                ratingService.save(userRep.findById(idu),
+                        objectsRep.findById(ido),
+                        rating);
+            }
+        }
+        return "redirect:/main/{ido}";
     }
 }

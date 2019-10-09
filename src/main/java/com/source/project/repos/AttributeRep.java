@@ -4,9 +4,11 @@ import com.source.project.domain.Attribute;
 import com.source.project.domain.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AttributeRep extends
         CrudRepository<Attribute, Long>,
         JpaRepository<Attribute, Long>

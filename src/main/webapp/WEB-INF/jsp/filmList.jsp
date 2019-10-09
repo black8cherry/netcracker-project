@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>NetFilms</title>
-
+    <style><%@include file="../css/filmList.css"%></style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
@@ -87,8 +87,30 @@
                 </tr>
                 </c:forEach>
             </table>
+            <br/>
+            Rate of this movie : ${rate}
+            <br/>
 
             <c:if test="${checkUser==true}">
+
+                <c:if test="${checkRate==true}">
+                    You can rate this movie again
+                </c:if>
+
+                <c:if test="${checkRate==false}">
+                    Rate the movie
+                </c:if>
+                <br/>
+                <form action="/rate/${objects.id}/${userAcc.id}">
+                <fieldset class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                </fieldset>
+                    <button class="btn btn-dark" type="submit">rate</button>
+                </form>
 
                 <c:if test="${checkFilm==false}">
                     <form action="${pageContext.request.contextPath}/main/${id}/addFavorite">
@@ -129,7 +151,7 @@
             <c:if test="${checkUser==true}">
                 <form class="mt-4 form-inline justify-content-center" action="/main/${id}" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                    <input class="form-control mr-2" style="width: 300px; height: 70px;" type="text" name="message" value="Make your review">
+                    <input class="form-control mr-2" style="width: 300px; height: 70px;" type="text" name="message">
                     <button class="btn btn-dark mb-4" type="submit">Add new review</button>
                 </form>
             </c:if>

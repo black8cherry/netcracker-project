@@ -5,9 +5,11 @@ import com.source.project.domain.Objects;
 import com.source.project.domain.Value;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ValueRep extends CrudRepository<Value, Long> {
     List<Value> findAllByObjects(Objects object);
     Value findByAttributes(Attribute attribute);
