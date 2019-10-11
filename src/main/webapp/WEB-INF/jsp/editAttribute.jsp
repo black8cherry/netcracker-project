@@ -21,13 +21,13 @@
         </div>
 
         <div class="col">
-            <form action="/editObjectAttributes/${filmType}">
-                <button class="btn btn-dark mt-4 " type="submit" >Edit film attributes</button>
-            </form>
 
-            <form action="/editObjectAttributes/${seriesType}">
-                <button class="btn btn-dark " type="submit" >Edit series attributes</button>
-            </form>
+            <c:forEach items="${types}" var="type">
+                <form action="/editObjectAttributes/${type.getType()}">
+                    <button class="btn btn-dark mt-4 " type="submit" >Edit ${type.getType()} attributes</button>
+                </form>
+            </c:forEach>
+            
         </div>
 
         <div class="col">

@@ -137,7 +137,7 @@
             <form action="${pageContext.request.contextPath}/main/${id}/edit">
                 <button class="btn btn-dark mt-3" type="submit">edit object</button>
             </form>
-            
+
 
         </c:if>
         </div>

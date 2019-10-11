@@ -2,47 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aad4475c-10ec-4071-9e33-e54cc3891555" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/AttributeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/FavoritesService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/MessageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/ObjectsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/TypeAttributeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/TypeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/ValueService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/AttributeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/FavoritesServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/MessageServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/ObjectsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/TypeAttributeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/TypeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/ValueServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/AddController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/AttributeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/AttributeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectTypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectTypeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/RegistrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ObjectsRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ObjectsRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeAttributeRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeAttributeRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/RatingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/RatingServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/editAttribute.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/editAttribute.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/config/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AddController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AddController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AttributeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AttributeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjectController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjectController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjectTypeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjectTypeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/RegistrationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/RegistrationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeAttributeRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeAttributeRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/RatingServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/UserService.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -285,7 +248,7 @@
       <workItem from="1570650708224" duration="5237000" />
       <workItem from="1570690927572" duration="1250000" />
       <workItem from="1570740033025" duration="617000" />
-      <workItem from="1570776258362" duration="14953000" />
+      <workItem from="1570776258362" duration="15465000" />
     </task>
     <task id="LOCAL-00001" summary="files editing added">
       <created>1567887758442</created>

@@ -25,7 +25,6 @@ import java.util.List;
 @Controller
 public class AttributeController {
 
-
     @Autowired
     private AttributeService attributeService;
     @Autowired
@@ -40,12 +39,10 @@ public class AttributeController {
     ) {
         List<Attribute> attributes = attributeService.findAll();
         List<TypeAttribute> attributes1 = typeAttributeService.findAll(Sort.by("type"));
+
         model.addAttribute("typeAttributes", attributes1);
         model.addAttribute("attributes", attributes);
-
-
-        model.addAttribute("filmType", typeService.findById(1).getType());
-        model.addAttribute("seriesType", typeService.findById(2).getType());
+        model.addAttribute("types", typeService.findAll());
 
         return "editAttribute";
     }
