@@ -14,8 +14,18 @@
         <form  action="${pageContext.request.contextPath}/addFilm" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input class="form-control" type="text" name="name" placeholder="Name"/><hr>
-            <input class="form-control" type="text" name="type" placeholder="Type"/><hr>
-            <input class="form-control" type="file" name="file"/><hr>
+
+
+            <p><select size="5" multiple name="type">
+                <option disabled>Choose object type</option>
+                <c:forEach items="${types}" var="type">
+                    <option value="${type.getType()}">${type.getType()}</option>
+                </c:forEach>
+            </select></p>
+
+
+
+            <input class="form-control" type="file" name="file"/>
             <button class="mt-5 btn btn-success mr-sm-2" type="submit">add</button>
         </form>
     </div>

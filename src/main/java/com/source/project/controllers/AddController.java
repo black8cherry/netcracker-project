@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 import org.w3c.dom.Attr;
 
 import java.io.File;
@@ -38,40 +41,40 @@ public class AddController {
     public String add_main(
             Model model
     ) {
-        Iterable<Objects> objects = objectsRep.findAll();
-        model.addAttribute("objects", objects);
+        model.addAttribute("types", typeRep.findAll());
+        model.addAttribute("objects", objectsRep.findAll());
         return "addFilm";
     }
 
     @PostMapping("/addFilm")
     public String add(
             @RequestParam String name,
-            @RequestParam Integer type,
-            Model model,
-            @RequestParam("file") MultipartFile file
+            @RequestParam String type,
+            @RequestParam MultipartFile file
     ) throws IOException {
 
-        Objects object = new Objects(name, typeRep.findById(type));
+        if (name != null && type != null) {
+            Objects object = new Objects(name, typeRep.findByType(type));
 
-        //===============================================================
-        if (file != null) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
+            if (file.getSize() != 0) {
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+
+                String uuidFile = UUID.randomUUID().toString();
+                String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+                file.transferTo(new File(uploadPath + "/" + resultFilename));
+
+                object.setFilename(resultFilename);
+            } else {
+                object.setFilename("no-image.jpg");
             }
 
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-
-            object.setFilename(resultFilename);
+            objectsRep.save(object);
         }
-        //===============================================================
-        objectsRep.save(object);
-        Iterable<Objects> objects = objectsRep.findAll();
-        model.addAttribute("objects", objects);
-        return "addFilm";
+        return "redirect:/addFilm";
     }
 
 
