@@ -12,9 +12,6 @@ public class Type {
 
     private String type;
 
-    /*@OneToMany(mappedBy = "type")
-    private Set<Objects> objects = new HashSet<Objects>();*/
-
     public Type() {}
 
     public Type(String type) {

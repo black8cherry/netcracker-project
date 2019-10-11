@@ -1,9 +1,6 @@
 package com.source.project.domain;
 
-import com.source.project.*;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Objects {
@@ -18,9 +15,6 @@ public class Objects {
     private Type type;
 
     private String filename;
-
-    /*@OneToMany(mappedBy = "objects")
-    private Set<Value> values = new HashSet<Value>();*/
 
     public Objects(String name, Type type) {
         this.name = name;

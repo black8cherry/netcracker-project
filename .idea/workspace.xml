@@ -2,40 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aad4475c-10ec-4071-9e33-e54cc3891555" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/RatingRep.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/RatingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/RatingServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/css/filmList.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectTypeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/objType.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/aad32f21-bff3-4ddc-971e-795e334e4ea8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aad32f21-bff3-4ddc-971e-795e334e4ea8.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/aad32f21-bff3-4ddc-971e-795e334e4ea8/storage_v2/_src_/database/project.GUuQ7Q/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aad32f21-bff3-4ddc-971e-795e334e4ea8/storage_v2/_src_/database/project.GUuQ7Q/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/domain/Raiting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/domain/Rating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/domain/Objects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/domain/Objects.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/domain/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/domain/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/AttributeRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/AttributeRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/FavoritesRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/FavoritesRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/MessageRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/MessageRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ObjectsRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ObjectsRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeAttributeRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeAttributeRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/UserRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/UserRep.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ValueRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ValueRep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/config/SpringConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AttributeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AttributeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/RatingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/RatingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/administratorPanel.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/administratorPanel.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/MainController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjectController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjectController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/domain/Rating.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/domain/Rating.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/domain/Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/domain/Type.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/AttributeRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/AttributeRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/FavoritesRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/FavoritesRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/MessageRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/MessageRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/ObjectsRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/ObjectsRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/RatingRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/RatingRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeAttributeRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeAttributeRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/UserRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/UserRep.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/ValueRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/ValueRep.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/RatingService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/RatingService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/RatingServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/RatingServiceImpl.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -109,8 +93,8 @@
         <option value="HTML File" />
         <option value="Enum" />
         <option value="jsf" />
-        <option value="Jsp File" />
         <option value="Interface" />
+        <option value="Jsp File" />
         <option value="Class" />
       </list>
     </option>
@@ -271,6 +255,9 @@
       <workItem from="1570383354948" duration="705000" />
       <workItem from="1570478330170" duration="2442000" />
       <workItem from="1570650708224" duration="5237000" />
+      <workItem from="1570690927572" duration="1250000" />
+      <workItem from="1570740033025" duration="617000" />
+      <workItem from="1570776258362" duration="5409000" />
     </task>
     <task id="LOCAL-00001" summary="files editing added">
       <created>1567887758442</created>

@@ -216,6 +216,8 @@ public class ObjectController {
         return "filmEdit";
     }
 
+    // Favorites
+
     @GetMapping("/main/{id}/addFavorite")
     public String addFav(
             @PathVariable("id") Integer id
@@ -248,7 +250,7 @@ public class ObjectController {
         return "redirect:/main/{id}";
     }
 
-    // attributes
+    // Attributes
 
     @GetMapping("/deleteMessage/{id?}/{idm}")
     public String delMes(
@@ -259,7 +261,7 @@ public class ObjectController {
         return"redirect:/main/{id}";
     }
 
-    // rating
+    // Rating
 
     @GetMapping("rate/{ido}/{idu}")
     public String rate(
@@ -280,4 +282,7 @@ public class ObjectController {
         }
         return "redirect:/main/{ido}";
     }
+
+
+
 }

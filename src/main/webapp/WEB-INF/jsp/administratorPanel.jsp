@@ -14,6 +14,10 @@
         <button type="submit" class="mt-5 btn btn-success mr-sm-2">Add new object</button>
     </form>
 
+    <form action="/objType">
+        <button class="mt-5 btn btn-success mr-sm-" type="submit">Edit object type</button>
+    </form>
+
     <form action="${pageContext.request.contextPath}/main">
         <button type="submit" class="mt-5 btn btn-success mr-sm-2">Return to main page</button>
     </form>

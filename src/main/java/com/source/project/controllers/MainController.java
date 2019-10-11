@@ -24,12 +24,6 @@ import javax.transaction.Transactional;
 public class MainController {
 
     @Autowired
-    private TypeAttributeRep typeAttributeRep;
-    @Autowired
-    private ValueRep valueRep;
-    @Autowired
-    private AttributeRep attributeRep;
-    @Autowired
     private ObjectsRep objectsRep;
     @Autowired
     private UserRep userRep;
