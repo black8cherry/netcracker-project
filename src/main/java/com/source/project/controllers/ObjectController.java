@@ -2,8 +2,7 @@ package com.source.project.controllers;
 
 
 import com.source.project.domain.*;
-import com.source.project.repos.*;
-import com.source.project.service.RatingService;
+import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -24,21 +23,21 @@ import java.util.List;
 public class ObjectController {
 
     @Autowired
-    private TypeAttributeRep typeAttributeRep;
+    private TypeAttributeService typeAttributeService;
     @Autowired
-    private ValueRep valueRep;
+    private ValueService valueService;
     @Autowired
-    private AttributeRep attributeRep;
+    private AttributeService attributeService;
     @Autowired
-    private ObjectsRep objectsRep;
+    private ObjectsService objectsService;
     @Autowired
-    private UserRep userRep;
+    private UserService userService;
     @Autowired
-    private TypeRep typeRep;
+    private TypeService typeRService;
     @Autowired
-    private FavoritesRep favoritesRep;
+    private FavoritesService favoritesService;
     @Autowired
-    private MessageRep messageRep;
+    private MessageService messageService;
     @Autowired
     private RatingService ratingService;
 
@@ -47,8 +46,8 @@ public class ObjectController {
             Model model,
             @PathVariable Integer id
     ) {
-        Objects object = objectsRep.findById(id);
-        List<Value> values = valueRep.findAllByObjects(object);
+        Objects object = objectsService.findById(id);
+        List<Value> values = valueService.findAllByObjects(object);
 
         //=========== Getting User ==========================================
 
@@ -60,7 +59,7 @@ public class ObjectController {
 
                 User user = (User) authentication.getPrincipal();
                 String role = user.getRole().toString();
-                User userAcc = userRep.findByUsername(authentication.getName());
+                User userAcc = userService.findByUsername(authentication.getName());
 
                 checkUser = true;
 
@@ -74,7 +73,7 @@ public class ObjectController {
                 model.addAttribute("role", role);
 
                 Boolean checkFilm = false;
-                if(favoritesRep.findByUserAndObject(user , object)!=null) {
+                if(favoritesService.findByUserAndObject(user , object)!=null) {
                     checkFilm = true;
                 }
                 model.addAttribute("checkFilm", checkFilm);
@@ -83,23 +82,23 @@ public class ObjectController {
 
         //========== Attribute List =========================================
 
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(object.getType());
+        List<TypeAttribute> typeAttributes = typeAttributeService.findByTypeOrderByAttribute(object.getType());
         List<FilmList> filmList = new ArrayList<FilmList>();
         for (TypeAttribute tp: typeAttributes
         ) {
             String value;
-            if(valueRep.findByAttributesAndObjects(tp.getAttribute(), object) == null) {
+            if(valueService.findByAttributesAndObjects(tp.getAttribute(), object) == null) {
                 value = " ";
             }
             else {
-                value = valueRep.findByAttributesAndObjects(tp.getAttribute(), object).getValue();
+                value = valueService.findByAttributesAndObjects(tp.getAttribute(), object).getValue();
             }
             filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
         }
 
         //=====================================================================
 
-        List<Message> messages = messageRep.findByObjects(objectsRep.findById(id));
+        List<Message> messages = messageService.findByObjects(objectsService.findById(id));
         model.addAttribute("messages", messages);
 
         //=====================================================================
@@ -134,9 +133,9 @@ public class ObjectController {
         @PathVariable("id") Integer id
     ) {
         if(!message.isEmpty()) {
-            messageRep.save(new Message(
-                    userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
-                    objectsRep.findById(id),
+            messageService.save(new Message(
+                    userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+                    objectsService.findById(id),
                     message
                     ));
         }
@@ -152,9 +151,9 @@ public class ObjectController {
             @RequestParam List<String> value,
             @RequestParam("objectId") String id
     ) {
-        Objects object = objectsRep.findById(Integer.valueOf(id));
-        List<Value> values = valueRep.findAllByObjects(object);
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(object.getType());
+        Objects object = objectsService.findById(Integer.valueOf(id));
+        List<Value> values = valueService.findAllByObjects(object);
+        List<TypeAttribute> typeAttributes = typeAttributeService.findByTypeOrderByAttribute(object.getType());
         //=============================================
         List<FilmList> filmL = new ArrayList<FilmList>();
         for(int i = 0; i < label.size(); i++) {
@@ -165,23 +164,25 @@ public class ObjectController {
             object.setName(objectName);
             for (FilmList tmp: filmL
             ) {
-                Value vall = valueRep.findByAttributesAndObjects(attributeRep.findByLabel(tmp.getLabel()), object);
+                Value vall = valueService.findByAttributesAndObjects(
+                        attributeService.findByLabel(tmp.getLabel()),
+                        object);
                 vall.setValue(tmp.getValue());
-                valueRep.save(vall);
+                valueService.save(vall);
             }
         }
         else {
             object.setName(objectName);
             for (FilmList tmp: filmL
             ) {
-                values.add(new Value(object, attributeRep.findByLabel(tmp.getLabel()) , tmp.getValue()));
+                values.add(new Value(object, attributeService.findByLabel(tmp.getLabel()) , tmp.getValue()));
             }
             for (Value v: values
             ) {
-                valueRep.save(v);
+                valueService.save(v);
             }
         }
-        objectsRep.save(object);
+        objectsService.save(object);
 
 
         return "redirect:/main/{id}";
@@ -193,19 +194,19 @@ public class ObjectController {
             @PathVariable String id,
             Model model
     ) {
-        Objects objects = objectsRep.findById(Integer.valueOf(id));
+        Objects objects = objectsService.findById(Integer.valueOf(id));
         //List<Value> values = valueRep.findAllByObjects(objects);
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(objects.getType());
+        List<TypeAttribute> typeAttributes = typeAttributeService.findByTypeOrderByAttribute(objects.getType());
         List<FilmList> filmList = new ArrayList<FilmList>();
 
         for (TypeAttribute tp: typeAttributes
         ) {
             String value;
-            if(valueRep.findByAttributesAndObjects(tp.getAttribute(), objects) == null) {
+            if(valueService.findByAttributesAndObjects(tp.getAttribute(), objects) == null) {
                 value = " ";
             }
             else {
-                value = valueRep.findByAttributesAndObjects(tp.getAttribute(), objects).getValue();
+                value = valueService.findByAttributesAndObjects(tp.getAttribute(), objects).getValue();
             }
             filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
         }
@@ -222,13 +223,13 @@ public class ObjectController {
     public String addFav(
             @PathVariable("id") Integer id
     ) {
-        if(favoritesRep.findByUserAndObject(
-                userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
-                objectsRep.findById(id)) == null)
+        if(favoritesService.findByUserAndObject(
+                userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+                objectsService.findById(id)) == null)
         {
-            favoritesRep.save(new Favorites(
-                    userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
-                    objectsRep.findById(id)));
+            favoritesService.save(new Favorites(
+                    userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+                    objectsService.findById(id)));
         }
         return "redirect:/main/{id}";
     }
@@ -237,14 +238,14 @@ public class ObjectController {
     public String remFav(
             @PathVariable("id") Integer id
     ) {
-    if (favoritesRep.findByUserAndObject(
-            userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
-            objectsRep.findById(id))
+    if (favoritesService.findByUserAndObject(
+            userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+            objectsService.findById(id))
             != null)
     {
-        favoritesRep.delete(favoritesRep.findByUserAndObject(
-                userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
-                objectsRep.findById(id))
+        favoritesService.delete(favoritesService.findByUserAndObject(
+                userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+                objectsService.findById(id))
         );
     }
         return "redirect:/main/{id}";
@@ -252,12 +253,12 @@ public class ObjectController {
 
     // Attributes
 
-    @GetMapping("/deleteMessage/{id?}/{idm}")
+    @GetMapping("/deleteMessage/{id}/{idm}")
     public String delMes(
             @PathVariable("idm") Integer idm,
             @PathVariable("id") Integer id
     ) {
-        messageRep.removeById(idm);
+        messageService.removeById(idm);
         return"redirect:/main/{id}";
     }
 
@@ -270,13 +271,16 @@ public class ObjectController {
             @RequestParam(required=false) Float rating
     ) {
         if(rating!=null) {
-            if (ratingService.findByObjectsAndUser(objectsRep.findById(ido), userRep.findById(idu)) != null) {
-                ratingService.rerate(userRep.findById(idu),
-                        objectsRep.findById(ido),
+            if (ratingService.findByObjectsAndUser(
+                    objectsService.findById(ido),
+                    userService.findById(idu)) != null)
+            {
+                ratingService.rerate(userService.findById(idu),
+                        objectsService.findById(ido),
                         rating);
             } else {
-                ratingService.save(userRep.findById(idu),
-                        objectsRep.findById(ido),
+                ratingService.save(userService.findById(idu),
+                        objectsService.findById(ido),
                         rating);
             }
         }

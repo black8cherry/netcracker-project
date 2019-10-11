@@ -3,6 +3,8 @@ package com.source.project.controllers;
 import com.source.project.domain.Objects;
 import com.source.project.domain.User;
 import com.source.project.repos.*;
+import com.source.project.service.ObjectsService;
+import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -24,9 +26,9 @@ import javax.transaction.Transactional;
 public class MainController {
 
     @Autowired
-    private ObjectsRep objectsRep;
+    private ObjectsService objectsService;
     @Autowired
-    private UserRep userRep;
+    private UserService userService;
 
     @GetMapping("/administratorPanel")
     public String administratorPanel() {
@@ -39,12 +41,12 @@ public class MainController {
             @RequestParam(required=false) String filter,
             Model model
     ) {
-        Iterable<Objects> objects = objectsRep.findAll();
+        Iterable<Objects> objects = objectsService.findAll();
 
         if (filter != null && !filter.isEmpty()) {
-            objects = objectsRep.findByNameOrderByName(filter);
+            objects = objectsService.findByNameOrderByName(filter);
         } else {
-            objects = objectsRep.findAll(Sort.by("name"));
+            objects = objectsService.findAll(Sort.by("name"));
         }
 
         Boolean checkUser = false;
@@ -58,7 +60,7 @@ public class MainController {
                 checkUser = true;
                 //System.out.println("role = " + role);
                 model.addAttribute("role", role);
-                User userAcc = userRep.findByUsername(authentication.getName());
+                User userAcc = userService.findByUsername(authentication.getName());
                 model.addAttribute("userAcc", userAcc);
             }
         }
@@ -73,9 +75,9 @@ public class MainController {
 
     @GetMapping("/delete/{id}")
     public String deleteObj(
-            @PathVariable("id") String id
+            @PathVariable("id") Integer id
     ) {
-        objectsRep.removeById(Integer.valueOf(id));
+        objectsService.removeById(id);
         return "redirect:/main";
     }
 

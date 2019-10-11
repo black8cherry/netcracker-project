@@ -7,6 +7,9 @@ import com.source.project.repos.AttributeRep;
 import com.source.project.repos.ObjectsRep;
 import com.source.project.repos.TypeAttributeRep;
 import com.source.project.repos.TypeRep;
+import com.source.project.service.AttributeService;
+import com.source.project.service.TypeAttributeService;
+import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,25 +27,25 @@ public class AttributeController {
 
 
     @Autowired
-    private AttributeRep attributeRep;
+    private AttributeService attributeService;
     @Autowired
-    private TypeAttributeRep typeAttributeRep;
+    private TypeAttributeService typeAttributeService;
     @Autowired
-    private TypeRep typeRep;
+    private TypeService typeService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editAttribute")
     public String editAttributeGet(
         Model model
     ) {
-        List<Attribute> attributes = attributeRep.findAll();
-        List<TypeAttribute> attributes1 = typeAttributeRep.findAll(Sort.by("type"));
+        List<Attribute> attributes = attributeService.findAll();
+        List<TypeAttribute> attributes1 = typeAttributeService.findAll(Sort.by("type"));
         model.addAttribute("typeAttributes", attributes1);
         model.addAttribute("attributes", attributes);
 
 
-        model.addAttribute("filmType", typeRep.findById(1).getType());
-        model.addAttribute("seriesType", typeRep.findById(2).getType());
+        model.addAttribute("filmType", typeService.findById(1).getType());
+        model.addAttribute("seriesType", typeService.findById(2).getType());
 
         return "editAttribute";
     }
@@ -53,21 +56,9 @@ public class AttributeController {
             Model model,
             @RequestParam String label
     ) {
-        if(attributeRep.findByLabel(label) == null) {
-            attributeRep.save(new Attribute(label));
+        if(attributeService.findByLabel(label) == null) {
+            attributeService.save(new Attribute(label));
         }
-
-        /*try {
-            if (choose == 1) { //film
-                if (typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findById(choose)) == null) {
-                    typeAttributeRep.save(new TypeAttribute(typeRep.findById(choose), attributeRep.findByLabel(label)));
-                }
-            } else if (choose == 2) { //series
-                if (typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findById(choose)) == null) {
-                    typeAttributeRep.save(new TypeAttribute(typeRep.findById(choose), attributeRep.findByLabel(label)));
-                }
-            }
-        } catch (NullPointerException e) {}*/
 
         return "redirect:/editAttribute";
     }
@@ -78,14 +69,14 @@ public class AttributeController {
             @PathVariable("type") String type,
             Model model
     ) {
-        List<TypeAttribute> attributes = typeAttributeRep.findByType(typeRep.findByType(type));
-        List<Attribute> attributesAll = attributeRep.findAll();
+        List<TypeAttribute> attributes = typeAttributeService.findByType(typeService.findByType(type));
+        List<Attribute> attributesAll = attributeService.findAll();
         List<Attribute> attributesNotInObj = new ArrayList<Attribute>();
 
         try {
             for (Attribute att : attributesAll
             ) {
-                if (typeAttributeRep.findByAttributeAndType(att, typeRep.findByType(type)) == null) {
+                if (typeAttributeService.findByAttributeAndType(att, typeService.findByType(type)) == null) {
 
                     attributesNotInObj.add(att);
                 }
@@ -94,7 +85,7 @@ public class AttributeController {
 
         model.addAttribute("attributes", attributes);
         model.addAttribute("mAttributes", attributesNotInObj);
-        model.addAttribute("type", typeRep.findByType(type).getType());
+        model.addAttribute("type", typeService.findByType(type).getType());
 
         return "editObjAttribute";
     }
@@ -108,8 +99,12 @@ public class AttributeController {
     ) {
 
         try {
-            if (typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findByType(type)) == null) {
-                typeAttributeRep.save(new TypeAttribute(typeRep.findByType(type), attributeRep.findByLabel(label)));
+            if (typeAttributeService.findByAttributeAndType(
+                    attributeService.findByLabel(label),
+                    typeService.findByType(type)) == null) {
+                typeAttributeService.save(new TypeAttribute(
+                        typeService.findByType(type),
+                        attributeService.findByLabel(label)));
             }
         } catch (NullPointerException e) {}
 
@@ -122,11 +117,15 @@ public class AttributeController {
     public String deleteAtr(
             @PathVariable("label") String label
     ) {
-        if(typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findById(1)) != null
-                || typeAttributeRep.findByAttributeAndType(attributeRep.findByLabel(label), typeRep.findById(2)) != null) {
-            typeAttributeRep.removeByAttribute(attributeRep.findByLabel(label));
+        if(typeAttributeService.findByAttributeAndType(
+                attributeService.findByLabel(label),
+                typeService.findById(1)) != null
+           || typeAttributeService.findByAttributeAndType(
+                attributeService.findByLabel(label),
+                typeService.findById(2)) != null) {
+            typeAttributeService.removeByAttribute(attributeService.findByLabel(label));
         }
-        attributeRep.removeByLabel(label);
+        attributeService.removeByLabel(label);
         return "redirect:/editAttribute";
     }
 
@@ -136,7 +135,9 @@ public class AttributeController {
             @PathVariable("type") String type,
             @PathVariable("label") String label
     ) {
-        typeAttributeRep.removeByAttributeAndType(attributeRep.findByLabel(label), typeRep.findByType(type));
+        typeAttributeService.removeByAttributeAndType(
+                attributeService.findByLabel(label),
+                typeService.findByType(type));
         return "redirect:/editObjectAttributes/{type}";
     }
 

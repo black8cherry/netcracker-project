@@ -137,9 +137,7 @@
             <form action="${pageContext.request.contextPath}/main/${id}/edit">
                 <button class="btn btn-dark mt-3" type="submit">edit object</button>
             </form>
-            <form action="${pageContext.request.contextPath}/main/${id}/editObjectAttributes">
-                <button class="btn btn-dark mt-3" type="submit">edit attributes</button>
-            </form>
+            
 
         </c:if>
         </div>
@@ -162,7 +160,7 @@
                     <td>${mes.message}</td> <hr>
                     <c:if test="${userAcc.id==mes.user.getId() || role=='[ADMIN]'}">
                         <td>
-                            <form action="/deleteMessage/${id}/${mes.id}">
+                            <form action="/deleteMessage/${objects.id}/${mes.id}">
                                 <button class="btn btn-dark" type="submit">delete</button>
                             </form>
                         </td>

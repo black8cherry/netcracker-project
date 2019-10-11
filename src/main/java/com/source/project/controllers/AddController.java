@@ -1,11 +1,8 @@
 package com.source.project.controllers;
 
-import com.source.project.domain.Attribute;
 import com.source.project.domain.Objects;
-import com.source.project.repos.AttributeRep;
-import com.source.project.repos.ObjectsRep;
-import com.source.project.repos.TypeAttributeRep;
-import com.source.project.repos.TypeRep;
+import com.source.project.service.ObjectsService;
+import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,14 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
-import org.w3c.dom.Attr;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -33,16 +25,16 @@ public class AddController {
     private String uploadPath;
 
     @Autowired
-    private ObjectsRep objectsRep;
+    private ObjectsService objectsService;
     @Autowired
-    private TypeRep typeRep;
+    private TypeService typeService;
 
     @GetMapping("/addFilm")
     public String add_main(
             Model model
     ) {
-        model.addAttribute("types", typeRep.findAll());
-        model.addAttribute("objects", objectsRep.findAll());
+        model.addAttribute("types", typeService.findAll());
+        model.addAttribute("objects", objectsService.findAll());
         return "addFilm";
     }
 
@@ -54,7 +46,7 @@ public class AddController {
     ) throws IOException {
 
         if (name != null && type != null) {
-            Objects object = new Objects(name, typeRep.findByType(type));
+            Objects object = new Objects(name, typeService.findByType(type));
 
             if (file.getSize() != 0) {
                 File uploadDir = new File(uploadPath);
@@ -72,7 +64,7 @@ public class AddController {
                 object.setFilename("no-image.jpg");
             }
 
-            objectsRep.save(object);
+            objectsService.save(object);
         }
         return "redirect:/addFilm";
     }

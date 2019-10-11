@@ -4,6 +4,8 @@ import com.source.project.domain.Favorites;
 import com.source.project.domain.User;
 import com.source.project.repos.FavoritesRep;
 import com.source.project.repos.UserRep;
+import com.source.project.service.FavoritesService;
+import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,9 +23,9 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRep userRep;
+    private UserService userService;
     @Autowired
-    private FavoritesRep favoritesRep;
+    private FavoritesService favoritesService;
 
 
     @GetMapping("/user/{id}")
@@ -32,9 +34,9 @@ public class UserController {
             Model model
     ) {
 
-        User user = userRep.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         System.out.println(user.getUsername());
-        List<Favorites> favorites = favoritesRep.findByUser(user);
+        List<Favorites> favorites = favoritesService.findByUser(user);
 
         model.addAttribute("fav", favorites);
         model.addAttribute("user", user);

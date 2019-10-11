@@ -1,9 +1,10 @@
-package com.source.project.service;
+package com.source.project.service.implementations;
 
 import com.source.project.domain.Objects;
 import com.source.project.domain.Rating;
 import com.source.project.domain.User;
 import com.source.project.repos.RatingRep;
+import com.source.project.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,6 +2,7 @@ package com.source.project.controllers;
 
 import com.source.project.domain.Type;
 import com.source.project.repos.TypeRep;
+import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +18,13 @@ import javax.transaction.Transactional;
 public class ObjectTypeController {
 
     @Autowired
-    private TypeRep typeRep;
+    private TypeService typeService;
 
     @GetMapping("/objType")
     public String objTypeGet(
             Model model
     ) {
-        model.addAttribute("objType", typeRep.findAll());
+        model.addAttribute("objType", typeService.findAll());
         return "objType";
     }
 
@@ -31,8 +32,8 @@ public class ObjectTypeController {
     public String objTypePost(
             @RequestParam String type
     ) {
-        if (typeRep.findByType(type) == null) {
-            typeRep.save(new Type(type));
+        if (typeService.findByType(type) == null) {
+            typeService.save(new Type(type));
         }
         return "redirect:/objType";
     }
@@ -41,8 +42,8 @@ public class ObjectTypeController {
     public String delObjType(
             @PathVariable("id") Integer id
     ) {
-        if (typeRep.findById(id) != null) {
-            typeRep.delete(typeRep.findById(id));
+        if (typeService.findById(id) != null) {
+            typeService.delete(typeService.findById(id));
         }
         return "redirect:/objType";
     }
