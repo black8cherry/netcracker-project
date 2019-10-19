@@ -4,10 +4,13 @@ import com.source.project.domain.User;
 import com.source.project.repos.UserRep;
 import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserDetailsService, UserService {
@@ -33,6 +36,19 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public void save(User user) {
         userRep.save(user);
+    }
+
+    @Override
+    public List<User> findAllById(List<Integer> id) {
+        return userRep.findAllById(id);
+    }
+
+    @Override
+    public User getUser() {
+        return userRep.findByUsername(SecurityContextHolder.
+                getContext().
+                getAuthentication().
+                getName());
     }
 }
 

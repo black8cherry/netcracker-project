@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TypeRep extends CrudRepository<Type, Long> {
     Type findById(Integer id);
-    Type findByType(String type);
+    Type findByTypename(String typename);
 }

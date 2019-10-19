@@ -1,15 +1,12 @@
 package com.source.project.service;
 
-import com.source.project.domain.Objects;
-import com.source.project.domain.Rating;
+import com.source.project.domain.ObjEntity;
 import com.source.project.domain.User;
 
-import java.util.List;
-
 public interface RatingService {
-    List<Rating> findByObjects(Objects objects);
-    Float countByObjects(Objects objects);
-    void save( User user, Objects objects, Float rate);
-    void rerate(User user, Objects objects, Float rate);
-    Rating findByObjectsAndUser(Objects objects, User user);
+    void save(String userId, Integer parentId, Float value);
+    void rerate(String userId, Integer parentId, Float value);
+    boolean findByObjectsAndUser(ObjEntity movie, User userAcc);
+    String getRate(Integer id);
+    //void init();
 }

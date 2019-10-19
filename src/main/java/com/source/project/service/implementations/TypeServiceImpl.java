@@ -18,8 +18,8 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Type findByType(String type) {
-        return typeRep.findByType(type);
+    public Type findByType(String typename) {
+        return typeRep.findByTypename(typename);
     }
 
     @Override

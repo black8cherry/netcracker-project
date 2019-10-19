@@ -1,9 +1,8 @@
 package com.source.project.controllers;
 
-import com.source.project.domain.Objects;
+import com.source.project.domain.ObjEntity;
 import com.source.project.domain.User;
-import com.source.project.repos.*;
-import com.source.project.service.ObjectsService;
+import com.source.project.service.ObjEntityService;
 import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -26,7 +25,7 @@ import javax.transaction.Transactional;
 public class MainController {
 
     @Autowired
-    private ObjectsService objectsService;
+    private ObjEntityService objEntityService;
     @Autowired
     private UserService userService;
 
@@ -41,12 +40,12 @@ public class MainController {
             @RequestParam(required=false) String filter,
             Model model
     ) {
-        Iterable<Objects> objects = objectsService.findAll();
+        Iterable<ObjEntity> movie = objEntityService.findAll();
 
         if (filter != null && !filter.isEmpty()) {
-            objects = objectsService.findByNameOrderByName(filter);
+            movie = objEntityService.findByNameOrderByName(filter);
         } else {
-            objects = objectsService.findAll(Sort.by("name"));
+            movie = objEntityService.findAll(Sort.by("name"));
         }
 
         Boolean checkUser = false;
@@ -58,7 +57,6 @@ public class MainController {
                 User user = (User) authentication.getPrincipal();
                 String role = user.getRole().toString();
                 checkUser = true;
-                //System.out.println("role = " + role);
                 model.addAttribute("role", role);
                 User userAcc = userService.findByUsername(authentication.getName());
                 model.addAttribute("userAcc", userAcc);
@@ -68,7 +66,7 @@ public class MainController {
 
 
         model.addAttribute("checkUser", checkUser);
-        model.addAttribute("objects", objects);
+        model.addAttribute("movie", movie);
         model.addAttribute("filter", filter);
         return "main";
     }
@@ -77,7 +75,7 @@ public class MainController {
     public String deleteObj(
             @PathVariable("id") Integer id
     ) {
-        objectsService.removeById(id);
+        objEntityService.removeById(id);
         return "redirect:/main";
     }
 

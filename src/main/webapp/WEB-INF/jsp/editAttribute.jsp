@@ -6,9 +6,9 @@
 <head>
     <title>editAttribute</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <style><%@include file="../css/bg.css"%></style>
 </head>
-<body>
+<body >
 <div class="container">
 
     <div class="row">
@@ -27,7 +27,7 @@
                     <button class="btn btn-dark mt-4 " type="submit" >Edit ${type.getType()} attributes</button>
                 </form>
             </c:forEach>
-            
+
         </div>
 
         <div class="col">
@@ -41,7 +41,7 @@
     <c:forEach  items="${attributes}" var="att">
         <div class="row">
             <div class="col-md-2">
-                    ${att.label}
+                <span>${att.label}</span>
             </div>
             <div class="col-md-2">
                 <a href="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">delete</a>
@@ -49,14 +49,14 @@
         </div>
     </c:forEach>
 
-    <h3>Attribute list of object types</h3>
+    <h3>Attribute list of movie types</h3>
     <c:forEach items="${typeAttributes}" var="typeAtt">
         <div class="row">
             <div class="col-md-2">
-                    ${typeAtt.type.getType()}
+                <span>${typeAtt.type.getType()}</span>
             </div>
             <div class="col-md-2">
-                    ${typeAtt.attribute.getLabel()}
+                <span>${typeAtt.attribute.getLabel()}</span>
             </div>
         </div>
     </c:forEach>

@@ -1,7 +1,8 @@
 package com.source.project.controllers;
 
-import com.source.project.domain.Objects;
-import com.source.project.service.ObjectsService;
+import com.source.project.domain.ObjEntity;
+import com.source.project.service.MessageService;
+import com.source.project.service.ObjEntityService;
 import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,7 @@ public class AddController {
     private String uploadPath;
 
     @Autowired
-    private ObjectsService objectsService;
+    private ObjEntityService objEntityService;
     @Autowired
     private TypeService typeService;
 
@@ -33,8 +34,9 @@ public class AddController {
     public String add_main(
             Model model
     ) {
+
         model.addAttribute("types", typeService.findAll());
-        model.addAttribute("objects", objectsService.findAll());
+        model.addAttribute("objEntity", objEntityService.findAll());
         return "addFilm";
     }
 
@@ -46,8 +48,7 @@ public class AddController {
     ) throws IOException {
 
         if (name != null && type != null) {
-            Objects object = new Objects(name, typeService.findByType(type));
-
+            ObjEntity objEntity = new ObjEntity(name, typeService.findByType(type));
             if (file.getSize() != 0) {
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) {
@@ -59,12 +60,12 @@ public class AddController {
 
                 file.transferTo(new File(uploadPath + "/" + resultFilename));
 
-                object.setFilename(resultFilename);
+                objEntity.setFilename(resultFilename);
             } else {
-                object.setFilename("no-image.jpg");
+                objEntity.setFilename("no-image.jpg");
             }
 
-            objectsService.save(object);
+            objEntityService.save(objEntity);
         }
         return "redirect:/addFilm";
     }

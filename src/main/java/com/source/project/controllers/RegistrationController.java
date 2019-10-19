@@ -3,6 +3,7 @@ package com.source.project.controllers;
 import com.source.project.domain.Role;
 import com.source.project.domain.User;
 import com.source.project.repos.UserRep;
+import com.source.project.service.FavoriteService;
 import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private FavoriteService favoriteService;
 
     @GetMapping("/")
     public String startPage() {return "redirect:/main";}
@@ -34,8 +37,9 @@ public class RegistrationController {
         if(userDB!=null)
             model.put("message","user exists");
         else {
-            user.setRole(Collections.singleton(Role.USER));
+            user.setRole(Collections.singleton(Role.ADMIN));
             userService.save(user);
+            favoriteService.create(String.valueOf(user.getId()));
             return "redirect:/login";
         }
         return "registration";

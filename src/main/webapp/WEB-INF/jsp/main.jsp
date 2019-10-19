@@ -10,19 +10,19 @@
     <title>NetFilms</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <style><%@include file="../css/bg.css"%></style>
 </head>
-<body>
+<body >
 <div class="container">
     <div class="row">
 
         <div class="col">
-            <h3>NetFilms</h3>
+            <h3 style="color: aliceblue">NetFilms</h3>
         </div>
 
         <div class="col mx-auto" style="/*width: 400px; */height: 40px;">
             <form class="form-inline mx-auto"   method="get" action="${pageContext.request.contextPath}/main">
-            <input class="form-control mx-auto" style="width: 250px;" type="text" name="filter" />
+            <input  class="form-control mx-auto" style="width: 250px;" type="text" name="filter" />
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button class="btn btn-success" type="submit">Search</button>
             </form>
@@ -81,19 +81,19 @@
 </nav>
 
 
-<div class="album py-5 bg-dark">
+<div class="album py-5 bg-dark" >
     <div class="container">
         <div class="row">
-            <c:forEach  items="${objects}" var ="object">
+            <c:forEach  items="${movie}" var ="movie">
             <div class="col-md-3">
-                <div class="card mb-3 shadow-sm">
+                <div class="card mb-3 shadow-sm" style="background-color: #151515">
                     <img class="card-img-top" style="height: 225px; width: 100%; display: block;"
-                         src="img/${object.filename}">
+                         src="img/${movie.filename}">
                     <div class="card-body  mx-auto">
                         <p class="card-text">
-                            <a href="/main/${object.id}">${object.name}</a>
+                            <a href="/main/${movie.id}">${movie.name}</a>
                             <c:if test="${role=='[ADMIN]'}">
-                                <form class="form-inline" action="${pageContext.request.contextPath}/main/delete/${object.id}">
+                                <form class="form-inline" action="${pageContext.request.contextPath}/main/delete/${movie.id}">
                                     <button type="submit" class="btn btn-dark ">Delete</button>
                                 </form>
                             </c:if>

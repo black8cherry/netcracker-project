@@ -8,25 +8,16 @@ import java.util.Set;
 @Entity
 public class Attribute {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_gen")
+    @SequenceGenerator(name = "primary_gen", sequenceName = "primary_gen", allocationSize = 1)
     private Integer id;
     private String label;
-
-    /*@OneToMany(mappedBy = "attributes")
-    private Set<Value> values = new HashSet<Value>();*/
 
     public Attribute() {}
 
     public Attribute(String label) {
         this.label = label;
     }
-
-   /* public Attribute(String label, Set<Value> values) {
-        this.label = label;
-        this.values = values;
-    }*/
-
-
 
     public Integer getId() {
         return id;
@@ -43,12 +34,5 @@ public class Attribute {
     public void setLabel(String label) {
         this.label = label;
     }
-/*
-    public Set<Value> getValues() {
-        return values;
-    }
 
-    public void setValues(Set<Value> values) {
-        this.values = values;
-    }*/
 }

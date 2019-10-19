@@ -6,10 +6,11 @@
 <head>
     <title>NetFilms</title>
     <style><%@include file="../css/filmList.css"%></style>
+    <style><%@include file="../css/bg.css"%></style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
-<body>
+<body >
 
 <div class="container">
 
@@ -72,23 +73,27 @@
     <div class="row mt-5">
         <div class="col-lg-5 " >
             <img class="float-right" style="height: 225px; width: 225px; display: block;"
-                    src="../img/${objects.filename}"/>
-
-
+                    src="../img/${movie.filename}"/>
         </div>
 
         <div class="col float-left">
-            <h5 class="ml-5">${objects.name}</h5>
+            <h5 class="ml-5">${movie.name}</h5>
             <table class="mt-4">
                 <c:forEach items="${fl}" var="fl">
                 <tr>
-                    <td>${fl.label}</td>
+                    <td>${fl.label} : </td>
                     <td>${fl.value}</td>
                 </tr>
                 </c:forEach>
             </table>
             <br/>
-            Rate of this movie : ${rate}
+            Rate of this movie :
+            <c:if test="${rate == '0'}">
+                No one has rated this movie yet
+            </c:if>
+            <c:if test="${rate != '0'}">
+                ${rate}
+            </c:if>
             <br/>
 
             <c:if test="${checkUser==true}">
@@ -101,7 +106,7 @@
                     Rate the movie
                 </c:if>
                 <br/>
-                <form action="/rate/${objects.id}/${userAcc.id}">
+                <form action="/rate/${movie.id}/${userAcc.id}">
                 <fieldset class="rating">
                     <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                     <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -113,13 +118,13 @@
                 </form>
 
                 <c:if test="${checkFilm==false}">
-                    <form action="${pageContext.request.contextPath}/main/${id}/addFavorite">
+                    <form action="${pageContext.request.contextPath}/main/${id}/${userAcc.id}/addFavorite">
                         <button class="btn btn-dark mt-3" type="submit">add to favorite</button>
                     </form>
                 </c:if>
 
                 <c:if test="${checkFilm==true}">
-                    <form action="${pageContext.request.contextPath}/main/${id}/removeFavorite">
+                    <form action="${pageContext.request.contextPath}/main/${id}/${userAcc.id}/removeFavorite">
                         <button class="btn btn-dark mt-3" type="submit">remove from favorite</button>
                     </form>
 
@@ -135,7 +140,7 @@
         <div class="col col-lg-2">
         <c:if test="${role=='[ADMIN]'}">
             <form action="${pageContext.request.contextPath}/main/${id}/edit">
-                <button class="btn btn-dark mt-3" type="submit">edit object</button>
+                <button class="btn btn-dark mt-3" type="submit">edit movie</button>
             </form>
 
 
@@ -149,18 +154,19 @@
             <c:if test="${checkUser==true}">
                 <form class="mt-4 form-inline justify-content-center" action="/main/${id}" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                    <input type="hidden" name="userId" value="${userAcc.id}"/>
                     <input class="form-control mr-2" style="width: 300px; height: 70px;" type="text" name="message">
                     <button class="btn btn-dark mb-4" type="submit">Add new review</button>
                 </form>
             </c:if>
 
-            <c:forEach items="${messages}" var="mes">
+            <c:forEach items="${usrMes}" var="mes">
                 <tr>
-                    <td>${mes.user.getUsername()} : </td>
-                    <td>${mes.message}</td> <hr>
-                    <c:if test="${userAcc.id==mes.user.getId() || role=='[ADMIN]'}">
+                    <td>${mes.getUsername()} : </td>
+                    <td>${mes.getMessage()}</td> <hr>
+                    <c:if test="${userAcc.username==mes.username || role=='[ADMIN]'}">
                         <td>
-                            <form action="/deleteMessage/${objects.id}/${mes.id}">
+                            <form action="/deleteMessage/${movie.id}/${mes.getIdo()}">
                                 <button class="btn btn-dark" type="submit">delete</button>
                             </form>
                         </td>

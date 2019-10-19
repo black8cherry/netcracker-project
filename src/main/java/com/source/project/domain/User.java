@@ -12,7 +12,8 @@ import java.util.Set;
 @Table(name = "usr")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_gen")
+    @SequenceGenerator(name = "primary_gen", sequenceName = "primary_gen", allocationSize = 1)
     private Integer id;
     private String username;//login
     private String password;

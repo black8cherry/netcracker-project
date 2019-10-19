@@ -31,6 +31,8 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public void save(Attribute attribute) {
-        attributeRep.save(attribute);
+        if(attributeRep.findByLabel(attribute.getLabel())==null) {
+            attributeRep.save(attribute);
+        }
     }
 }

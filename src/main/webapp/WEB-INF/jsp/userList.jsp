@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>user</title>
+    <style><%@include file="../css/bg.css"%></style>
 </head>
 <body>
 
@@ -15,8 +16,8 @@ your favorites movies
 <table>
 <c:forEach  items="${fav}" var ="fav">
     <tr>
-        <td><img src="../img/${fav.object.getFilename()}"/></td>
-        <td><a href="/main/${fav.object.getId()}">${fav.object.getName()}</a></td>
+        <td><img src="../img/${fav.movie.getFilename()}"/></td>
+        <td><a href="/main/${fav.movie.getId()}">${fav.movie.getName()}</a></td>
     </tr>
 </c:forEach>
 </table>

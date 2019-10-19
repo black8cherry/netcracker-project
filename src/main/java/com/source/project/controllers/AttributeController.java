@@ -1,12 +1,7 @@
 package com.source.project.controllers;
 
 import com.source.project.domain.Attribute;
-import com.source.project.domain.Objects;
 import com.source.project.domain.TypeAttribute;
-import com.source.project.repos.AttributeRep;
-import com.source.project.repos.ObjectsRep;
-import com.source.project.repos.TypeAttributeRep;
-import com.source.project.repos.TypeRep;
 import com.source.project.service.AttributeService;
 import com.source.project.service.TypeAttributeService;
 import com.source.project.service.TypeService;

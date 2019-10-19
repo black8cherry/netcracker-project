@@ -1,12 +1,12 @@
 package com.source.project.service;
 
-import com.source.project.domain.Message;
-import com.source.project.domain.Objects;
+import com.source.project.domain.resources.FilmMessages;
 
 import java.util.List;
 
 public interface MessageService {
-    List<Message> findByObjects(Objects objects);
-    void removeById(Integer id);
-    void save(Message message);
+    List<FilmMessages> getListMes(Integer parentId);
+    void save(String userId, Integer parentId, String message);
+    void delete(Integer objId);
+    //void init();
 }

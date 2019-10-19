@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface TypeService {
     Type findById(Integer id);
-    Type findByType(String type);
+    Type findByType(String typename);
     Iterable<Type> findAll();
-    void save(Type type);
-    void delete(Type type);
+    void save(Type typename);
+    void delete(Type typename);
 }

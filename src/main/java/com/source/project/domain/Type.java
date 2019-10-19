@@ -7,15 +7,16 @@ import java.util.Set;
 @Entity
 public class Type {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_gen")
+    @SequenceGenerator(name = "primary_gen", sequenceName = "primary_gen", allocationSize = 1)
     private Integer id;
 
-    private String type;
+    private String typename;
 
     public Type() {}
 
-    public Type(String type) {
-        this.type = type;
+    public Type(String typename) {
+        this.typename = typename;
     }
 
     public Integer getId() {
@@ -27,10 +28,10 @@ public class Type {
     }
 
     public String getType() {
-        return type;
+        return typename;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String typename) {
+        this.typename = typename;
     }
 }

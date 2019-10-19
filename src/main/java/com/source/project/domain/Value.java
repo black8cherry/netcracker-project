@@ -1,21 +1,17 @@
 package com.source.project.domain;
 
-import com.source.project.*;
 import javax.persistence.*;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Value {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_gen")
+    @SequenceGenerator(name = "primary_gen", sequenceName = "primary_gen", allocationSize = 1)
     private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "entity_id")
-    private Objects objects;
+    private ObjEntity objEntity;
 
     @ManyToOne
     @JoinColumn(name = "atr_id")
@@ -23,11 +19,10 @@ public class Value {
 
     private String value;
 
-
     public Value() {}
 
-    public Value(Objects objects, Attribute attributes, String value) {
-        this.objects = objects;
+    public Value(ObjEntity objEntity, Attribute attributes, String value) {
+        this.objEntity = objEntity;
         this.attributes = attributes;
         this.value = value;
     }
@@ -40,12 +35,12 @@ public class Value {
         this.id = id;
     }
 
-    public Objects getObjects() {
-        return objects;
+    public ObjEntity getObjEntity() {
+        return objEntity;
     }
 
-    public void setObjects(Objects objects) {
-        this.objects = objects;
+    public void setObjEntity(ObjEntity objEntity) {
+        this.objEntity = objEntity;
     }
 
     public Attribute getAttributes() {
