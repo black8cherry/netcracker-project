@@ -21,30 +21,9 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private TypeRep typeRep;
     @Autowired
-    private UserRep userRep;
-    @Autowired
     private AttributeRep attributeRep;
     @Autowired
-    private TypeAttributeRep typeAttributeRep;
-
-    /*@Override
-    public void init() {
-        if(typeRep.findByType("message")==null) {
-            Type initMes = new Type("message");
-
-            Attribute initUsr = attributeRep.findByLabel("userId"); // here
-            Attribute initRev = new Attribute("review");
-
-            TypeAttribute initUsrT = new TypeAttribute(initMes, initUsr);
-            TypeAttribute initRevT = new TypeAttribute(initMes, initRev);
-
-            typeRep.save(initMes);
-            attributeRep.save(initUsr);
-            attributeRep.save(initRev);
-            typeAttributeRep.save(initRevT);
-            typeAttributeRep.save(initUsrT);
-        }
-    }*/
+    private UserRep userRep;
 
     @Override
     public void save(String userId, Integer parentId, String message) {
@@ -91,6 +70,7 @@ public class MessageServiceImpl implements MessageService {
              ) {
             Integer objectId = obj.getId();
             String username = valueRep.findByAttributesAndObjEntity(usrId, obj).getValue();
+            username = userRep.findById(Integer.valueOf(username)).getUsername();
             String message = valueRep.findByAttributesAndObjEntity(review, obj).getValue();
             FilmMessages filmMes = new FilmMessages(objectId, username, message);
             filmMessagesList.add(filmMes);

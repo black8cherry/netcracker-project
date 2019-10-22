@@ -37,7 +37,7 @@ public class RegistrationController {
         if(userDB!=null)
             model.put("message","user exists");
         else {
-            user.setRole(Collections.singleton(Role.ADMIN));
+            user.setRole(Collections.singleton(Role.USER));
             userService.save(user);
             favoriteService.create(String.valueOf(user.getId()));
             return "redirect:/login";

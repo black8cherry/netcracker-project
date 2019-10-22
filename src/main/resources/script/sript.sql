@@ -28,6 +28,7 @@ create table role (
 
 create table type (
     id int4 not null,
+    parent_id int4,
     typename varchar(16),
     primary key (id)
 );
@@ -48,7 +49,7 @@ create table usr (
 
 create table value (
     id int4 not null,
-    value varchar(64),
+    value varchar(2048),
     atr_id int4,
     entity_id int4,
     primary key (id)
@@ -70,17 +71,61 @@ alter table if exists value add constraint val_att foreign key (atr_id) referenc
 
 alter table if exists value add constraint val_objects foreign key (entity_id) references obj_entity on delete cascade on update cascade;
 
-/* Sequence increment 50*/
+/* Sequence */
 
-create sequence public.primary_gen
-
+create sequence public.attribute_gen
     minvalue 1
     maxvalue 9223372036854775807
     no cycle
     start 1
     cache 1;
 
-alter table public.primary_gen owner to postgres;
+create sequence public.obj_entity_gen
+    minvalue 1
+    maxvalue 9223372036854775807
+    no cycle
+    start 1
+    cache 1;
+
+create sequence public.type_gen
+    minvalue 1
+    maxvalue 9223372036854775807
+    no cycle
+    start 1
+    cache 1;
+
+create sequence public.user_gen
+    minvalue 1
+    maxvalue 9223372036854775807
+    no cycle
+    start 1
+    cache 1;
+
+create sequence public.value_gen
+    minvalue 1
+    maxvalue 9223372036854775807
+    no cycle
+    start 1
+    cache 1;
+
+create sequence public.type_attribute_gen
+    minvalue 1
+    maxvalue 9223372036854775807
+    no cycle
+    start 1
+    cache 1;
+
+alter table public.attribute_gen owner to postgres;
+
+alter table public.obj_entity_gen owner to postgres;
+
+alter table public.type_gen owner to postgres;
+
+alter table public.user_gen owner to postgres;
+
+alter table public.value_gen owner to postgres;
+
+alter table public.type_attribute_gen owner to postgres;
 
 /* Attributes
  * userId     1
@@ -89,40 +134,45 @@ alter table public.primary_gen owner to postgres;
  * rate       4
  */
 
-insert into attribute(id, label) values ((select nextval('primary_gen')), 'userId');
+insert into attribute(id, label) values ((select nextval('attribute_gen')), 'userId');
 
-insert into attribute(id, label) values ((select nextval('primary_gen')), 'refToObject');
+insert into attribute(id, label) values ((select nextval('attribute_gen')), 'refToObject');
 
-insert into attribute(id, label) values ((select nextval('primary_gen')), 'review');
+insert into attribute(id, label) values ((select nextval('attribute_gen')), 'review');
 
-insert into attribute(id, label) values ((select nextval('primary_gen')), 'rate');
+insert into attribute(id, label) values ((select nextval('attribute_gen')), 'rate');
 
 /* Types
- * favorite     5
- * message      6
- * rating       7
+ * video        1
+ * favorite     2
+ * message      3
+ * rating       4
  */
 
-insert into type(id, typename) values ((select nextval('primary_gen')), 'favoriteList');
+insert into type(id, typename) values ((select nextval('type_gen')), 'video');
 
-insert into type(id, typename) values ((select nextval('primary_gen')), 'message');
+insert into type(id, typename) values ((select nextval('type_gen')), 'favoriteList');
 
-insert into type(id, typename) values ((select nextval('primary_gen')), 'rating');
+insert into type(id, typename) values ((select nextval('type_gen')), 'message');
+
+insert into type(id, typename) values ((select nextval('type_gen')), 'rating');
 
 /* Type-Attributes */
 
-insert into type_attribute(id, att_id, type_id) values ((select nextval('primary_gen')), 1, 5);
+insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 2);
 
-insert into type_attribute(id, att_id, type_id) values ((select nextval('primary_gen')), 2, 5);
+insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 2, 2);
 
-insert into type_attribute(id, att_id, type_id) values ((select nextval('primary_gen')), 1, 6);
+insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 3);
 
-insert into type_attribute(id, att_id, type_id) values ((select nextval('primary_gen')), 3, 6);
+insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 3, 3);
 
-insert into type_attribute(id, att_id, type_id) values ((select nextval('primary_gen')), 1, 7);
+insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 4);
 
-insert into type_attribute(id, att_id, type_id) values ((select nextval('primary_gen')), 4, 7);
+insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 4, 4);
 
 /* Administartor */
 
-insert into usr(id, password, username) values ((select nextval('primary_gen')), 'root', 'root');
+insert into usr(id, password, username) values ((select nextval('user_gen')), 'root', 'root');
+
+insert into role(user_id, role) values (1, 'ADMIN');

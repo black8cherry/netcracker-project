@@ -61,14 +61,14 @@ public class AttributeController {
             @PathVariable("type") String type,
             Model model
     ) {
-        List<TypeAttribute> attributes = typeAttributeService.findByType(typeService.findByType(type));
+        List<TypeAttribute> attributes = typeAttributeService.findByType(typeService.findByTypename(type));
         List<Attribute> attributesAll = attributeService.findAll();
         List<Attribute> attributesNotInObj = new ArrayList<Attribute>();
 
         try {
             for (Attribute att : attributesAll
             ) {
-                if (typeAttributeService.findByAttributeAndType(att, typeService.findByType(type)) == null) {
+                if (typeAttributeService.findByAttributeAndType(att, typeService.findByTypename(type)) == null) {
 
                     attributesNotInObj.add(att);
                 }
@@ -77,7 +77,7 @@ public class AttributeController {
 
         model.addAttribute("attributes", attributes);
         model.addAttribute("mAttributes", attributesNotInObj);
-        model.addAttribute("type", typeService.findByType(type).getType());
+        model.addAttribute("type", typeService.findByTypename(type).getTypename());
 
         return "editObjAttribute";
     }
@@ -93,9 +93,9 @@ public class AttributeController {
         try {
             if (typeAttributeService.findByAttributeAndType(
                     attributeService.findByLabel(label),
-                    typeService.findByType(type)) == null) {
+                    typeService.findByTypename(type)) == null) {
                 typeAttributeService.save(new TypeAttribute(
-                        typeService.findByType(type),
+                        typeService.findByTypename(type),
                         attributeService.findByLabel(label)));
             }
         } catch (NullPointerException e) {}
@@ -129,7 +129,7 @@ public class AttributeController {
     ) {
         typeAttributeService.removeByAttributeAndType(
                 attributeService.findByLabel(label),
-                typeService.findByType(type));
+                typeService.findByTypename(type));
         return "redirect:/editObjectAttributes/{type}";
     }
 

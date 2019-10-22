@@ -27,32 +27,12 @@ public class ValueServiceImpl implements ValueService {
     }
 
     @Override
-    public Value findByAttributesAndValue(Attribute attribute, String value) {
-        return valueRep.findByAttributesAndValue(attribute, value);
-    }
-
-    @Override
     public void save(Value value) {
         valueRep.save(value);
     }
 
     @Override
-    public void removeById(Integer id) {
-        valueRep.removeById(id);
-    }
-
-    @Override
     public void findById(Integer id) {
         valueRep.removeById(id);
-    }
-
-    @Override
-    public void removeByObjects(ObjEntity movie) {
-        valueRep.findByObjEntity(movie);
-    }
-
-    @Override
-    public List<Value> findByObjectsAndAttributes(ObjEntity movie, Attribute attribute) {
-        return valueRep.findByObjEntityAndAttributes(movie, attribute);
     }
 }

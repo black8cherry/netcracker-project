@@ -1,7 +1,6 @@
 package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
-import com.source.project.domain.ObjEntity;
 import com.source.project.repos.*;
 import com.source.project.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +23,6 @@ public class RatingServiceImpl implements RatingService {
     private TypeAttributeRep typeAttributeRep;
     @Autowired
     private AttributeRep attributeRep;
-
-    /*@Override
-    public void init() {
-        Type initFav = new Type("rating");
-
-        Attribute initUsr = attributeRep.findByLabel("userId");
-        Attribute initRef = new Attribute("rate");
-
-        TypeAttribute initUsrT = new TypeAttribute(initFav, initUsr);
-        TypeAttribute initRefT = new TypeAttribute(initFav, initRef);
-
-        typeRep.save(initFav);
-        attributeRep.save(initUsr);
-        attributeRep.save(initRef);
-        typeAttributeRep.save(initRefT);
-        typeAttributeRep.save(initUsrT);
-    }*/
 
     @Override
     public void save(String userId, Integer parentId, Float value) {
@@ -93,7 +75,7 @@ public class RatingServiceImpl implements RatingService {
         );
         for (ObjEntity obj: rateL
              ) {
-            result += Float.parseFloat(valueRep.findByObjEntity(obj).getValue());
+            result += Float.parseFloat(valueRep.findByAttributesAndObjEntity(attributeRep.findByLabel("rate"), obj).getValue());
         }
 
         String res = "0";
@@ -108,7 +90,19 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public boolean findByObjectsAndUser(ObjEntity movie, User userAcc) {
-        return false;
+    public boolean findByObjectsAndUser(Integer objId, String userId) {
+        boolean check = false;
+        List<ObjEntity> rateL = objEntityRep.findByTypeAndParentId(
+                typeRep.findByTypename("rating"),
+                objId
+        );
+        System.out.println("obj = " + rateL);
+        if (valueRep.getValueByObjEntityInAndValueAndAttributes(
+                rateL,
+                userId,
+                attributeRep.findByLabel("userId")).isPresent()) {
+            check = true;
+        }
+        return check;
     }
 }

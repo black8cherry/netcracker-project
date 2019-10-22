@@ -1,7 +1,5 @@
 package com.source.project.controllers;
 
-import com.source.project.domain.Type;
-import com.source.project.repos.TypeRep;
 import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +13,7 @@ import javax.transaction.Transactional;
 
 @Transactional
 @Controller
-public class MovieTypeController {
+public class ObjectEntityTypeController {
 
     @Autowired
     private TypeService typeService;
@@ -24,16 +22,23 @@ public class MovieTypeController {
     public String objTypeGet(
             Model model
     ) {
+        model.addAttribute("types", typeService.findByParentIdIsNull());
         model.addAttribute("objType", typeService.findAll());
         return "objType";
     }
 
     @PostMapping("/objType")
     public String objTypePost(
-            @RequestParam String type
+            @RequestParam String typename,
+            @RequestParam(required=false) Integer parentId
     ) {
-        if (typeService.findByType(type) == null) {
-            typeService.save(new Type(type));
+
+        if (typename != null && !typename.isEmpty()) {
+            if(parentId!=null) {
+                typeService.save(parentId, typename);
+            } else {
+                typeService.save(typename);
+            }
         }
         return "redirect:/objType";
     }

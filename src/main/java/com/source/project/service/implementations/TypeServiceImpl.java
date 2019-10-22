@@ -6,6 +6,9 @@ import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
+
 @Service
 public class TypeServiceImpl implements TypeService {
 
@@ -18,7 +21,7 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Type findByType(String typename) {
+    public Type findByTypename(String typename) {
         return typeRep.findByTypename(typename);
     }
 
@@ -28,12 +31,29 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public void save(Type type) {
+    public void save(String typename) {
+        Type type = new Type(typename);
         typeRep.save(type);
+    }
+
+    @Override
+    public void save(Integer parentId, String typename) {
+        Type type = new Type(parentId, typename);
+        typeRep.save(type);
+    }
+
+    @Override
+    public List<Type> findByParentIdIsNull() {
+        return typeRep.findByParentIdIsNull();
     }
 
     @Override
     public void delete(Type type) {
         typeRep.delete(type);
+    }
+
+    @Override
+    public Collection<Type> findByParentId(Integer id) {
+        return typeRep.findByParentId(id);
     }
 }

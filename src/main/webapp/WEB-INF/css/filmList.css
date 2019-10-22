@@ -4,12 +4,19 @@ fieldset, label { margin: 0; padding: 0; color: aliceblue; }
 body{ margin: 20px; background-color: #151515;}
 h1 { font-size: 1.5em; margin: 10px; }
 h3 { color: aliceblue; }
+h5 { color: aliceblue; }
 span { color: aliceblue }
+nav { background-color: #151515}
 /****** Style Star Rating Widget *****/
 
 .rating {
     border: none;
     float: left;
+}
+
+.mes {
+    background-color: cadetblue;
+    border-radius: 10px;
 }
 
 .rating > input { display: none; }

@@ -1,7 +1,5 @@
 package com.source.project.controllers;
 
-import com.source.project.domain.ObjEntity;
-import com.source.project.service.MessageService;
 import com.source.project.service.ObjEntityService;
 import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 @Controller
 @PreAuthorize("hasAuthority('ADMIN')")
@@ -36,7 +32,7 @@ public class AddController {
     ) {
 
         model.addAttribute("types", typeService.findAll());
-        model.addAttribute("objEntity", objEntityService.findAll());
+        model.addAttribute("movie", objEntityService.findAllByFilenameNotNull());
         return "addFilm";
     }
 
@@ -48,24 +44,7 @@ public class AddController {
     ) throws IOException {
 
         if (name != null && type != null) {
-            ObjEntity objEntity = new ObjEntity(name, typeService.findByType(type));
-            if (file.getSize() != 0) {
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-
-                String uuidFile = UUID.randomUUID().toString();
-                String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
-                file.transferTo(new File(uploadPath + "/" + resultFilename));
-
-                objEntity.setFilename(resultFilename);
-            } else {
-                objEntity.setFilename("no-image.jpg");
-            }
-
-            objEntityService.save(objEntity);
+            objEntityService.save(name, type, file, uploadPath);
         }
         return "redirect:/addFilm";
     }

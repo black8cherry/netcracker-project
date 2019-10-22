@@ -15,16 +15,22 @@
         </form>
 
         <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/objType" method="post">
+            <p><select style="background-color: #151515"  size="5" multiple name="parentId">
+                <option disabled>Choose type</option>
+                <c:forEach items="${types}" var="type">
+                    <option style="color: aliceblue" value="${type.getId()}">${type.getTypename()}</option>
+                </c:forEach>
+            </select></p>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input class="form-control mt-4 mr-sm-2" type="text" name="type"/>
-            <button class="btn btn-success mt-4 ml-4" type="submit">Add movie type</button>
+            <input class="form-control mt-4 mr-sm-2" type="text" name="typename"/>
+            <button class="btn btn-success mt-4 ml-4" type="submit">Add type</button>
         </form>
 
         <h3 >Object types</h3>
         <table class="mt-2 ml-5">
             <c:forEach items="${objType}" var="objT">
                 <tr>
-                    <td><span>${objT.getType()}</span></td>
+                    <td><span>${objT.getTypename()}</span></td>
                     <td><a href="${pageContext.request.contextPath}/delObjType/${objT.id}">Delete</a> </td>
                 </tr>
             </c:forEach>

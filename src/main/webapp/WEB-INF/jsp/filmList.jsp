@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
-<body >
+<body style="background-color: #151515;">
 
 <div class="container">
 
-    <div class="row">
+    <div class="row bar">
 
         <div class="col">
             <h3>NetFilms</h3>
@@ -81,29 +81,29 @@
             <table class="mt-4">
                 <c:forEach items="${fl}" var="fl">
                 <tr>
-                    <td>${fl.label} : </td>
-                    <td>${fl.value}</td>
+                    <td><span>${fl.label} : </span></td>
+                    <td><span>${fl.value}</span></td>
                 </tr>
                 </c:forEach>
             </table>
             <br/>
-            Rate of this movie :
+            <span>Rate of this movie :</span>
             <c:if test="${rate == '0'}">
-                No one has rated this movie yet
+                <span>No one has rated this movie yet</span>
             </c:if>
             <c:if test="${rate != '0'}">
-                ${rate}
+                <span>${rate}</span>
             </c:if>
             <br/>
 
             <c:if test="${checkUser==true}">
 
                 <c:if test="${checkRate==true}">
-                    You can rate this movie again
+                    <span>You can rate this movie again</span>
                 </c:if>
 
                 <c:if test="${checkRate==false}">
-                    Rate the movie
+                    <span>Rate the movie</span>
                 </c:if>
                 <br/>
                 <form action="/rate/${movie.id}/${userAcc.id}">
@@ -161,17 +161,19 @@
             </c:if>
 
             <c:forEach items="${usrMes}" var="mes">
+                <div class="mes mx-auto" style="width: 600px">
                 <tr>
-                    <td>${mes.getUsername()} : </td>
-                    <td>${mes.getMessage()}</td> <hr>
+                    <td><span class="ml-2">${mes.getUsername()} : </span></td>
+                    <td><span class="ml-2">${mes.getMessage()} </span></td> <br/>
                     <c:if test="${userAcc.username==mes.username || role=='[ADMIN]'}">
                         <td>
                             <form action="/deleteMessage/${movie.id}/${mes.getIdo()}">
-                                <button class="btn btn-dark" type="submit">delete</button>
+                                <button class="mt-2 mb-1 ml-1 btn btn-dark" style="border-radius: 10px" type="submit">delete</button>
                             </form>
                         </td>
                     </c:if>
                 </tr>
+                </div>
             </c:forEach>
         </div>
     </div>

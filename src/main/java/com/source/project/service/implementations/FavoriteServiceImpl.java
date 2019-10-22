@@ -20,32 +20,11 @@ public class FavoriteServiceImpl implements FavoriteService {
     private TypeRep typeRep;
     @Autowired
     private AttributeRep attributeRep;
-    @Autowired
-    private TypeAttributeRep typeAttributeRep;
-
-    /*@Override
-    public void init() {
-        if (typeRep.findByType("favoriteList") == null) {
-            Type initFav = new Type("favoriteList");
-
-            Attribute initUsr = new Attribute("userId");
-            Attribute initRef = new Attribute("refToObject");
-
-            TypeAttribute initUsrT = new TypeAttribute(initFav, initUsr);
-            TypeAttribute initRefT = new TypeAttribute(initFav, initRef);
-
-            typeRep.save(initFav);
-            attributeRep.save(initUsr);
-            attributeRep.save(initRef);
-            typeAttributeRep.save(initRefT);
-            typeAttributeRep.save(initUsrT);
-            }
-    }*/
 
     @Override
     public void save(String userId, String objectId) {
 
-        Type favType = typeRep.findByTypename("favoriteList");
+        Type favType = typeRep.findByTypename("favorite");
         Attribute attUserId = attributeRep.findByLabel("userId");
         Attribute attRefToObj = attributeRep.findByLabel("refToObject");
         Collection<ObjEntity> movies = objEntityRep.findByType(favType);
@@ -65,7 +44,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public void delete(String userId, String objectId) {
 
-        Type favType = typeRep.findByTypename("favoriteList");
+        Type favType = typeRep.findByTypename("favorite");
         Attribute attUserId = attributeRep.findByLabel("userId");
         Attribute attRefToObj = attributeRep.findByLabel("refToObject");
         Collection<ObjEntity> movies = objEntityRep.findByType(favType);
@@ -78,7 +57,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     public boolean check(String userId, String movieId) {
         boolean checkObjEntity = false;
 
-        Type favType = typeRep.findByTypename("favoriteList");
+        Type favType = typeRep.findByTypename("favorite");
         Attribute attUserId = attributeRep.findByLabel("userId");
         Attribute attRefToObj = attributeRep.findByLabel("refToObject");
         Collection<ObjEntity> movies = objEntityRep.findByType(favType);
@@ -93,7 +72,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void create(String userId) {
-        Type favType = typeRep.findByTypename("favoriteList");
+        Type favType = typeRep.findByTypename("favorite");
         Attribute attUserId = attributeRep.findByLabel("userId");
 
         ObjEntity savingObjEntity = new ObjEntity(favType);

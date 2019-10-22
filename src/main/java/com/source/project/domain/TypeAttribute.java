@@ -5,8 +5,8 @@ import javax.persistence.*;
 @Entity
 public class TypeAttribute {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_gen")
-    @SequenceGenerator(name = "primary_gen", sequenceName = "primary_gen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_attribute_gen")
+    @SequenceGenerator(name = "type_attribute_gen", sequenceName = "type_attribute_gen", allocationSize = 1)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)

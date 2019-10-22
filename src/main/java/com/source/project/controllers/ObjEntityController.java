@@ -56,13 +56,10 @@ public class ObjEntityController { // entity!
             String role = userAcc.getRole().toString();
             checkUser = true;
 
-            model.addAttribute("checkRate", ratingService.findByObjectsAndUser(objEntity, userAcc));
+            model.addAttribute("checkRate", ratingService.findByObjectsAndUser(id, String.valueOf(userAcc.getId())));
             model.addAttribute("userAcc", userAcc);
             model.addAttribute("role", role);
-
-            model.addAttribute("checkFilm", favoriteService.check(
-                    String.valueOf(userAcc.getId()),
-                    String.valueOf(id)));
+            model.addAttribute("checkFilm", favoriteService.check(String.valueOf(userAcc.getId()), String.valueOf(id)));
         }
 
         //========== Attribute List =========================================
@@ -92,7 +89,7 @@ public class ObjEntityController { // entity!
         //=====================================================================
 
         model.addAttribute("checkUser", checkUser);
-        model.addAttribute("objEntity", objEntity);
+        model.addAttribute("movie", objEntity);
         model.addAttribute("fl", filmList);
         return "filmList";
     }
@@ -115,40 +112,7 @@ public class ObjEntityController { // entity!
             @RequestParam List<String> value,
             @RequestParam("objectId") String id
     ) {
-        ObjEntity objEntity = objEntityService.findById(Integer.valueOf(id));
-        List<Value> values = valueService.findAllByObjects(objEntity);
-        List<TypeAttribute> typeAttributes = typeAttributeService.findByTypeOrderByAttribute(objEntity.getType());
-        //=============================================
-        List<FilmList> filmL = new ArrayList<FilmList>();
-        for(int i = 0; i < label.size(); i++) {
-            filmL.add(new FilmList(label.get(i), value.get(i)));
-        }
-
-        if(!values.isEmpty()){
-            objEntity.setName(objectName);
-            for (FilmList tmp: filmL
-            ) {
-                Value vall = valueService.findByAttributesAndObjects(
-                        attributeService.findByLabel(tmp.getLabel()),
-                        objEntity);
-                vall.setValue(tmp.getValue());
-                valueService.save(vall);
-            }
-        }
-        else {
-            objEntity.setName(objectName);
-            for (FilmList tmp: filmL
-            ) {
-                values.add(new Value(objEntity, attributeService.findByLabel(tmp.getLabel()) , tmp.getValue()));
-            }
-            for (Value v: values
-            ) {
-                valueService.save(v);
-            }
-        }
-        objEntityService.save(objEntity);
-
-
+        objEntityService.edit(objectName, label, value, id);
         return "redirect:/main/{id}";
     }
 
@@ -159,22 +123,8 @@ public class ObjEntityController { // entity!
             Model model
     ) {
         ObjEntity objEntity = objEntityService.findById(Integer.valueOf(id));
-        //List<Value> values = valueRep.findAllByObjects(objects);
-        List<TypeAttribute> typeAttributes = typeAttributeService.findByTypeOrderByAttribute(objEntity.getType());
-        List<FilmList> filmList = new ArrayList<FilmList>();
 
-        for (TypeAttribute tp: typeAttributes
-        ) {
-            String value;
-            if(valueService.findByAttributesAndObjects(tp.getAttribute(), objEntity) == null) {
-                value = " ";
-            }
-            else {
-                value = valueService.findByAttributesAndObjects(tp.getAttribute(), objEntity).getValue();
-            }
-            filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
-        }
-
+        List<FilmList> filmList = objEntityService.showAttributes(objEntity);
 
         model.addAttribute("objects", objEntity);
         model.addAttribute("fl", filmList);
@@ -221,8 +171,10 @@ public class ObjEntityController { // entity!
             @RequestParam(required=false) Float rating
     ) {
         if(rating!=null) {
-            if(objEntityService.findByNameAndParentIdAndType(idu, ido, typeService.findByType("rating"))==null){
-
+            if(!ratingService.findByObjectsAndUser(ido, idu)) {
+                ratingService.save(idu, ido, rating);
+            } else {
+                ratingService.rerate(idu, ido, rating);
             }
         }
         return "redirect:/main/{ido}";

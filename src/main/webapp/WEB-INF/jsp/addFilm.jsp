@@ -22,7 +22,7 @@
             <p><select style="background-color: #151515"  size="5" multiple name="type">
                 <option disabled>Choose movie type</option>
                 <c:forEach items="${types}" var="type">
-                    <option style="color: aliceblue" value="${type.getType()}">${type.getType()}</option>
+                    <option style="color: aliceblue" value="${type.getTypename()}">${type.getTypename()}</option>
                 </c:forEach>
             </select></p>
 
@@ -56,7 +56,7 @@
                             <p class="card-text">
                                 <span>Id : ${movie.id}</span><hr>
                                 <span>Name : ${movie.name}</span><hr>
-                                <span>Type : ${movie.type.type}</span>
+                                <span>Type : ${movie.type.typename}</span>
                             </p>
                         </div>
                     </div>

@@ -23,8 +23,8 @@
         <div class="col">
 
             <c:forEach items="${types}" var="type">
-                <form action="/editObjectAttributes/${type.getType()}">
-                    <button class="btn btn-dark mt-4 " type="submit" >Edit ${type.getType()} attributes</button>
+                <form action="/editObjectAttributes/${type.getTypename()}">
+                    <button class="btn btn-dark mt-4 " type="submit" >Edit ${type.getTypename()} attributes</button>
                 </form>
             </c:forEach>
 
@@ -53,7 +53,7 @@
     <c:forEach items="${typeAttributes}" var="typeAtt">
         <div class="row">
             <div class="col-md-2">
-                <span>${typeAtt.type.getType()}</span>
+                <span>${typeAtt.type.getTypename()}</span>
             </div>
             <div class="col-md-2">
                 <span>${typeAtt.attribute.getLabel()}</span>

@@ -5,8 +5,8 @@ import javax.persistence.*;
 @Entity
 public class ObjEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_gen")
-    @SequenceGenerator(name = "primary_gen", sequenceName = "primary_gen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "obj_entity_gen")
+    @SequenceGenerator(name = "obj_entity_gen", sequenceName = "obj_entity_gen", allocationSize = 1)
     private Integer id;
 
     private String name;
