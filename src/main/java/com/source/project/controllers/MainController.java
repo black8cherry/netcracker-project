@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
+@Transactional
 @Controller
 @RequestMapping(value = {"/main"})
 public class MainController {
@@ -42,7 +44,7 @@ public class MainController {
             @RequestParam(required=false) String filter,
             Model model
     ) {
-        Collection<Type> typeCollection = typeRep.findByParentId(1); // 1 - video
+        Collection<Type> typeCollection = typeRep.findAllByParentId(1); // 1 - video
         List<ObjEntity> movies;
 
         if (filter != null && !filter.isEmpty()) {

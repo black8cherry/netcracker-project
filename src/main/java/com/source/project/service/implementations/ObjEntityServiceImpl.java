@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+
 @Service
 public class ObjEntityServiceImpl implements ObjEntityService {
 
@@ -80,10 +81,10 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     }
 
     @Override
-    public void edit(String objectName, List<String> label, List<String> value, String id) {
-        ObjEntity objEntity = objEntityRep.findById(Integer.valueOf(id));
+    public void edit(String objectName, List<String> label, List<String> value, Integer id) {
+        ObjEntity objEntity = objEntityRep.findById(id);
         List<Value> values = valueRep.findAllByObjEntity(objEntity);
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(objEntity.getType());
+        // List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(objEntity.getType());
 
         List<FilmList> filmL = new ArrayList<FilmList>();
         for(int i = 0; i < label.size(); i++) {
@@ -117,9 +118,10 @@ public class ObjEntityServiceImpl implements ObjEntityService {
 
     @Override
     public List<FilmList> showAttributes(ObjEntity objEntity) {
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(objEntity.getType());
+        Type childType = objEntity.getType();
+        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(childType);
         List<FilmList> filmList = new ArrayList<FilmList>();
-
+        System.out.println("NAME =" + childType.getTypename());
         for (TypeAttribute tp: typeAttributes
         ) {
             String value;
@@ -130,6 +132,22 @@ public class ObjEntityServiceImpl implements ObjEntityService {
                 value = valueRep.findByAttributesAndObjEntity(tp.getAttribute(), objEntity).getValue();
             }
             filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
+        }
+        if (childType.getParentId()!=null) {
+            Type parentType = typeRep.findById(childType.getParentId());
+            System.out.println("NAME =" + parentType.getTypename());
+            List<TypeAttribute> typeAttributesParent = typeAttributeRep.findByTypeOrderByAttribute(parentType);
+            for (TypeAttribute typPar: typeAttributesParent
+            ) {
+                String value;
+                if(valueRep.findByAttributesAndObjEntity(typPar.getAttribute(), objEntity) == null) {
+                    value = " ";
+                }
+                else {
+                    value = valueRep.findByAttributesAndObjEntity(typPar.getAttribute(), objEntity).getValue();
+                }
+                filmList.add(new FilmList(typPar.getAttribute().getLabel(), value));
+            }
         }
 
         return filmList;

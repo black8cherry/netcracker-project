@@ -11,7 +11,8 @@ import java.util.List;
 public interface TypeRep extends CrudRepository<Type, Long> {
     Type findById(Integer id);
     Type findByTypename(String typename);
-    Type findAllByParentId(Integer parentId);
+    Type findByParentId(Integer parentId);
     List<Type> findByParentIdIsNull();
-    Collection<Type> findByParentId(Integer id);
+    List<Type> findByParentIdIsNotNull();
+    List<Type> findAllByParentId(Integer id);
 }

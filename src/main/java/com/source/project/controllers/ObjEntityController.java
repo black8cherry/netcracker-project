@@ -64,19 +64,7 @@ public class ObjEntityController { // entity!
 
         //========== Attribute List =========================================
 
-        List<TypeAttribute> typeAttributes = typeAttributeService.findByTypeOrderByAttribute(objEntity.getType());
-        List<FilmList> filmList = new ArrayList<FilmList>();
-        for (TypeAttribute tp: typeAttributes
-        ) {
-            String value;
-            if(valueService.findByAttributesAndObjects(tp.getAttribute(), objEntity) == null) {
-                value = " ";
-            }
-            else {
-                value = valueService.findByAttributesAndObjects(tp.getAttribute(), objEntity).getValue();
-            }
-            filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
-        }
+        List<FilmList> filmList =  objEntityService.showAttributes(objEntity);
 
         //============ Messages ========================================
 
@@ -110,7 +98,7 @@ public class ObjEntityController { // entity!
             @RequestParam String objectName,
             @RequestParam List<String> label,
             @RequestParam List<String> value,
-            @RequestParam("objectId") String id
+            @RequestParam("objectId") Integer id
     ) {
         objEntityService.edit(objectName, label, value, id);
         return "redirect:/main/{id}";

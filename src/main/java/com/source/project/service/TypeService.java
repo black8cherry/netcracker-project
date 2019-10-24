@@ -9,9 +9,10 @@ public interface TypeService {
     Type findById(Integer id);
     Type findByTypename(String typename);
     Iterable<Type> findAll();
-    Collection<Type> findByParentId(Integer id);
+    List<Type> findAllByParentId(Integer id);
     void save(Integer parentId, String typename);
     void save(String typename);
     List<Type> findByParentIdIsNull();
+    List<Type> findByParentIdIsNotNull();
     void delete(Type typename);
 }

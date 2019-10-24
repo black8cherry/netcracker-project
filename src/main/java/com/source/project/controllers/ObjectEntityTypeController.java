@@ -22,6 +22,8 @@ public class ObjectEntityTypeController {
     public String objTypeGet(
             Model model
     ) {
+        model.addAttribute("parentType", typeService.findByParentIdIsNull());
+        model.addAttribute("childType", typeService.findByParentIdIsNotNull());
         model.addAttribute("types", typeService.findByParentIdIsNull());
         model.addAttribute("objType", typeService.findAll());
         return "objType";

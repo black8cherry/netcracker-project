@@ -12,8 +12,8 @@
 <div class="container">
     <div class="mx-auto mt-5">
         <form class="mt-5" action="${pageContext.request.contextPath}/main/${id}/edit" method="post" modelAttribute="fl">
-            <input class="mb-2" type="text" name="objectName" value="${movie.name}"/>
-            <input class="mb-2" type="text" name="objectId" value="${movie.id}"/>
+            <input class="mb-2" type="text" name="objectName" value="${objects.name}"/>
+            <input class="mb-2" type="text" name="objectId" value="${objects.id}"/>
             <br>
             <c:forEach items="${fl}" var="fl">
                 ${fl.label}

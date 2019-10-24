@@ -21,7 +21,7 @@ public interface ObjEntityService {
     List<ObjEntity> findAllByFilenameNotNull(Sort sort);
     void save(String name, String type, MultipartFile file, String uploadPath) throws IOException;
     void removeById(Integer id);
-    void edit(String objectName, List<String> label, List<String> value, String id);
+    void edit(String objectName, List<String> label, List<String> value, Integer id);
     List<FilmList> showAttributes(ObjEntity objEntity);
 
 }
