@@ -23,6 +23,9 @@ public interface ObjEntityRep extends
     List<ObjEntity> getObjEntitiesByTypeInOrderByName(Collection<Type> type);
     List<ObjEntity> findAllByFilenameNotNull();
     List<ObjEntity> findAllByFilenameNotNull(Sort sort);
+    List<ObjEntity> findAllByNameLike(String filter);
+    List<ObjEntity> getAllByNameIsLike(String filter);
+    List<ObjEntity> getObjEntitiesById(Collection<Integer> id);
     ObjEntity findById(Integer id);
     ObjEntity findByIdAndType(Integer id, Type type);
     ObjEntity findByNameAndParentIdAndType(String uid, Integer id, Type type);

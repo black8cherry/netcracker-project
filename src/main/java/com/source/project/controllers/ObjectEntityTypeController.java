@@ -24,7 +24,7 @@ public class ObjectEntityTypeController {
     ) {
         model.addAttribute("parentType", typeService.findByParentIdIsNull());
         model.addAttribute("childType", typeService.findByParentIdIsNotNull());
-        model.addAttribute("types", typeService.findByParentIdIsNull());
+        model.addAttribute("types", typeService.findAll());
         model.addAttribute("objType", typeService.findAll());
         return "objType";
     }

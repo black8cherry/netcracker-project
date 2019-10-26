@@ -22,11 +22,10 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public String userList(
-            @PathVariable("id") Long id,
+            @PathVariable("id") String id,
             Model model
     ) {
-
-        model.addAttribute("fav", null);
+        model.addAttribute("fav", favoriteService.get(id));
         model.addAttribute("user", userService.getUser());
         return "userList";
     }

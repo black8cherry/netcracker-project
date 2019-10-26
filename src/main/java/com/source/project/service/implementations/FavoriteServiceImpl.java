@@ -7,7 +7,9 @@ import com.source.project.service.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class FavoriteServiceImpl implements FavoriteService {
@@ -80,5 +82,25 @@ public class FavoriteServiceImpl implements FavoriteService {
 
         Value savingValueUser = new Value(obj, attUserId, userId);
         valueRep.save(savingValueUser);
+    }
+
+    @Override
+    public List<ObjEntity> get(String userId) {
+        List<ObjEntity> favList = new ArrayList<ObjEntity>();
+
+        Type favType = typeRep.findByTypename("favorite");
+        Attribute attRefToObj = attributeRep.findByLabel("refToObject");
+        Attribute attUserId = attributeRep.findByLabel("userId");
+
+        Collection<ObjEntity> movies = objEntityRep.findByType(favType);
+        if(valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).isPresent()) {
+            ObjEntity objFav = valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).get().getObjEntity();
+            List<Value> valRef = valueRep.findByObjEntityAndAttributes(objFav, attRefToObj);
+            for (Value val: valRef
+                 ) {
+                favList.add(objEntityRep.findById(Integer.valueOf(val.getValue())));
+            }
+        }
+        return favList;
     }
 }

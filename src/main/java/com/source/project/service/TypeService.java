@@ -1,6 +1,7 @@
 package com.source.project.service;
 
 import com.source.project.domain.Type;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,4 +16,5 @@ public interface TypeService {
     List<Type> findByParentIdIsNull();
     List<Type> findByParentIdIsNotNull();
     void delete(Type typename);
+    List<Type> findTree(@Param("childId") Integer childId);
 }

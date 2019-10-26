@@ -118,39 +118,36 @@ public class ObjEntityServiceImpl implements ObjEntityService {
 
     @Override
     public List<FilmList> showAttributes(ObjEntity objEntity) {
-        Type childType = objEntity.getType();
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(childType);
+        Integer childId = objEntity.getType().getId();
         List<FilmList> filmList = new ArrayList<FilmList>();
-        System.out.println("NAME =" + childType.getTypename());
-        for (TypeAttribute tp: typeAttributes
-        ) {
-            String value;
-            if(valueRep.findByAttributesAndObjEntity(tp.getAttribute(), objEntity) == null) {
-                value = " ";
-            }
-            else {
-                value = valueRep.findByAttributesAndObjEntity(tp.getAttribute(), objEntity).getValue();
-            }
-            filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
-        }
-        if (childType.getParentId()!=null) {
-            Type parentType = typeRep.findById(childType.getParentId());
-            System.out.println("NAME =" + parentType.getTypename());
-            List<TypeAttribute> typeAttributesParent = typeAttributeRep.findByTypeOrderByAttribute(parentType);
-            for (TypeAttribute typPar: typeAttributesParent
+
+        List<Type> typeList = typeRep.findTree(childId);
+        for (Type type: typeList
+             ) {
+            List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(type);
+            for (TypeAttribute tp: typeAttributes
             ) {
                 String value;
-                if(valueRep.findByAttributesAndObjEntity(typPar.getAttribute(), objEntity) == null) {
+                if(valueRep.findByAttributesAndObjEntity(tp.getAttribute(), objEntity) == null) {
                     value = " ";
                 }
                 else {
-                    value = valueRep.findByAttributesAndObjEntity(typPar.getAttribute(), objEntity).getValue();
+                    value = valueRep.findByAttributesAndObjEntity(tp.getAttribute(), objEntity).getValue();
                 }
-                filmList.add(new FilmList(typPar.getAttribute().getLabel(), value));
+                filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
             }
         }
-
         return filmList;
+    }
+
+    @Override
+    public List<ObjEntity> findAllByNameLike(String filter) {
+        return objEntityRep.findAllByNameLike(filter);
+    }
+
+    @Override
+    public List<ObjEntity> getAllByNameIsLike(String filter) {
+        return objEntityRep.getAllByNameIsLike(filter);
     }
 
     @Override

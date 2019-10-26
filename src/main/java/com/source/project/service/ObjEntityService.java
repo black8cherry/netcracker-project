@@ -19,6 +19,8 @@ public interface ObjEntityService {
     List<ObjEntity> findAll(Sort sort);
     List<ObjEntity> findAllByFilenameNotNull();
     List<ObjEntity> findAllByFilenameNotNull(Sort sort);
+    List<ObjEntity> findAllByNameLike(String filter);
+    List<ObjEntity> getAllByNameIsLike(String filter);
     void save(String name, String type, MultipartFile file, String uploadPath) throws IOException;
     void removeById(Integer id);
     void edit(String objectName, List<String> label, List<String> value, Integer id);

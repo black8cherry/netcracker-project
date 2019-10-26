@@ -5,6 +5,7 @@ import com.source.project.domain.Type;
 import com.source.project.domain.User;
 import com.source.project.repos.TypeRep;
 import com.source.project.service.ObjEntityService;
+import com.source.project.service.TypeService;
 import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -32,7 +33,7 @@ public class MainController {
     @Autowired
     private UserService userService;
     @Autowired
-    private TypeRep typeRep;
+    private TypeService typeService;
 
     @GetMapping("/administratorPanel")
     public String administratorPanel() {
@@ -44,31 +45,29 @@ public class MainController {
             @RequestParam(required=false) String filter,
             Model model
     ) {
-        Collection<Type> typeCollection = typeRep.findAllByParentId(1); // 1 - video
+        Collection<Type> typeCollection = typeService.findAllByParentId(1); // 1 - video
         List<ObjEntity> movies;
 
         if (filter != null && !filter.isEmpty()) {
-            movies = objEntityService.findByNameOrderByName(filter); // +collection
+            movies = objEntityService.getAllByNameIsLike(filter); // +collection
         } else {
             movies = objEntityService.getObjEntitiesByTypeInOrderByName(typeCollection);
         }
 
-        Boolean checkUser = false;
         //============================================================================
-        SecurityContext context = SecurityContextHolder.getContext();
-        if(context != null) {
-            Authentication authentication = context.getAuthentication();
-            if(!(authentication instanceof AnonymousAuthenticationToken)) {
-                User user = (User) authentication.getPrincipal();
-                String role = user.getRole().toString();
-                checkUser = true;
-                model.addAttribute("role", role);
-                User userAcc = userService.findByUsername(authentication.getName());
-                model.addAttribute("userAcc", userAcc);
-            }
+
+        User userAcc = userService.getUser();
+        Boolean checkUser = false;
+        if(userAcc != null) {
+            String role = userAcc.getRole().toString();
+            checkUser = true;
+            model.addAttribute("userAcc", userAcc);
+            model.addAttribute("role", role);
         }
+
         //=============================================================================
 
+        //System.out.println("types : " + typeService.findTree(6));
 
         model.addAttribute("checkUser", checkUser);
         model.addAttribute("movie", movies);

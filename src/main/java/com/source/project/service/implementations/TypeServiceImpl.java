@@ -68,7 +68,10 @@ public class TypeServiceImpl implements TypeService {
         typeRep.delete(type);
     }
 
-
+    @Override
+    public List<Type> findTree(Integer childId) {
+        return typeRep.findTree(childId);
+    }
 
     @Override
     public List<Type> findAllByParentId(Integer id) {
