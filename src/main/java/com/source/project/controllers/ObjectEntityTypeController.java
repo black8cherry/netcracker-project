@@ -2,6 +2,7 @@ package com.source.project.controllers;
 
 import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class ObjectEntityTypeController {
     @Autowired
     private TypeService typeService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/objType")
     public String objTypeGet(
             Model model
@@ -29,6 +31,7 @@ public class ObjectEntityTypeController {
         return "objType";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/objType")
     public String objTypePost(
             @RequestParam String typename,
@@ -45,12 +48,13 @@ public class ObjectEntityTypeController {
         return "redirect:/objType";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delObjType/{id}")
     public String delObjType(
             @PathVariable("id") Integer id
     ) {
         if (typeService.findById(id) != null) {
-            typeService.delete(typeService.findById(id));
+            typeService.delete(id);
         }
         return "redirect:/objType";
     }

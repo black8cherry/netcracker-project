@@ -13,6 +13,18 @@ import java.util.List;
 @Service
 public class RatingServiceImpl implements RatingService {
 
+    /* Attributes
+     * userId     1
+     * refToObj   2
+     * review     3
+     * rate       4
+     *  Types
+     * video        1
+     * favorite     2
+     * message      3
+     * rating       4
+     */
+
     @Autowired
     private ObjEntityRep objEntityRep;
     @Autowired
@@ -20,16 +32,14 @@ public class RatingServiceImpl implements RatingService {
     @Autowired
     private TypeRep typeRep;
     @Autowired
-    private TypeAttributeRep typeAttributeRep;
-    @Autowired
     private AttributeRep attributeRep;
 
     @Override
     public void save(String userId, Integer parentId, Float value) {
         if(value != null) {
-            Type rating = typeRep.findByTypename("rating");
-            Attribute attUsr = attributeRep.findByLabel("userId");
-            Attribute attVal = attributeRep.findByLabel("rate");
+            Type rating = typeRep.findById(4);
+            Attribute attUsr = attributeRep.findById(1);
+            Attribute attVal = attributeRep.findById(4);
 
             ObjEntity obj = new ObjEntity(parentId, rating);
             Value usr = new Value(obj, attUsr, userId);
@@ -43,9 +53,10 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public void rerate(String userId, Integer parentId, Float value) {
-        Type rating = typeRep.findByTypename("rating");
-        Attribute attUsr = attributeRep.findByLabel("userId");
-        Attribute attVal = attributeRep.findByLabel("rate");
+        Type rating = typeRep.findById(4);
+        Attribute attUsr = attributeRep.findById(1);
+        Attribute attVal = attributeRep.findById(4);
+
         Collection<ObjEntity> movies = objEntityRep.findByTypeAndParentId(rating, parentId);
 
         ObjEntity objOfUser = valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUsr).get().getObjEntity();
@@ -70,12 +81,12 @@ public class RatingServiceImpl implements RatingService {
     public String getRate(Integer id) {
         float result = 0;
         List<ObjEntity> rateL = objEntityRep.findByTypeAndParentId(
-                typeRep.findByTypename("rating"),
+                typeRep.findById(4),
                 id
         );
         for (ObjEntity obj: rateL
              ) {
-            result += Float.parseFloat(valueRep.findByAttributesAndObjEntity(attributeRep.findByLabel("rate"), obj).getValue());
+            result += Float.parseFloat(valueRep.findByAttributesAndObjEntity(attributeRep.findById(4), obj).getValue());
         }
 
         String res = "0";
@@ -83,7 +94,7 @@ public class RatingServiceImpl implements RatingService {
         if(result != 0) {
             res = new DecimalFormat("#0.00")
                     .format(result / objEntityRep.countByTypeAndParentId(
-                            typeRep.findByTypename("rating"),
+                            typeRep.findById(4),
                             id));
         }
         return res;
@@ -93,14 +104,14 @@ public class RatingServiceImpl implements RatingService {
     public boolean findByObjectsAndUser(Integer objId, String userId) {
         boolean check = false;
         List<ObjEntity> rateL = objEntityRep.findByTypeAndParentId(
-                typeRep.findByTypename("rating"),
+                typeRep.findById(4),
                 objId
         );
-        System.out.println("obj = " + rateL);
+
         if (valueRep.getValueByObjEntityInAndValueAndAttributes(
                 rateL,
                 userId,
-                attributeRep.findByLabel("userId")).isPresent()) {
+                attributeRep.findById(1)).isPresent()) {
             check = true;
         }
         return check;

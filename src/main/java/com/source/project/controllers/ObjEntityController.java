@@ -1,8 +1,8 @@
 package com.source.project.controllers;
 
 
-import com.source.project.domain.*;
 import com.source.project.domain.ObjEntity;
+import com.source.project.domain.User;
 import com.source.project.domain.resources.FilmList;
 import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
 @Controller
-public class ObjEntityController { // entity!
+public class ObjEntityController {
 
     @Autowired
     private MessageService messageService;
     @Autowired
-    private TypeAttributeService typeAttributeService;
-    @Autowired
-    private ValueService valueService;
-    @Autowired
-    private AttributeService attributeService;
-    @Autowired
     private ObjEntityService objEntityService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private TypeService typeService;
     @Autowired
     private RatingService ratingService;
     @Autowired
@@ -64,7 +55,7 @@ public class ObjEntityController { // entity!
 
         //========== Attribute List =========================================
 
-        List<FilmList> filmList =  objEntityService.showAttributes(objEntity);
+        model.addAttribute("fl", objEntityService.showAttributes(objEntity));
 
         //============ Messages ========================================
 
@@ -78,7 +69,6 @@ public class ObjEntityController { // entity!
 
         model.addAttribute("checkUser", checkUser);
         model.addAttribute("movie", objEntity);
-        model.addAttribute("fl", filmList);
         return "filmList";
     }
 
@@ -118,8 +108,6 @@ public class ObjEntityController { // entity!
         model.addAttribute("fl", filmList);
         return "filmEdit";
     }
-
-    // Favorites id name:uid ido parentid
 
     @GetMapping("/main/{id}/{uid}/addFavorite")
     public String addFav(

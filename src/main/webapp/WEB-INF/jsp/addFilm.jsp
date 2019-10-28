@@ -37,8 +37,8 @@
         </form>
     </div>
     <div class="col">
-        <form action="${pageContext.request.contextPath}/main">
-            <button class="mt-5 btn btn-success mr-sm-2" type="submit">To main page</button>
+        <form action="${pageContext.request.contextPath}/main/administratorPanel">
+            <button class="mt-5 btn btn-success mr-sm-2" type="submit">Back</button>
         </form>
     </div>
     </div>

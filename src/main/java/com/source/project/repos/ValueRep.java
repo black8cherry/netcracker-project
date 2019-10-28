@@ -13,12 +13,9 @@ import java.util.Optional;
 @Repository
 public interface ValueRep extends CrudRepository<Value, Long> {
     Value findByAttributesAndObjEntity(Attribute attribute, ObjEntity movie);
-    Value findByObjEntity(ObjEntity movie);
     Value findById(Integer id);
     Value findByObjEntityAndAttributesAndValue(ObjEntity movie, Attribute attribute, String value);
     Optional<Value> getValueByObjEntityInAndValueAndAttributes(Collection<ObjEntity> movies, String value, Attribute attributes);
-    List<Value> findByAttributesAndValue(Attribute attribute, String value);
-    List<Value> getValuesByObjEntityAndAttributesAndValue(Collection<ObjEntity> movies, Attribute attribute, String value);
     List<Value> findAllByObjEntity(ObjEntity movie);
     List<Value> findByObjEntityAndAttributes(ObjEntity movie, Attribute attribute);
     void removeById(Integer id);

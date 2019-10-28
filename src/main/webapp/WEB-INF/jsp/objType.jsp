@@ -5,16 +5,15 @@
     <title>NetFilms</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style><%@include file="../css/objType.css"%></style>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../js/objType.js"></script>
+
 </head>
 <body >
 <div class="row">
     <div class="col">
         <div class="mx-auto" style="width: 200px;">
 
-            <form action="${pageContext.request.contextPath}/main" >
-                <button class="btn btn-dark mt-2" type="submit">Return to main page</button>
+            <form action="${pageContext.request.contextPath}/main/administratorPanel" >
+                <button class="btn btn-dark mt-2" type="submit">Back</button>
             </form>
 
             <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/objType" method="post">
@@ -41,18 +40,7 @@
                 </li>
             </c:forEach>
 
-            <%--<c:forEach items="${parentType}" var ="pt">
-                <li></li>
-                    <c:forEach items="${childType}" var="ct">
-                        <c:if test="${ct.parentId == pt.id}">
-                            <ul>
-                                <li> <a class="link" href="/editObjectAttributes/${ct.typename}">${ct.typename}</a>  <a href="${pageContext.request.contextPath}/delObjType/${ct.id}">delete</a></li>
-                            </ul>
-                        </c:if>
 
-                    </c:forEach>
-
-            </c:forEach>--%>
         </ul>
     </div>
 </div>

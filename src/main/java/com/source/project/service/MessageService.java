@@ -8,5 +8,4 @@ public interface MessageService {
     List<FilmMessages> getListMes(Integer parentId);
     void save(String userId, Integer parentId, String message);
     void delete(Integer objId);
-    //void init();
 }

@@ -8,13 +8,11 @@ import java.util.List;
 
 public interface TypeService {
     Type findById(Integer id);
-    Type findByTypename(String typename);
     Iterable<Type> findAll();
-    List<Type> findAllByParentId(Integer id);
+    List<Type> findTreeFromParent(Integer parentId);
     void save(Integer parentId, String typename);
     void save(String typename);
     List<Type> findByParentIdIsNull();
     List<Type> findByParentIdIsNotNull();
-    void delete(Type typename);
-    List<Type> findTree(@Param("childId") Integer childId);
+    void delete(Integer id);
 }

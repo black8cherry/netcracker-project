@@ -8,5 +8,4 @@ public interface RatingService {
     void rerate(String userId, Integer parentId, Float value);
     boolean findByObjectsAndUser(Integer objId, String userId);
     String getRate(Integer id);
-    //void init();
 }

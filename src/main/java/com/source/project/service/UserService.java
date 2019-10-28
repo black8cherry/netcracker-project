@@ -8,6 +8,5 @@ public interface UserService {
     User findByUsername(String username);
     User findById(Integer id);
     void save(User user);
-    List<User> findAllById(List<Integer> id);
     User getUser();
 }

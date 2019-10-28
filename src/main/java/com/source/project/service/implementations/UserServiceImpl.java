@@ -39,11 +39,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public List<User> findAllById(List<Integer> id) {
-        return userRep.findAllById(id);
-    }
-
-    @Override
     public User getUser() {
         return userRep.findByUsername(SecurityContextHolder.
                 getContext().

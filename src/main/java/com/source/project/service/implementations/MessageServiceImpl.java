@@ -14,6 +14,18 @@ import java.util.List;
 @Service
 public class MessageServiceImpl implements MessageService {
 
+    /* Attributes
+     * userId     1
+     * refToObj   2
+     * review     3
+     * rate       4
+     *  Types
+     * video        1
+     * favorite     2
+     * message      3
+     * rating       4
+     */
+
     @Autowired
     private ObjEntityRep objEntityRep;
     @Autowired
@@ -28,9 +40,9 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void save(String userId, Integer parentId, String message) {
          if(!message.isEmpty()) {
-             Type mesType = typeRep.findByTypename("message");
-             Attribute attMess = attributeRep.findByLabel("review");
-             Attribute attUser = attributeRep.findByLabel("userId");
+             Type mesType = typeRep.findById(3);
+             Attribute attMess = attributeRep.findById(3);
+             Attribute attUser = attributeRep.findById(1);
 
              ObjEntity obj = new ObjEntity(parentId, mesType);
              Value valUser = new Value(obj, attUser, userId);
@@ -44,9 +56,8 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void delete(Integer objId) {
-        Type mesType = typeRep.findByTypename("message");
-        Attribute usrId = attributeRep.findByLabel("userId");
-        Attribute review = attributeRep.findByLabel("review");
+        Attribute usrId = attributeRep.findById(1);
+        Attribute review = attributeRep.findById(3);
 
         ObjEntity obj = objEntityRep.findById(objId);
         Integer userId = valueRep.findByAttributesAndObjEntity(usrId, obj).getId();
@@ -59,9 +70,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<FilmMessages> getListMes(Integer parentId) {
-        Type mesType = typeRep.findByTypename("message");
-        Attribute usrId = attributeRep.findByLabel("userId");
-        Attribute review = attributeRep.findByLabel("review");
+        Type mesType = typeRep.findById(3);
+        Attribute review = attributeRep.findById(3);
+        Attribute usrId = attributeRep.findById(1);
 
         List<FilmMessages> filmMessagesList = new ArrayList<>();
         List<ObjEntity> objects = objEntityRep.findByTypeAndParentId(mesType, parentId);

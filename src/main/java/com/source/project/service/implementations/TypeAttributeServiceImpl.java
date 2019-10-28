@@ -23,18 +23,8 @@ public class TypeAttributeServiceImpl implements TypeAttributeService {
     }
 
     @Override
-    public List<TypeAttribute> findByTypeOrderByAttribute(Type type) {
-        return typeAttributeRep.findByTypeOrderByAttribute(type);
-    }
-
-    @Override
     public TypeAttribute findByAttributeAndType(Attribute attribute, Type type) {
         return typeAttributeRep.findByAttributeAndType(attribute, type);
-    }
-
-    @Override
-    public void removeByAttribute(Attribute attribute) {
-        typeAttributeRep.removeByAttribute(attribute);
     }
 
     @Override

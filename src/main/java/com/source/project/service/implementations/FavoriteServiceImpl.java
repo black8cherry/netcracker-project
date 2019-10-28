@@ -14,6 +14,18 @@ import java.util.List;
 @Service
 public class FavoriteServiceImpl implements FavoriteService {
 
+    /* Attributes
+     * userId     1
+     * refToObj   2
+     * review     3
+     * rate       4
+     *  Types
+     * video        1
+     * favorite     2
+     * message      3
+     * rating       4
+     */
+
     @Autowired
     private ObjEntityRep objEntityRep;
     @Autowired
@@ -26,9 +38,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public void save(String userId, String objectId) {
 
-        Type favType = typeRep.findByTypename("favorite");
-        Attribute attUserId = attributeRep.findByLabel("userId");
-        Attribute attRefToObj = attributeRep.findByLabel("refToObject");
+        Type favType = typeRep.findById(2);
+        Attribute attUserId = attributeRep.findById(1);
+        Attribute attRefToObj = attributeRep.findById(2);
         Collection<ObjEntity> movies = objEntityRep.findByType(favType);
 
         if (!valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).isPresent()) {
@@ -46,9 +58,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public void delete(String userId, String objectId) {
 
-        Type favType = typeRep.findByTypename("favorite");
-        Attribute attUserId = attributeRep.findByLabel("userId");
-        Attribute attRefToObj = attributeRep.findByLabel("refToObject");
+        Type favType = typeRep.findById(2);
+        Attribute attUserId = attributeRep.findById(1);
+        Attribute attRefToObj = attributeRep.findById(2);
         Collection<ObjEntity> movies = objEntityRep.findByType(favType);
 
         ObjEntity objOfUser = valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).get().getObjEntity();
@@ -59,9 +71,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     public boolean check(String userId, String movieId) {
         boolean checkObjEntity = false;
 
-        Type favType = typeRep.findByTypename("favorite");
-        Attribute attUserId = attributeRep.findByLabel("userId");
-        Attribute attRefToObj = attributeRep.findByLabel("refToObject");
+        Type favType = typeRep.findById(2);
+        Attribute attUserId = attributeRep.findById(1);
+        Attribute attRefToObj = attributeRep.findById(2);
         Collection<ObjEntity> movies = objEntityRep.findByType(favType);
 
         if (valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).isPresent()) {
@@ -74,8 +86,8 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void create(String userId) {
-        Type favType = typeRep.findByTypename("favorite");
-        Attribute attUserId = attributeRep.findByLabel("userId");
+        Type favType = typeRep.findById(2);
+        Attribute attUserId = attributeRep.findById(1);
 
         ObjEntity savingObjEntity = new ObjEntity(favType);
         ObjEntity obj = objEntityRep.save(savingObjEntity);
@@ -88,9 +100,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     public List<ObjEntity> get(String userId) {
         List<ObjEntity> favList = new ArrayList<ObjEntity>();
 
-        Type favType = typeRep.findByTypename("favorite");
-        Attribute attRefToObj = attributeRep.findByLabel("refToObject");
-        Attribute attUserId = attributeRep.findByLabel("userId");
+        Type favType = typeRep.findById(2);
+        Attribute attUserId = attributeRep.findById(1);
+        Attribute attRefToObj = attributeRep.findById(2);
 
         Collection<ObjEntity> movies = objEntityRep.findByType(favType);
         if(valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).isPresent()) {

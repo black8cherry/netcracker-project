@@ -12,4 +12,5 @@ public interface AttributeRep extends
 {
     Attribute findByLabel(String label);
     void removeByLabel(String label);
+    Attribute findById(Integer id);
 }

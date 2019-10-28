@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface TypeAttributeService {
     List<TypeAttribute> findByType(Type type);
-    List<TypeAttribute> findByTypeOrderByAttribute(Type type);
     TypeAttribute findByAttributeAndType(Attribute attribute, Type type);
-    void removeByAttribute(Attribute attribute);
     void removeByAttributeAndType(Attribute attribute, Type type);
     List<TypeAttribute> findAll(Sort sort);
     void save(TypeAttribute typeAttribute);

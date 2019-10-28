@@ -18,21 +18,21 @@
             <button class="btn btn-dark mt-2" type="submit">Back</button>
         </form>
 
-        <h3 >Attributes of ${type}</h3>
+        <h3 >Attributes of ${type.typename}</h3>
         <table class="mt-2 mx-auto">
             <c:forEach items="${attributes}" var="att">
                 <tr>
                     <td><span>${att.attribute.getLabel()}</span></td>
-                    <td><a href="${pageContext.request.contextPath}/editObjectAttributes/${type}/deleteTypeAtt/${att.attribute.getLabel()}">Delete</a> </td>
+                    <td><a href="${pageContext.request.contextPath}/editObjectAttributes/${type.id}/deleteTypeAtt/${att.attribute.getLabel()}">Delete</a> </td>
                 </tr>
             </c:forEach>
         </table>
-        <h3 class="mt-5">Attributes which is not in ${type} movie</h3>
+        <h3 class="mt-5">Attributes which is not in ${type.typename} movie</h3>
         <table class="mt-2 mx-auto">
             <c:forEach items="${mAttributes}" var="att">
                 <tr>
                     <td><span>${att.getLabel()}</span></td>
-                    <td><a href="${pageContext.request.contextPath}/editObjectAttributes/${type}/addTypeAtt/${att.getLabel()}">Add</a> </td>
+                    <td><a href="${pageContext.request.contextPath}/editObjectAttributes/${type.id}/addTypeAtt/${att.getLabel()}">Add</a> </td>
                 </tr>
             </c:forEach>
         </table>

@@ -3,24 +3,62 @@
   <component name="ChangeListManager">
     <list default="true" id="aad4475c-10ec-4071-9e33-e54cc3891555" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/AddController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/AttributeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/AttributeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjEntityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjEntityController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectEntityTypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/controllers/ObjectEntityTypeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/AttributeRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/AttributeRep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ObjEntityRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ObjEntityRep.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/TypeRep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ValueRep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/repos/ValueRep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/FavoriteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/FavoriteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/MessageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/ObjEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/ObjEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/RatingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/RatingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/TypeAttributeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/TypeAttributeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/TypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/TypeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/ValueService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/ValueService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/FavoriteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/FavoriteServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/MessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/MessageServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/ObjEntityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/ObjEntityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/RatingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/RatingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/TypeAttributeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/TypeAttributeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/TypeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/TypeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmEdit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/filmEdit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/ValueServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/source/project/service/implementations/ValueServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/script/sript.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/script/sript.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/addFilm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/objType.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/addFilm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/addFilm.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/editAttribute.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/editAttribute.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/editObjAttribute.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/editObjAttribute.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/objType.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/objType.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/tree.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/tree.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/config/WebSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AddController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AddController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AttributeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/AttributeController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/MainController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjEntityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjEntityController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjectEntityTypeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/controllers/ObjectEntityTypeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/AttributeRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/AttributeRep.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/ObjEntityRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/ObjEntityRep.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/TypeRep.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/repos/ValueRep.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/repos/ValueRep.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/ObjEntityService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/ObjEntityService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/TypeAttributeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/TypeAttributeService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/TypeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/TypeService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/ValueService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/ValueService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/FavoriteServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/FavoriteServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/MessageServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/MessageServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/ObjEntityServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/ObjEntityServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/RatingServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/RatingServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/TypeAttributeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/TypeAttributeServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/TypeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/TypeServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/ValueServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/source/project/service/implementations/ValueServiceImpl.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,9 +92,9 @@
         <option value="HTML File" />
         <option value="Enum" />
         <option value="jsf" />
-        <option value="Jsp File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -240,7 +278,15 @@
       <workItem from="1571850581519" duration="3812000" />
       <workItem from="1571868317634" duration="1138000" />
       <workItem from="1571898073904" duration="886000" />
-      <workItem from="1571948475756" duration="5557000" />
+      <workItem from="1571948475756" duration="6714000" />
+      <workItem from="1571985583194" duration="8511000" />
+      <workItem from="1572017837159" duration="7755000" />
+      <workItem from="1572096119804" duration="14742000" />
+      <workItem from="1572171790126" duration="5148000" />
+      <workItem from="1572182145104" duration="1394000" />
+      <workItem from="1572185559156" duration="1681000" />
+      <workItem from="1572191981549" duration="1216000" />
+      <workItem from="1572215635771" duration="5200000" />
     </task>
     <task id="LOCAL-00001" summary="files editing added">
       <created>1567887758442</created>

@@ -3,15 +3,11 @@ package com.source.project.controllers;
 import com.source.project.domain.ObjEntity;
 import com.source.project.domain.Type;
 import com.source.project.domain.User;
-import com.source.project.repos.TypeRep;
 import com.source.project.service.ObjEntityService;
 import com.source.project.service.TypeService;
 import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +31,7 @@ public class MainController {
     @Autowired
     private TypeService typeService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/administratorPanel")
     public String administratorPanel() {
         return "administratorPanel";
@@ -45,13 +42,13 @@ public class MainController {
             @RequestParam(required=false) String filter,
             Model model
     ) {
-        Collection<Type> typeCollection = typeService.findAllByParentId(1); // 1 - video
+        List<Type> typeList = typeService.findTreeFromParent(1);
         List<ObjEntity> movies;
 
         if (filter != null && !filter.isEmpty()) {
-            movies = objEntityService.getAllByNameIsLike(filter); // +collection
+            movies = objEntityService.getAllByNameIsLike(filter);
         } else {
-            movies = objEntityService.getObjEntitiesByTypeInOrderByName(typeCollection);
+            movies = objEntityService.getObjEntitiesByTypeInOrderByName(typeList);
         }
 
         //============================================================================
@@ -67,14 +64,13 @@ public class MainController {
 
         //=============================================================================
 
-        //System.out.println("types : " + typeService.findTree(6));
-
         model.addAttribute("checkUser", checkUser);
         model.addAttribute("movie", movies);
         model.addAttribute("filter", filter);
         return "main";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteObj(
             @PathVariable("id") Integer id

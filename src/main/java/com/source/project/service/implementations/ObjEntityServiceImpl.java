@@ -28,10 +28,6 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     @Autowired
     private AttributeRep attributeRep;
 
-    @Override
-    public List<ObjEntity> findByNameOrderByName(String name) {
-        return objEntityRep.findByNameOrderByName(name);
-    }
 
     @Override
     public ObjEntity findById(Integer id) {
@@ -48,10 +44,6 @@ public class ObjEntityServiceImpl implements ObjEntityService {
         return objEntityRep.findAll();
     }
 
-    @Override
-    public List<ObjEntity> findAllByFilenameNotNull(Sort sort) {
-        return objEntityRep.findAllByFilenameNotNull(sort);
-    }
 
     @Override
     public List<ObjEntity> findAllByFilenameNotNull() {
@@ -121,7 +113,7 @@ public class ObjEntityServiceImpl implements ObjEntityService {
         Integer childId = objEntity.getType().getId();
         List<FilmList> filmList = new ArrayList<FilmList>();
 
-        List<Type> typeList = typeRep.findTree(childId);
+        List<Type> typeList = typeRep.findTreeFromChild(childId);
         for (Type type: typeList
              ) {
             List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(type);
@@ -138,11 +130,6 @@ public class ObjEntityServiceImpl implements ObjEntityService {
             }
         }
         return filmList;
-    }
-
-    @Override
-    public List<ObjEntity> findAllByNameLike(String filter) {
-        return objEntityRep.findAllByNameLike(filter);
     }
 
     @Override

@@ -18,13 +18,37 @@
                 <input class="form-control mt-4 mr-sm-2" type="text" name="label" placeholder="label"/>
                 <button class="btn btn-success mt-4 mr-sm-2" type="submit">Add attribute</button>
             </form>
+
+            <h3>All attributes</h3>
+            <c:forEach  items="${attributes}" var="att">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>${att.label}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">delete</a>
+                    </div>
+                </div>
+            </c:forEach>
+
+            <h3>Attribute list of movie types</h3>
+            <c:forEach items="${typeAttributes}" var="typeAtt">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>${typeAtt.type.getTypename()}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span>${typeAtt.attribute.getLabel()}</span>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
 
-        <div class="col">
+        <div class="col mt-3">
 
             <c:forEach items="${types}" var="type">
-                <form action="/editObjectAttributes/${type.getTypename()}">
-                    <button class="btn btn-dark mt-4 " type="submit" >Edit ${type.getTypename()} attributes</button>
+                <form action="/editObjectAttributes/${type.id}">
+                    <button class="btn btn-dark mt-1 " type="submit" >Edit ${type.getTypename()} attributes</button>
                 </form>
             </c:forEach>
 
@@ -37,29 +61,7 @@
         </div>
     </div>
 
-    <h3>All attributes</h3>
-    <c:forEach  items="${attributes}" var="att">
-        <div class="row">
-            <div class="col-md-2">
-                <span>${att.label}</span>
-            </div>
-            <div class="col-md-2">
-                <a href="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">delete</a>
-            </div>
-        </div>
-    </c:forEach>
 
-    <h3>Attribute list of movie types</h3>
-    <c:forEach items="${typeAttributes}" var="typeAtt">
-        <div class="row">
-            <div class="col-md-2">
-                <span>${typeAtt.type.getTypename()}</span>
-            </div>
-            <div class="col-md-2">
-                <span>${typeAtt.attribute.getLabel()}</span>
-            </div>
-        </div>
-    </c:forEach>
 
 
 </div>

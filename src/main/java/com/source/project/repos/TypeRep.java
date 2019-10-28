@@ -17,9 +17,14 @@ public interface TypeRep extends CrudRepository<Type, Long> {
 
     @Query(value="WITH RECURSIVE r AS (SELECT id, parent_id, typename FROM type WHERE id = :childId UNION SELECT type.id, type.parent_id, type.typename  FROM type JOIN r  ON type.id = r.parent_id ) SELECT * FROM r;",
             nativeQuery = true)
-    List<Type> findTree(@Param("childId") Integer childId);
+    List<Type> findTreeFromChild(@Param("childId") Integer childId);
+
+    @Query(value="WITH RECURSIVE r AS (SELECT id, parent_id, typename FROM type WHERE id = :parentId UNION SELECT type.id, type.parent_id, type.typename  FROM type JOIN r  ON r.id = type.parent_id ) SELECT * FROM r;",
+            nativeQuery = true)
+    List<Type> findTreeFromParent(@Param("parentId") Integer parentId);
 
     List<Type> findByParentIdIsNull();
     List<Type> findByParentIdIsNotNull();
     List<Type> findAllByParentId(Integer id);
+    Type findByParentIdAndTypename(Integer id, String label);
 }
