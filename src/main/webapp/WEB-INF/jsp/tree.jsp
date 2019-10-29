@@ -5,13 +5,19 @@
 
 <a class="link" href="/editObjectAttributes/${type.id}">${type.typename}</a>
 <a href="${pageContext.request.contextPath}/delObjType/${type.id}">delete</a>
+<form action="${pageContext.request.contextPath}/objType" method="get">
+    <input type="hidden" name="typeId" value="${type.id}"/>
+
+    <button type="submit" class="btn btn-dark" ">
+        show attributes
+    </button>
+</form>
 
 <ul>
     <%
         List<Type> childList = (List<Type>) request.getAttribute("childType");
         Type type = (Type) request.getAttribute("type");
         Type oldType;
-        //System.out.println("list : "+childList);
         for (Type typeL: childList
              ) {
 

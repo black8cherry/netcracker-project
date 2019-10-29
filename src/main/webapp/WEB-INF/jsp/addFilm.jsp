@@ -19,10 +19,10 @@
             <input style="background-color: #151515"  class="form-control" type="text" name="name" placeholder="Name"/><hr>
 
 
-            <p><select style="background-color: #151515"  size="5" multiple name="type">
+            <p><select style="background-color: #151515"  size="5" multiple name="typeId">
                 <option disabled>Choose movie type</option>
                 <c:forEach items="${types}" var="type">
-                    <option style="color: aliceblue" value="${type.getTypename()}">${type.getTypename()}</option>
+                    <option style="color: aliceblue" value="${type.id}">${type.getTypename()}</option>
                 </c:forEach>
             </select></p>
 

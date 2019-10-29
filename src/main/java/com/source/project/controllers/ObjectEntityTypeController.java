@@ -1,5 +1,6 @@
 package com.source.project.controllers;
 
+import com.source.project.service.AttributeService;
 import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,12 +19,18 @@ public class ObjectEntityTypeController {
 
     @Autowired
     private TypeService typeService;
+    @Autowired
+    private AttributeService attributeService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/objType")
     public String objTypeGet(
+            @RequestParam(required = false) Integer typeId,
             Model model
     ) {
+        if(typeId!=null) {
+            model.addAttribute("attributes", attributeService.getParentAtt(typeId));
+        }
         model.addAttribute("parentType", typeService.findByParentIdIsNull());
         model.addAttribute("childType", typeService.findByParentIdIsNotNull());
         model.addAttribute("types", typeService.findAll());

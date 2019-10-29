@@ -171,8 +171,13 @@ insert into type_attribute(id, att_id, type_id) values ((select nextval('type_at
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 4, 4);
 
-/* Administartor */
+/* Administrator */
 
 insert into usr(id, password, username) values ((select nextval('user_gen')), 'root', 'root');
 
 insert into role(user_id, role) values (1, 'ADMIN');
+
+insert into obj_entity(id, type_id) values ((select nextval('obj_entity_gen')), 2);
+
+insert into value(id, "value", atr_id, entity_id)  values ((select nextval('value_gen')), '1', 1, 1);
+

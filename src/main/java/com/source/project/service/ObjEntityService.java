@@ -16,9 +16,8 @@ public interface ObjEntityService {
     List<ObjEntity> getObjEntitiesByTypeInOrderByName(Collection<Type> type);
     List<ObjEntity> findAll();
     List<ObjEntity> findAll(Sort sort);
-    List<ObjEntity> findAllByFilenameNotNull();
-    List<ObjEntity> getAllByNameIsLike(String filter);
-    void save(String name, String type, MultipartFile file, String uploadPath) throws IOException;
+    List<ObjEntity> findByNameIsContaining(String filter);
+    void save(String name, Integer typeId, MultipartFile file, String uploadPath) throws IOException;
     void removeById(Integer id);
     void edit(String objectName, List<String> label, List<String> value, Integer id);
     List<FilmList> showAttributes(ObjEntity objEntity);

@@ -20,7 +20,7 @@ public interface ObjEntityRep extends
     List<ObjEntity> findByType(Type type);
     List<ObjEntity> getObjEntitiesByTypeInOrderByName(Collection<Type> type);
     List<ObjEntity> findAllByFilenameNotNull();
-    List<ObjEntity> getAllByNameIsLike(String filter);
+    List<ObjEntity> findByNameIsContaining(String filter);
     ObjEntity findById(Integer id);
     void removeById(Integer id);
 }

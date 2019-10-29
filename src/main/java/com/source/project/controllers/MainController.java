@@ -42,11 +42,11 @@ public class MainController {
             @RequestParam(required=false) String filter,
             Model model
     ) {
-        List<Type> typeList = typeService.findTreeFromParent(1);
+        List<Type> typeList = typeService.findTreeFromParent(1); // 1 - video
         List<ObjEntity> movies;
 
         if (filter != null && !filter.isEmpty()) {
-            movies = objEntityService.getAllByNameIsLike(filter);
+            movies = objEntityService.findByNameIsContaining(filter);
         } else {
             movies = objEntityService.getObjEntitiesByTypeInOrderByName(typeList);
         }

@@ -61,22 +61,9 @@ public class AttributeController {
             @PathVariable("typeId") Integer typeId,
             Model model
     ) {
-        List<TypeAttribute> attributes = typeAttributeService.findByType(typeService.findById(typeId));
-        List<Attribute> attributesAll = attributeService.findAll();
-        List<Attribute> attributesNotInObj = new ArrayList<Attribute>();
-
-        try {
-            for (Attribute att : attributesAll
-            ) {
-                if (typeAttributeService.findByAttributeAndType(att, typeService.findById(typeId)) == null) {
-
-                    attributesNotInObj.add(att);
-                }
-            }
-        } catch (NullPointerException e) {}
-
-        model.addAttribute("attributes", attributes);
-        model.addAttribute("mAttributes", attributesNotInObj);
+        model.addAttribute("parentAttributes", attributeService.getParentAtt(typeId));
+        model.addAttribute("attributes", typeAttributeService.findByType(typeService.findById(typeId)));
+        model.addAttribute("mAttributes", attributeService.attributesNotInObj(typeId));
         model.addAttribute("type", typeService.findById(typeId));
 
         return "editObjAttribute";

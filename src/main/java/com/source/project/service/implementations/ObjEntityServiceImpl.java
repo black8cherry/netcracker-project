@@ -44,15 +44,9 @@ public class ObjEntityServiceImpl implements ObjEntityService {
         return objEntityRep.findAll();
     }
 
-
     @Override
-    public List<ObjEntity> findAllByFilenameNotNull() {
-        return objEntityRep.findAllByFilenameNotNull();
-    }
-
-    @Override
-    public void save(String name,  String type, MultipartFile file, String uploadPath) throws IOException {
-        ObjEntity objEntity = new ObjEntity(name, typeRep.findByTypename(type));
+    public void save(String name,  Integer typeId, MultipartFile file, String uploadPath) throws IOException {
+        ObjEntity objEntity = new ObjEntity(name, typeRep.findById(typeId));
         if (file.getSize() != 0) {
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
@@ -76,7 +70,6 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     public void edit(String objectName, List<String> label, List<String> value, Integer id) {
         ObjEntity objEntity = objEntityRep.findById(id);
         List<Value> values = valueRep.findAllByObjEntity(objEntity);
-        // List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(objEntity.getType());
 
         List<FilmList> filmL = new ArrayList<FilmList>();
         for(int i = 0; i < label.size(); i++) {
@@ -112,11 +105,11 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     public List<FilmList> showAttributes(ObjEntity objEntity) {
         Integer childId = objEntity.getType().getId();
         List<FilmList> filmList = new ArrayList<FilmList>();
-
+        List<TypeAttribute> typeAttributes = new ArrayList<TypeAttribute>();
         List<Type> typeList = typeRep.findTreeFromChild(childId);
         for (Type type: typeList
              ) {
-            List<TypeAttribute> typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(type);
+             typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(type);
             for (TypeAttribute tp: typeAttributes
             ) {
                 String value;
@@ -133,8 +126,8 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     }
 
     @Override
-    public List<ObjEntity> getAllByNameIsLike(String filter) {
-        return objEntityRep.getAllByNameIsLike(filter);
+    public List<ObjEntity> findByNameIsContaining(String filter) {
+        return objEntityRep.findByNameIsContaining(filter);
     }
 
     @Override

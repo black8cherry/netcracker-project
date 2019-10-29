@@ -42,12 +42,12 @@ public class AddController {
     @PostMapping("/addFilm")
     public String add(
             @RequestParam String name,
-            @RequestParam String type,
+            @RequestParam Integer typeId,
             @RequestParam MultipartFile file
     ) throws IOException {
 
-        if (name != null && type != null) {
-            objEntityService.save(name, type, file, uploadPath);
+        if (name != null && typeId != null) {
+            objEntityService.save(name, typeId, file, uploadPath);
         }
         return "redirect:/addFilm";
     }

@@ -9,7 +9,7 @@
 </head>
 <body >
 <div class="row">
-    <div class="col">
+    <div class="col mt-4">
         <div class="mx-auto" style="width: 200px;">
 
             <form action="${pageContext.request.contextPath}/main/administratorPanel" >
@@ -42,6 +42,17 @@
 
 
         </ul>
+    </div>
+
+    <div class="col mt-4 mx-auto">
+        <h3>Attributes</h3>
+        <table class="">
+            <c:forEach items="${attributes}" var="att">
+                <tr>
+                    <td><span>${att.getLabel()}</span></td>
+                </tr>
+            </c:forEach>
+        </table>
     </div>
 </div>
 
