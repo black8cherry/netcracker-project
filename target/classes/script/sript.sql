@@ -42,7 +42,7 @@ create table type_attribute (
 
 create table usr (
     id int4 not null,
-    password varchar(16),
+    password varchar(128),
     username varchar(16),
     primary key (id)
 );

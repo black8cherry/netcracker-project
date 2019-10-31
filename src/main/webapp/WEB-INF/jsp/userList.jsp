@@ -10,12 +10,19 @@
 
 </head>
 <body>
-<div class="mx-auto" style="width: 335px;"><h3>Welcome, to your account</h3></div>
+
 <div class="container mb-5">
+    <div class="text-center">
+        <h3>Welcome, to your account</h3>
+        <a class="float-right " href="${pageContext.request.contextPath}/main" >Main page</a>
+    </div>
+
     <span>Name : ${user.getUsername()}</span><br/>
     <span>Your status : ${user.getRole()}</span>
 
-    <div class="mx-auto" style="width: 160px;">Your favorites movies</div>
+    <div class="text-center">
+        Your favorites movies
+    </div>
 
 
 </div>
@@ -40,14 +47,5 @@
     </div>
 </div>
 
-<%--<table>
-<c:forEach  items="${fav}" var ="fav">
-    <tr>
-        <td><img src="../img/${fav.movie.getFilename()}"/></td>
-        <td><a href="/main/${fav.movie.getId()}">${fav.movie.getName()}</a></td>
-    </tr>
-</c:forEach>
-</table>--%>
-<a href="${pageContext.request.contextPath}/main" >link to main</a>
 </body>
 </html>

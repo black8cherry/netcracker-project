@@ -42,7 +42,7 @@ create table type_attribute (
 
 create table usr (
     id int4 not null,
-    password varchar(16),
+    password varchar(128),
     username varchar(16),
     primary key (id)
 );
@@ -180,4 +180,10 @@ insert into role(user_id, role) values (1, 'ADMIN');
 insert into obj_entity(id, type_id) values ((select nextval('obj_entity_gen')), 2);
 
 insert into value(id, "value", atr_id, entity_id)  values ((select nextval('value_gen')), '1', 1, 1);
+
+/* Crypt */
+
+create extension if not exists pgcrypto;
+
+update usr set password = crypt(password, gen_salt('bf', 8));
 

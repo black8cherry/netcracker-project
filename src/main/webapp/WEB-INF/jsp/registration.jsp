@@ -19,7 +19,7 @@
             <input class="mb-2" type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button class="btn btn-lg btn-primary btn-block mb-2 " type="submit">Register</button>
         </form>
-
+        <span>${message}</span>
     </div>
 </div>
 </body>

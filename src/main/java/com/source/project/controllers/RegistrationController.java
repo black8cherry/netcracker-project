@@ -7,6 +7,7 @@ import com.source.project.service.FavoriteService;
 import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,18 +31,13 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String adduser(User user, Map<String, Object> model) {
+    public String addUser(User user, Model model) {
 
-        User userDB = userService.findByUsername(user.getUsername());
-
-        if(userDB!=null)
-            model.put("message","user exists");
-        else {
-            user.setRole(Collections.singleton(Role.USER));
-            userService.save(user);
-            favoriteService.create(String.valueOf(user.getId()));
+        if (userService.registration(user)) {
             return "redirect:/login";
+        } else {
+            model.addAttribute("message", "Such user already exist.");
+            return "registration";
         }
-        return "registration";
     }
 }
