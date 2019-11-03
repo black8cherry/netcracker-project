@@ -3,15 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<a class="link" href="/editObjectAttributes/${type.id}">${type.typename}</a>
-<a href="${pageContext.request.contextPath}/delObjType/${type.id}">delete</a>
-<form action="${pageContext.request.contextPath}/objType" method="get">
+<form style="background-color: #151515; width: 150px;" class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/objType" method="get">
     <input type="hidden" name="typeId" value="${type.id}"/>
-
-    <button type="submit" class="btn btn-dark" ">
-        show attributes
-    </button>
+    <input style="border: 0; background-color: #151515; color: aliceblue        " type="submit" value="${type.typename}" />
+    <a href="${pageContext.request.contextPath}/delObjType/${type.id}">delete</a>
 </form>
+
 
 <ul>
     <%

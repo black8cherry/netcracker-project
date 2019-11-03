@@ -1,18 +1,12 @@
-body {
+body, select, .dark-form {
     background-color: #151515;
 }
 
-label {
+label, h4, span, option, input {
     color: aliceblue;
+    background-color: #151515;
 }
 
-h3 {
-    color: aliceblue;
-}
-
-span {
-    color: aliceblue;
-}
 
 .link  {
     color: aliceblue;

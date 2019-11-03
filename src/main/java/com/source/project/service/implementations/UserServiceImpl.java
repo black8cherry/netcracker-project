@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             return false;
         else {
             user.setRole(Collections.singleton(Role.USER));
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            //user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRep.save(user);
             favoriteService.create(String.valueOf(user.getId()));
             return true;

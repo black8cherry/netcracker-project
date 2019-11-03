@@ -12,5 +12,5 @@ public interface TypeAttributeService {
     TypeAttribute findByAttributeAndType(Attribute attribute, Type type);
     void removeByAttributeAndType(Attribute attribute, Type type);
     List<TypeAttribute> findAll(Sort sort);
-    void save(TypeAttribute typeAttribute);
+    void save(String label, Integer typeId);
 }

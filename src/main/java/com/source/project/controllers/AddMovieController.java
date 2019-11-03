@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-public class AddController {
+public class AddMovieController {
 
     @Value("${upload.path}")
     private String uploadPath;

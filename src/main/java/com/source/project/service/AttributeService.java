@@ -8,7 +8,7 @@ public interface AttributeService {
     Attribute findByLabel(String label);
     void removeByLabel(String label);
     List<Attribute> findAll();
-    void save(Attribute attribute);
+    void save(String label, String labelType);
     List<Attribute> attributesNotInObj(Integer typeId);
     List<Attribute> getParentAtt(Integer typeId);
 }

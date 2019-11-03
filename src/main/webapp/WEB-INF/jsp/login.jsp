@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -15,11 +16,11 @@
         <input class="form-control mb-2" type="text" name="username"/>
         <label> Password: </label>
         <input class="form-control mb-2" type="password" name="password"/>
+
         <input class="mb-2" type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button class="btn btn-lg btn-primary btn-block mb-2 " type="submit">Sign In</button>
         <a href="${pageContext.request.contextPath}/registration">add new user</a>
     </form>
-
     </div>
 </div>
 </body>

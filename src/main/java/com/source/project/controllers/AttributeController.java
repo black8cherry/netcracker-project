@@ -29,7 +29,7 @@ public class AttributeController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editAttribute")
-    public String editAttributeGet(
+    public String AttributePage(
         Model model
     ) {
         List<Attribute> attributes = attributeService.findAll();
@@ -44,74 +44,23 @@ public class AttributeController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/editAttribute")
-    public String editAttributePost(
-            Model model,
-            @RequestParam String label
+    public String saveAttribute(
+            @RequestParam String label,
+            @RequestParam String labelType
     ) {
-        if(attributeService.findByLabel(label) == null) {
-            attributeService.save(new Attribute(label));
-        }
+        attributeService.save(label, labelType);
 
-        return "redirect:/editAttribute";
+        return "redirect:/objType";
     }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/editObjectAttributes/{typeId}")
-    public String editObjAttGet(
-            @PathVariable("typeId") Integer typeId,
-            Model model
-    ) {
-        model.addAttribute("parentAttributes", attributeService.getParentAtt(typeId));
-        model.addAttribute("attributes", typeAttributeService.findByType(typeService.findById(typeId)));
-        model.addAttribute("mAttributes", attributeService.attributesNotInObj(typeId));
-        model.addAttribute("type", typeService.findById(typeId));
-
-        return "editObjAttribute";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/editObjectAttributes/{typeId}/addTypeAtt/{label}")
-    public String addTypeAtt(
-            @PathVariable("label") String label,
-            @PathVariable("typeId") Integer typeId,
-            Model model
-    ) {
-
-        try {
-            if (typeAttributeService.findByAttributeAndType(
-                    attributeService.findByLabel(label),
-                    typeService.findById(typeId)) == null) {
-                typeAttributeService.save(new TypeAttribute(
-                        typeService.findById(typeId),
-                        attributeService.findByLabel(label)));
-            }
-        } catch (NullPointerException e) {}
-
-        return "redirect:/editObjectAttributes/{typeId}";
-    }
-
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editAttribute/delete/{label}")
-    public String deleteAtr(
+    public String deleteAttribute(
             @PathVariable("label") String label
     ) {
 
         attributeService.removeByLabel(label);
-        return "redirect:/editAttribute";
+        return "redirect:/objType";
     }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/editObjectAttributes/{typeId}/deleteTypeAtt/{label}")
-    public String deleteTypeAtt(
-            @PathVariable("typeId") Integer typeId,
-            @PathVariable("label") String label
-    ) {
-        typeAttributeService.removeByAttributeAndType(
-                attributeService.findByLabel(label),
-                typeService.findById(typeId));
-        return "redirect:/editObjectAttributes/{typeId}";
-    }
-
 
 }

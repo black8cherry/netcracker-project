@@ -43,7 +43,7 @@
                 </table>
                 <h3 class="mt-5">Attributes which is not in ${type.typename} movie</h3>
                 <table class="mt-2 mx-auto">
-                    <c:forEach items="${mAttributes}" var="att">
+                    <c:forEach items="${attributesNotInObject}" var="att">
                         <tr>
                             <td><span>${att.getLabel()}</span></td>
                             <td><a href="${pageContext.request.contextPath}/editObjectAttributes/${type.id}/addTypeAtt/${att.getLabel()}">Add</a> </td>

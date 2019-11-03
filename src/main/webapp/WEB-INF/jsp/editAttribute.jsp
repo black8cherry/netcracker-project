@@ -6,65 +6,46 @@
 <head>
     <title>editAttribute</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style><%@include file="../css/bg.css"%></style>
+    <style><%@include file="../css/editAttribute.css"%></style>
 </head>
-<body >
-<div class="container">
-
-    <div class="row">
-        <div class="col">
-            <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/editAttribute" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input class="form-control mt-4 mr-sm-2" type="text" name="label" placeholder="label"/>
-                <button class="btn btn-success mt-4 mr-sm-2" type="submit">Add attribute</button>
+<body class="">
+    <div class="row ">
+        <div class="col col-center" >
+            <form action="/main/administratorPanel">
+                <button class="btn btn-dark" type="submit" >Back</button>
+            </form>
+            <form class="my-2 my-lg-0" action="${pageContext.request.contextPath}/editAttribute" method="post" enctype="multipart/form-data">
+                <input  type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input class="form-control mt-4 mb-3 mr-sm-2 inp"  type="text" name="label" placeholder="label"/>
+                <p><select   size="4" multiple name="labelType">
+                    <option disabled>Choose limitations for attribute</option>
+                    <option  value="char">Only text</option>
+                    <option  value="numerical">Only numbers</option>
+                    <option  value="multiType">Without limitations</option>
+                </select></p>
+                <button class="btn btn-success mt-1 mr-sm-2" type="submit">Add attribute</button>
             </form>
 
             <h3>All attributes</h3>
+            <table align="center">
             <c:forEach  items="${attributes}" var="att">
-                <div class="row">
-                    <div class="col-md-3">
-                        <span>${att.label}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">delete</a>
-                    </div>
-                </div>
+                <tr>
+                    <td><span class="mr-2">${att.label}</span></td>
+                    <td><a href="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">delete</a></td>
+                </tr>
             </c:forEach>
-
+            </table>
             <h3>Attribute list of movie types</h3>
+            <table align="center">
             <c:forEach items="${typeAttributes}" var="typeAtt">
-                <div class="row">
-                    <div class="col-md-3">
-                        <span>${typeAtt.type.getTypename()}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <span>${typeAtt.attribute.getLabel()}</span>
-                    </div>
-                </div>
+                <tr>
+                    <td><span class="mr-2">${typeAtt.type.getTypename()} </span></td>
+                    <td><span>${typeAtt.attribute.getLabel()}</span></td>
+                </tr>
             </c:forEach>
-        </div>
-
-        <div class="col mt-3">
-
-            <c:forEach items="${types}" var="type">
-                <form action="/editObjectAttributes/${type.id}">
-                    <button class="btn btn-dark mt-1 " type="submit" >Edit ${type.getTypename()} attributes</button>
-                </form>
-            </c:forEach>
-
-        </div>
-
-        <div class="col">
-            <form action="/main/administratorPanel">
-                <button class="btn btn-success mt-4" type="submit">Back</button>
-            </form>
+            </table>
         </div>
     </div>
-
-
-
-
-</div>
 
 </body>
 </html>

@@ -33,58 +33,43 @@ public class ObjEntityController {
     private FavoriteService favoriteService;
 
     @GetMapping("/main/{id}")
-    public String ObjGet(
+    public String moviePage(
             Model model,
             @PathVariable Integer id
     ) {
         ObjEntity objEntity = objEntityService.findById(id);
 
-        //=========== Getting User ==========================================
-
-        User userAcc = userService.getUser();
+        User userAccount = userService.getUser();
         Boolean checkUser = false;
-        if(userAcc != null) {
-            String role = userAcc.getRole().toString();
+        if(userAccount != null) {
+            String role = userAccount.getRole().toString();
             checkUser = true;
 
-            model.addAttribute("checkRate", ratingService.findByObjectsAndUser(id, String.valueOf(userAcc.getId())));
-            model.addAttribute("userAcc", userAcc);
+            model.addAttribute("checkRate", ratingService.findByObjectsAndUser(id, String.valueOf(userAccount.getId())));
+
+            model.addAttribute("userAccount", userAccount);
+
             model.addAttribute("role", role);
-            model.addAttribute("checkFilm", favoriteService.check(String.valueOf(userAcc.getId()), String.valueOf(id)));
+
+            model.addAttribute("checkFilm", favoriteService.check(String.valueOf(userAccount.getId()), String.valueOf(id)));
         }
 
-        //========== Attribute List =========================================
+        model.addAttribute("movieAttributes", objEntityService.showAttributes(objEntity));
 
-        model.addAttribute("fl", objEntityService.showAttributes(objEntity));
-
-        //============ Messages ========================================
-
-        model.addAttribute("usrMes", messageService.getListMes(id));
-
-        //============== Rating ===========================================
+        model.addAttribute("userMessages", messageService.getListMessages(id));
 
         model.addAttribute("rate", ratingService.getRate(id));
 
-        //=====================================================================
-
         model.addAttribute("checkUser", checkUser);
-        model.addAttribute("movie", objEntity);
-        return "filmList";
-    }
 
-    @PostMapping("/main/{id}")
-    public String ObjPost(
-        @RequestParam String message,
-        @RequestParam String userId,
-        @PathVariable("id") Integer id
-    ) {
-        messageService.save(userId , id, message);
-        return "redirect:/main/{id}";
+        model.addAttribute("movie", objEntity);
+
+        return "filmList";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/main/{id}/edit")
-    public String ObjEditPost(
+    public String editMovie(
             @RequestParam String objectName,
             @RequestParam List<String> label,
             @RequestParam List<String> value,
@@ -96,66 +81,17 @@ public class ObjEntityController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/main/{id}/edit")
-    public String ObjEditGet(
+    public String editMoviePage(
             @PathVariable String id,
             Model model
     ) {
         ObjEntity objEntity = objEntityService.findById(Integer.valueOf(id));
-
         List<FilmList> filmList = objEntityService.showAttributes(objEntity);
 
         model.addAttribute("objects", objEntity);
+
         model.addAttribute("fl", filmList);
         return "filmEdit";
     }
-
-    @GetMapping("/main/{id}/{uid}/addFavorite")
-    public String addFav(
-            @PathVariable("id") String objectId,
-            @PathVariable("uid") String userId
-    ) {
-        favoriteService.save(userId, objectId);
-        return "redirect:/main/{id}";
-    }
-
-    @GetMapping("/main/{id}/{uid}/removeFavorite")
-    public String remFav(
-            @PathVariable("id") String objectId,
-            @PathVariable("uid") String userId
-    ) {
-        favoriteService.delete(userId, objectId);
-        return "redirect:/main/{id}";
-    }
-
-    // Attributes
-
-    @GetMapping("/deleteMessage/{id}/{ido}")
-    public String delMes(
-            @PathVariable("ido") Integer ido,
-            @PathVariable("id") Integer id
-    ) {
-        messageService.delete(ido);
-        return"redirect:/main/{id}";
-    }
-
-    // Rating
-
-    @GetMapping("rate/{ido}/{idu}")
-    public String rate(
-            @PathVariable("ido") Integer ido,
-            @PathVariable("idu") String idu,
-            @RequestParam(required=false) Float rating
-    ) {
-        if(rating!=null) {
-            if(!ratingService.findByObjectsAndUser(ido, idu)) {
-                ratingService.save(idu, ido, rating);
-            } else {
-                ratingService.rerate(idu, ido, rating);
-            }
-        }
-        return "redirect:/main/{ido}";
-    }
-
-
 
 }

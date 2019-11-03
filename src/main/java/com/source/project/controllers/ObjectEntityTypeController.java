@@ -1,6 +1,7 @@
 package com.source.project.controllers;
 
 import com.source.project.service.AttributeService;
+import com.source.project.service.TypeAttributeService;
 import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,16 +22,22 @@ public class ObjectEntityTypeController {
     private TypeService typeService;
     @Autowired
     private AttributeService attributeService;
+    @Autowired
+    private TypeAttributeService typeAttributeService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/objType")
-    public String objTypeGet(
+    public String objectTypePage(
             @RequestParam(required = false) Integer typeId,
             Model model
     ) {
         if(typeId!=null) {
-            model.addAttribute("attributes", attributeService.getParentAtt(typeId));
+            model.addAttribute("attributesWithParent", attributeService.getParentAtt(typeId));
+            model.addAttribute("attributesInObject", typeAttributeService.findByType(typeService.findById(typeId)));
+            model.addAttribute("attributesNotInObject", attributeService.attributesNotInObj(typeId));
+            model.addAttribute("attributesType", typeService.findById(typeId));
         }
+        model.addAttribute("allAttributes", attributeService.findAll());
         model.addAttribute("parentType", typeService.findByParentIdIsNull());
         model.addAttribute("childType", typeService.findByParentIdIsNotNull());
         model.addAttribute("types", typeService.findAll());
@@ -40,7 +47,7 @@ public class ObjectEntityTypeController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/objType")
-    public String objTypePost(
+    public String saveObjectType(
             @RequestParam String typename,
             @RequestParam(required=false) Integer parentId
     ) {
@@ -57,7 +64,7 @@ public class ObjectEntityTypeController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delObjType/{id}")
-    public String delObjType(
+    public String deleteObjectType(
             @PathVariable("id") Integer id
     ) {
         if (typeService.findById(id) != null) {

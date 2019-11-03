@@ -40,11 +40,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void save(String userId, Integer parentId, String message) {
          if(!message.isEmpty()) {
-             Type mesType = typeRep.findById(3);
+             Type messageType = typeRep.findById(3);
              Attribute attMess = attributeRep.findById(3);
              Attribute attUser = attributeRep.findById(1);
 
-             ObjEntity obj = new ObjEntity(parentId, mesType);
+             ObjEntity obj = new ObjEntity(parentId, messageType);
              Value valUser = new Value(obj, attUser, userId);
              Value valMess = new Value(obj, attMess, message);
 
@@ -69,7 +69,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<FilmMessages> getListMes(Integer parentId) {
+    public List<FilmMessages> getListMessages(Integer parentId) {
         Type mesType = typeRep.findById(3);
         Attribute review = attributeRep.findById(3);
         Attribute usrId = attributeRep.findById(1);

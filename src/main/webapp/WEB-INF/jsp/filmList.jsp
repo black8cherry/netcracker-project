@@ -29,7 +29,7 @@
                             <button class="btn btn-dark mr-sm-2" type="submit">sign out</button>
                         </form>
 
-                        <form class=" " action="${pageContext.request.contextPath}/user/${userAcc.id}" method="get">
+                        <form class=" " action="${pageContext.request.contextPath}/user/${userAccount.id}" method="get">
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button class="btn btn-dark mr-sm-2" type="submit">my account</button>
                         </form>
@@ -79,7 +79,7 @@
         <div class="col float-left">
             <h5 class="ml-5">${movie.name}</h5>
             <table class="mt-4">
-                <c:forEach items="${fl}" var="fl">
+                <c:forEach items="${movieAttributes}" var="fl">
                 <tr>
                     <td><span>${fl.label} : </span></td>
                     <td><span>${fl.value}</span></td>
@@ -106,7 +106,7 @@
                     <span>Rate the movie</span>
                 </c:if>
                 <br/>
-                <form action="/rate/${movie.id}/${userAcc.id}">
+                <form action="/rate/${movie.id}/${userAccount.id}">
                 <fieldset class="rating">
                     <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                     <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -118,13 +118,13 @@
                 </form>
 
                 <c:if test="${checkFilm==false}">
-                    <form action="${pageContext.request.contextPath}/main/${id}/${userAcc.id}/addFavorite">
+                    <form action="${pageContext.request.contextPath}/main/${id}/${userAccount.id}/addFavorite">
                         <button class="btn btn-dark mt-3" type="submit">add to favorite</button>
                     </form>
                 </c:if>
 
                 <c:if test="${checkFilm==true}">
-                    <form action="${pageContext.request.contextPath}/main/${id}/${userAcc.id}/removeFavorite">
+                    <form action="${pageContext.request.contextPath}/main/${id}/${userAccount.id}/removeFavorite">
                         <button class="btn btn-dark mt-3" type="submit">remove from favorite</button>
                     </form>
 
@@ -154,18 +154,18 @@
             <c:if test="${checkUser==true}">
                 <form class="mt-4 form-inline justify-content-center" action="/main/${id}" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                    <input type="hidden" name="userId" value="${userAcc.id}"/>
+                    <input type="hidden" name="userId" value="${userAccount.id}"/>
                     <input class="form-control mr-2" style="width: 300px; height: 70px;" type="text" name="message">
                     <button class="btn btn-dark mb-4" type="submit">Add new review</button>
                 </form>
             </c:if>
 
-            <c:forEach items="${usrMes}" var="mes">
-                <div class="mes mx-auto" style="width: 600px">
+            <c:forEach items="${userMessages}" var="mes">
+                <div class="mes mx-auto mt-4" style="width: 600px">
                 <tr>
                     <td><span class="ml-2">${mes.getUsername()} : </span></td>
                     <td><span class="ml-2">${mes.getMessage()} </span></td> <br/>
-                    <c:if test="${userAcc.username==mes.username || role=='[ADMIN]'}">
+                    <c:if test="${userAccount.username==mes.username || role=='[ADMIN]'}">
                         <td>
                             <form action="/deleteMessage/${movie.id}/${mes.getIdo()}">
                                 <button class="mt-2 mb-1 ml-1 btn btn-dark" style="border-radius: 10px" type="submit">delete</button>

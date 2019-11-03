@@ -28,6 +28,10 @@ public class AttributeServiceImpl implements AttributeService {
         List<Attribute> attributesAll = attributeRep.findAll();
         List<Attribute> attributesNotInObj = new ArrayList<Attribute>();
 
+        List<Type> typeListParent = typeRep.findTreeFromParent(typeId);
+        List<Type> typeListChild = typeRep.findTreeFromChild(typeId);
+        List<TypeAttribute> typeAttributeList;
+
         try {
             for (Attribute att : attributesAll
             ) {
@@ -37,6 +41,24 @@ public class AttributeServiceImpl implements AttributeService {
                 }
             }
         } catch (NullPointerException e) {}
+
+        for (Type type: typeListChild
+        ) {
+            typeAttributeList = typeAttributeRep.findByTypeOrderByAttribute(type);
+            for (TypeAttribute tp: typeAttributeList
+            ) {
+                attributesNotInObj.remove(tp.getAttribute());
+            }
+        }
+
+        for (Type type: typeListParent
+        ) {
+            typeAttributeList = typeAttributeRep.findByTypeOrderByAttribute(type);
+            for (TypeAttribute tp: typeAttributeList
+            ) {
+                attributesNotInObj.remove(tp.getAttribute());
+            }
+        }
 
         return attributesNotInObj;
     }
@@ -76,8 +98,9 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public void save(Attribute attribute) {
-        if(attributeRep.findByLabel(attribute.getLabel())==null) {
+    public void save(String label, String labelType) {
+        if(attributeRep.findByLabel(label)==null) {
+            Attribute attribute = new Attribute(label, labelType);
             attributeRep.save(attribute);
         }
     }

@@ -1,0 +1,17 @@
+body, select {
+    background-color: #151515;
+}
+
+label, h4, option, span {
+    color: aliceblue;
+}
+
+.inp {
+    width: 250px;
+}
+
+.col-center {
+    text-align: center;
+}
+
+

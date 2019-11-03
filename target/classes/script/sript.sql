@@ -181,3 +181,9 @@ insert into obj_entity(id, type_id) values ((select nextval('obj_entity_gen')), 
 
 insert into value(id, "value", atr_id, entity_id)  values ((select nextval('value_gen')), '1', 1, 1);
 
+/* Crypt */
+
+create extension if not exists pgcrypto;
+
+update usr set password = crypt(password, gen_salt('bf', 8));
+

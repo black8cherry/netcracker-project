@@ -21,7 +21,7 @@ public class UserController {
     private FavoriteService favoriteService;
 
     @GetMapping("/user/{id}")
-    public String userList(
+    public String userPage(
             @PathVariable("id") String id,
             Model model
     ) {

@@ -22,7 +22,7 @@ import java.util.List;
 @Transactional
 @Controller
 @RequestMapping(value = {"/main"})
-public class MainController {
+public class MainPageController {
 
     @Autowired
     private ObjEntityService objEntityService;
@@ -79,9 +79,4 @@ public class MainController {
         return "redirect:/main";
     }
 
-    @GetMapping("/test")
-    public String test()
-    {
-        return "test";
-    }
 }

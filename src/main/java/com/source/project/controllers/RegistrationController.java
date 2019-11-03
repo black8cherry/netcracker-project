@@ -19,8 +19,6 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private FavoriteService favoriteService;
 
     @GetMapping("/")
     public String startPage() {return "redirect:/main";}

@@ -4,6 +4,7 @@ import com.source.project.domain.*;
 import com.source.project.domain.resources.FilmList;
 import com.source.project.repos.*;
 import com.source.project.service.ObjEntityService;
+import com.source.project.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     private ValueRep valueRep;
     @Autowired
     private AttributeRep attributeRep;
+    @Autowired
+    private ValueService valueService;
 
 
     @Override
@@ -80,11 +83,11 @@ public class ObjEntityServiceImpl implements ObjEntityService {
             objEntity.setName(objectName);
             for (FilmList tmp: filmL
             ) {
-                Value vall = valueRep.findByAttributesAndObjEntity(
+                Value val = valueRep.findByAttributesAndObjEntity(
                         attributeRep.findByLabel(tmp.getLabel()),
                         objEntity);
-                vall.setValue(tmp.getValue());
-                valueRep.save(vall);
+                val.setValue(tmp.getValue());
+                valueService.save(val);
             }
         }
         else {
@@ -93,9 +96,9 @@ public class ObjEntityServiceImpl implements ObjEntityService {
             ) {
                 values.add(new Value(objEntity, attributeRep.findByLabel(tmp.getLabel()) , tmp.getValue()));
             }
-            for (Value v: values
+            for (Value val: values
             ) {
-                valueRep.save(v);
+                valueService.save(val);
             }
         }
         objEntityRep.save(objEntity);

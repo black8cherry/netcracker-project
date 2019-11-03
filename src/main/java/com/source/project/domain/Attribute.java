@@ -12,11 +12,21 @@ public class Attribute {
     @SequenceGenerator(name = "attribute_gen", sequenceName = "attribute_gen", allocationSize = 1)
     private Integer id;
     private String label;
+    private String labelType;
 
     public Attribute() {}
 
-    public Attribute(String label) {
+    public Attribute(String label, String labelType) {
         this.label = label;
+        this.labelType = labelType;
+    }
+
+    public String getLabelType() {
+        return labelType;
+    }
+
+    public void setLabelType(String labelType) {
+        this.labelType = labelType;
     }
 
     public Integer getId() {
