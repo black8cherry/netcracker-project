@@ -18,12 +18,10 @@ public class User implements UserDetails {
     @SequenceGenerator(name = "user_gen", sequenceName = "user_gen", allocationSize = 1)
     private Integer id;
 
-
     @Size(min = 3, max = 15, message = "Username size must be 3 to 15 symbols.")
     private String username;
 
-
-    @Size(min = 5, max = 65, message = "Password size must be 6 to 50 symbols.")
+    @Size(min = 5, max = 65, message = "Password size must be 6 to 65 symbols.")
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

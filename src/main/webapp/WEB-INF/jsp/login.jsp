@@ -10,15 +10,14 @@
 </head>
 <body class="text-center">
 <div class="container">
-    <div class="row justify-content-md-center ">
-        sesssmes=${Session.SPRING_SECURITY_EXCEPTION.message}
+    <div class="row justify-content-md-center">
     <form class="form-group mt-xl-5" action="${pageContext.request.contextPath}/login" method="post">
-        <c:if test="${Session==null && Session.SPRING_SECURITY_LAST_EXCEPTION.message!=null}">
-        <div class="alert alert-danger" role="alert">
-                error:${Session.SPRING_SECURITY_LAST_EXCEPTION.message}
-        </div>
-    </c:if>
-        <label class="mt-5"> User Name : </label>
+        <c:if test="${SPRING_SECURITY_LAST_EXCEPTION!=null && Session==null}">
+            <div class="alert alert-danger" role="alert">
+                    ${SPRING_SECURITY_LAST_EXCEPTION.message}
+            </div>
+        </c:if>
+        <label class=""> User Name : </label>
         <input class="form-control mb-2" type="text" name="username"/>
         <label> Password: </label>
         <input class="form-control mb-2" type="password" name="password"/>

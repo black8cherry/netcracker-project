@@ -16,19 +16,19 @@
             </form>
 
             <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/objType" method="post">
-                <p><select style=" width: 200px"  size="5" multiple name="parentId">
+                <p><select style=" width: 200px;"  size="5" multiple name="parentId">
                     <option disabled>Choose type</option>
                     <c:forEach items="${types}" var="type">
                         <option value="${type.getId()}">${type.getTypename()}</option>
                     </c:forEach>
                 </select></p>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input placeholder="enter type" class="form-control mt-4 mr-sm-2" type="text" name="typename"/>
-                <button class="btn btn-success mt-4 mx-5" type="submit">Add type</button>
+                <input placeholder="enter type" class="form-control mr-sm-2" type="text" name="typename"/>
+                <button class="btn btn-success mt-3 " type="submit">Add type</button>
             </form>
-        </div>
 
-        <h4>Tree of objects</h4>
+
+        <h5 class="mt-4">Tree of object types</h5>
         <ul class="tree">
 
             <c:forEach var="type" items="${parentType}">
@@ -39,14 +39,16 @@
             </c:forEach>
 
 
-        </ul>
+        </ul>    </div>
     </div>
-    <%--<div class="col-3  mt-4">
-
-    </div>--%>
 
     <div class="col mt-4 mx-auto">
-        <h4>Attributes (with parents)</h4>
+        <h5>Attributes of ${attributesType.typename}
+            <c:if test="${attributesType.typename==null}">
+                (choose type)
+            </c:if>
+            (with parent attributes) :
+        </h5>
         <table class="">
             <c:forEach items="${attributesWithParent}" var="att">
                 <tr>
@@ -58,7 +60,11 @@
     </div>
 
     <div class="col mt-4 mx-auto">
-        <h4 >Attributes of ${attributesType.typename}</h4>
+        <h5 >Attributes of ${attributesType.typename}
+            <c:if test="${attributesType.typename==null}">
+            (choose type)
+            </c:if>
+        </h5>
         <table class="mt-2 mx-auto">
             <c:forEach items="${attributesInObject}" var="att">
                 <tr>
@@ -67,7 +73,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <h4 class="mt-5">Attributes which is not in ${attributesType.typename}</h4>
+        <h5 class="mt-5">Attributes which is not in ${attributesType.typename}</h5>
         <table class="mt-2 mx-auto">
             <c:forEach items="${attributesNotInObject}" var="att">
                 <tr>
@@ -78,7 +84,7 @@
         </table>
     </div>
 
-    <div class="col mt-4 mr-2">
+    <div class="col mt-2 mr-2">
         <form class="my-2 my-lg-0" action="${pageContext.request.contextPath}/editAttribute" method="post" enctype="multipart/form-data">
             <input  type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input   class="form-control mt-4 mb-3 mr-sm-2 inp"  type="text" name="label" placeholder="label"/>
@@ -90,7 +96,7 @@
             <button class="btn btn-success mt-1 mr-sm-2" type="submit">Add attribute</button>
         </form>
 
-        <h4>All attributes</h4>
+        <h5>All attributes</h5>
         <table align="center">
             <c:forEach  items="${allAttributes}" var="att">
                 <tr>
