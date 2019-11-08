@@ -5,3 +5,8 @@ body {
 span, form, h3, label {
     color: aliceblue;
 }
+
+input {
+    display: block;
+    width: 100%;
+}

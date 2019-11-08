@@ -21,14 +21,8 @@ public class ValueServiceImpl implements ValueService {
         String stringVal = value.getValue();
         System.out.println(value.getAttributes().getLabel()+" and for this ");
         if(labelType.equals("char")) {
-            if (!stringVal.matches("[0-9]+")) {
                 System.out.println("true ");
                 valueRep.save(value);
-            } else {
-                value.setValue("invalid attribute value");
-                System.out.println("false");
-                valueRep.save(value);
-            }
         } else if(labelType.equals("numerical")) {
             if (!stringVal.matches("[A-Za-z]+")) {
                 System.out.println("true ");
@@ -38,8 +32,6 @@ public class ValueServiceImpl implements ValueService {
                 valueRep.save(value);
                 System.out.println("false");
             }
-        } else if(labelType.equals("multiType")) {
-            valueRep.save(value);
         } else {
             value.setValue("invalid attribute type");
             valueRep.save(value);

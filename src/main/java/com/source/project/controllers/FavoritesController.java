@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class FavoritesController {
@@ -12,7 +13,7 @@ public class FavoritesController {
     @Autowired
     private FavoriteService favoriteService;
 
-    @GetMapping("/main/{id}/{uid}/addFavorite")
+    @RequestMapping("/main/{id}/{uid}/addFavorite")
     public String addFavorite(
             @PathVariable("id") String objectId,
             @PathVariable("uid") String userId
@@ -21,7 +22,7 @@ public class FavoritesController {
         return "redirect:/main/{id}";
     }
 
-    @GetMapping("/main/{id}/{uid}/removeFavorite")
+    @RequestMapping("/main/{id}/{uid}/removeFavorite")
     public String removeFavorite(
             @PathVariable("id") String objectId,
             @PathVariable("uid") String userId

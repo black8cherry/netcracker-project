@@ -5,8 +5,13 @@ body, select, .dark-form {
 label, h4, span, option, input {
     color: aliceblue;
     background-color: #151515;
+    border: 0;
 }
 
+form {
+    background-color: #151515;
+    width: 150px;
+}
 
 .link  {
     color: aliceblue;

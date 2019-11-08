@@ -2,10 +2,11 @@
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style><%@include file="../css/tree.css"%></style>
 
-<form style="background-color: #151515; width: 150px;" class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/objType" method="get">
+<form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/objType" method="get">
     <input type="hidden" name="typeId" value="${type.id}"/>
-    <input style="border: 0; background-color: #151515; color: aliceblue        " type="submit" value="${type.typename}" />
+    <input type="submit" value="${type.typename}" />
     <a href="${pageContext.request.contextPath}/delObjType/${type.id}">delete</a>
 </form>
 

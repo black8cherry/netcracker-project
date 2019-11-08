@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
 import java.util.List;
 
 @Transactional
@@ -38,7 +37,7 @@ public class MainPageController {
     }
 
     @GetMapping
-    public String main(
+    public String mainPage(
             @RequestParam(required=false) String filter,
             Model model
     ) {
@@ -51,18 +50,15 @@ public class MainPageController {
             movies = objEntityService.getObjEntitiesByTypeInOrderByName(typeList);
         }
 
-        //============================================================================
-
         User userAcc = userService.getUser();
         Boolean checkUser = false;
         if(userAcc != null) {
+
             String role = userAcc.getRole().toString();
             checkUser = true;
             model.addAttribute("userAcc", userAcc);
             model.addAttribute("role", role);
         }
-
-        //=============================================================================
 
         model.addAttribute("checkUser", checkUser);
         model.addAttribute("movie", movies);
@@ -71,7 +67,7 @@ public class MainPageController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public String deleteObj(
             @PathVariable("id") Integer id
     ) {

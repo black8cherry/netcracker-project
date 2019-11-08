@@ -1,6 +1,5 @@
 package com.source.project.controllers;
 
-import com.source.project.domain.TypeAttribute;
 import com.source.project.service.AttributeService;
 import com.source.project.service.TypeAttributeService;
 import com.source.project.service.TypeService;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
 
@@ -39,7 +39,7 @@ public class ObjectAttributeController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/editObjectAttributes/{typeId}/addTypeAtt/{label}")
+    @RequestMapping("/editObjectAttributes/{typeId}/addTypeAtt/{label}")
     public String saveTypeAttribute(
             @PathVariable("label") String label,
             @PathVariable("typeId") Integer typeId
@@ -50,7 +50,7 @@ public class ObjectAttributeController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/editObjectAttributes/{typeId}/deleteTypeAtt/{label}")
+    @RequestMapping("/editObjectAttributes/{typeId}/deleteTypeAtt/{label}")
     public String deleteTypeAttribute(
             @PathVariable("typeId") Integer typeId,
             @PathVariable("label") String label

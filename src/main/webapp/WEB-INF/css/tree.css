@@ -1,0 +1,10 @@
+form {
+    background-color: #151515;
+    width: 150px;
+}
+
+input {
+    border: 0;
+    background-color: #151515;
+    color: aliceblue;
+}

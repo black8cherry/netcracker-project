@@ -5,6 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
@@ -15,7 +17,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
     @SequenceGenerator(name = "user_gen", sequenceName = "user_gen", allocationSize = 1)
     private Integer id;
-    private String username;//login
+
+
+    @Size(min = 3, max = 15, message = "Username size must be 3 to 15 symbols.")
+    private String username;
+
+
+    @Size(min = 5, max = 65, message = "Password size must be 6 to 50 symbols.")
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

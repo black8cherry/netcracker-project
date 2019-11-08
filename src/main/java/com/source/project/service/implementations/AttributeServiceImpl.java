@@ -64,6 +64,24 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
+    public Attribute findById(Integer id) {
+        return attributeRep.findById(id);
+    }
+
+    @Override
+    public void edit(Integer attributeId, String label, String labelType) {
+        Attribute attribute = attributeRep.findById(attributeId);
+
+        attribute.setLabelType(labelType);
+
+        if (attributeRep.findByLabel(label)==null) {
+            attribute.setLabel(label);
+        }
+
+        attributeRep.save(attribute);
+    }
+
+    @Override
     public List<Attribute> getParentAtt(Integer typeId) {
         List<Attribute> attributeList = new ArrayList<Attribute>();
 

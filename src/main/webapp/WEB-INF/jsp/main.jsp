@@ -14,7 +14,7 @@
 </head>
 <body >
 <div class="container">
-    <div class="row">
+    <div class="row mt-3">
 
         <div class="col">
             <h3 style="color: aliceblue">NetFilms</h3>

@@ -16,19 +16,18 @@
             </form>
 
             <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/objType" method="post">
-                <p><select style="background-color: #151515; width: 200px"  size="5" multiple name="parentId">
+                <p><select style=" width: 200px"  size="5" multiple name="parentId">
                     <option disabled>Choose type</option>
                     <c:forEach items="${types}" var="type">
                         <option value="${type.getId()}">${type.getTypename()}</option>
                     </c:forEach>
                 </select></p>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input style="background-color: #151515" class="form-control mt-4 mr-sm-2" type="text" name="typename"/>
+                <input placeholder="enter type" class="form-control mt-4 mr-sm-2" type="text" name="typename"/>
                 <button class="btn btn-success mt-4 mx-5" type="submit">Add type</button>
             </form>
         </div>
-    </div>
-    <div class="col-3  mt-4">
+
         <h4>Tree of objects</h4>
         <ul class="tree">
 
@@ -42,17 +41,22 @@
 
         </ul>
     </div>
+    <%--<div class="col-3  mt-4">
+
+    </div>--%>
 
     <div class="col mt-4 mx-auto">
         <h4>Attributes (with parents)</h4>
         <table class="">
             <c:forEach items="${attributesWithParent}" var="att">
                 <tr>
-                    <td><span>${att.getLabel()}</span></td>
+                    <td><span class="mr-2">${att.getLabel()}</span></td>
+                    <td><span>${att.labelType}</span></td>
                 </tr>
             </c:forEach>
         </table>
     </div>
+
     <div class="col mt-4 mx-auto">
         <h4 >Attributes of ${attributesType.typename}</h4>
         <table class="mt-2 mx-auto">
@@ -77,12 +81,11 @@
     <div class="col mt-4 mr-2">
         <form class="my-2 my-lg-0" action="${pageContext.request.contextPath}/editAttribute" method="post" enctype="multipart/form-data">
             <input  type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input style="background-color: #151515" class="form-control mt-4 mb-3 mr-sm-2 inp"  type="text" name="label" placeholder="label"/>
+            <input   class="form-control mt-4 mb-3 mr-sm-2 inp"  type="text" name="label" placeholder="label"/>
             <p><select   size="4" multiple name="labelType">
                 <option disabled>Choose limitations for attribute</option>
-                <option  value="char">Only text</option>
+                <option  value="char">Without limitations</option>
                 <option  value="numerical">Only numbers</option>
-                <option  value="multiType">Without limitations</option>
             </select></p>
             <button class="btn btn-success mt-1 mr-sm-2" type="submit">Add attribute</button>
         </form>
@@ -91,8 +94,13 @@
         <table align="center">
             <c:forEach  items="${allAttributes}" var="att">
                 <tr>
-                    <td><span class="mr-2">${att.label}</span></td>
-                    <td><a href="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">delete</a></td>
+
+                        <form class="form-inline " action="${pageContext.request.contextPath}/editAttribute" method="get">
+                            <input type="hidden" name="typeId" value="${attributesType.id}">
+                            <input type="hidden" name="attributeId" value="${att.id}">
+                            <td><input type="submit" value="${att.label}"></td>
+                            <td><a href="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">delete</a></td>
+                        </form>
                 </tr>
             </c:forEach>
         </table>

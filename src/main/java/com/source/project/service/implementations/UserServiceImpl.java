@@ -26,7 +26,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRep.findByUsername(username);
+        User user = userRep.findByUsername(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found.");
+        }
+
+        return user;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             return false;
         else {
             user.setRole(Collections.singleton(Role.USER));
-            //user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRep.save(user);
             favoriteService.create(String.valueOf(user.getId()));
             return true;
