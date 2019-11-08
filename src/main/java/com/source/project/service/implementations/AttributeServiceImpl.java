@@ -24,6 +24,18 @@ public class AttributeServiceImpl implements AttributeService {
     private TypeRep typeRep;
 
     @Override
+    public List<Attribute> findByObjectEntityType(Type type) {
+        List<Attribute> attributesList = new ArrayList<Attribute>();
+        List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(type);
+        for (TypeAttribute ta: typeAttributes
+        ) {
+            attributesList.add(ta.getAttribute());
+        }
+
+        return attributesList;
+    }
+
+    @Override
     public List<Attribute> attributesNotInObj(Integer typeId) {
         List<Attribute> attributesAll = attributeRep.findAll();
         List<Attribute> attributesNotInObj = new ArrayList<Attribute>();

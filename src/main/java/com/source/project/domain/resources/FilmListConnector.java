@@ -1,10 +1,10 @@
 package com.source.project.domain.resources;
 
-public class FilmList {
+public class FilmListConnector {
     private String label;
     private String value;
 
-    public FilmList(String label, String value) {
+    public FilmListConnector(String label, String value) {
         this.label = label;
         this.value = value;
     }

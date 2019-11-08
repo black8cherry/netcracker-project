@@ -19,7 +19,6 @@ public interface ObjEntityRep extends
     List<ObjEntity> findByTypeAndParentId(Type type, Integer id);
     List<ObjEntity> findByType(Type type);
     List<ObjEntity> getObjEntitiesByTypeInOrderByName(Collection<Type> type);
-    List<ObjEntity> findAllByFilenameNotNull();
     List<ObjEntity> findByNameIsContaining(String filter);
     ObjEntity findById(Integer id);
     void removeById(Integer id);

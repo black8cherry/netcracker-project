@@ -1,9 +1,6 @@
 package com.source.project.domain;
 
-import com.source.project.*;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Attribute {

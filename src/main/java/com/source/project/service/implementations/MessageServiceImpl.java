@@ -1,15 +1,17 @@
 package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
-import com.source.project.domain.ObjEntity;
-import com.source.project.domain.resources.FilmMessages;
+import com.source.project.domain.resources.MessageConnector;
 import com.source.project.repos.*;
 import com.source.project.service.MessageService;
+import com.source.project.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -27,6 +29,8 @@ public class MessageServiceImpl implements MessageService {
      */
 
     @Autowired
+    private TypeAttributeRep typeAttributeRep;
+    @Autowired
     private ObjEntityRep objEntityRep;
     @Autowired
     private ValueRep valueRep;
@@ -36,57 +40,65 @@ public class MessageServiceImpl implements MessageService {
     private AttributeRep attributeRep;
     @Autowired
     private UserRep userRep;
+    @Autowired
+    private ValueService valueService;
 
     @Override
-    public void save(String userId, Integer parentId, String message) {
-         if(!message.isEmpty()) {
-             Type messageType = typeRep.findById(3);
-             Attribute attMess = attributeRep.findById(3);
-             Attribute attUser = attributeRep.findById(1);
+    public void create(Integer parentId, List<String> label, List<String> value) {
 
-             ObjEntity obj = new ObjEntity(parentId, messageType);
-             Value valUser = new Value(obj, attUser, userId);
-             Value valMess = new Value(obj, attMess, message);
+        Type messageType = typeRep.findById(3);
+        ObjEntity object = new ObjEntity(parentId, messageType);
+        objEntityRep.save(object);
 
-             objEntityRep.save(obj);
-             valueRep.save(valUser);
-             valueRep.save(valMess);
-         }
+        for(int i = 0; i < label.size(); i++) {
+            if(label.get(i).equals(attributeRep.findById(2).getLabel())) {
+                valueService.save(new Value(object,
+                        attributeRep.findById(2),
+                        String.valueOf(object.getId())));
+                System.out.println("it worked");
+            }
+            else
+                valueService.save(new Value(object,
+                    attributeRep.findByLabel(label.get(i)),
+                    value.get(i)));
+        }
+
     }
 
     @Override
     public void delete(Integer objId) {
-        Attribute usrId = attributeRep.findById(1);
-        Attribute review = attributeRep.findById(3);
-
-        ObjEntity obj = objEntityRep.findById(objId);
-        Integer userId = valueRep.findByAttributesAndObjEntity(usrId, obj).getId();
-        Integer revId = valueRep.findByAttributesAndObjEntity(review, obj).getId();
-
-        valueRep.removeById(userId);
-        valueRep.removeById(revId);
         objEntityRep.removeById(objId);
     }
 
     @Override
-    public List<FilmMessages> getListMessages(Integer parentId) {
-        Type mesType = typeRep.findById(3);
-        Attribute review = attributeRep.findById(3);
-        Attribute usrId = attributeRep.findById(1);
+    public List<MessageConnector> getListMessages(Integer parentId) {
 
-        List<FilmMessages> filmMessagesList = new ArrayList<>();
-        List<ObjEntity> objects = objEntityRep.findByTypeAndParentId(mesType, parentId);
-
-        for (ObjEntity obj: objects
+        Type messageType = typeRep.findById(3);
+        List<ObjEntity> reviews = objEntityRep.findByTypeAndParentId(messageType, parentId);
+        
+        List<Attribute> attributesList = new ArrayList<Attribute>();
+        List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(messageType);
+        for (TypeAttribute ta: typeAttributes
              ) {
-            Integer objectId = obj.getId();
-            String username = valueRep.findByAttributesAndObjEntity(usrId, obj).getValue();
-            username = userRep.findById(Integer.valueOf(username)).getUsername();
-            String message = valueRep.findByAttributesAndObjEntity(review, obj).getValue();
-            FilmMessages filmMes = new FilmMessages(objectId, username, message);
-            filmMessagesList.add(filmMes);
+            attributesList.add(ta.getAttribute());
         }
+        
+        List<MessageConnector> reviewList = new ArrayList<MessageConnector>();
 
-        return filmMessagesList;
+        for (ObjEntity object: reviews
+             ) {
+            Map<String, String> tmpMap = new HashMap<>();
+            for (Attribute attribute: attributesList
+                 ) {
+                if(valueRep.findByAttributesAndObjEntity(attribute, object)==null)
+                    tmpMap.put(attribute.getLabel()," ");
+                else
+                    tmpMap.put(attribute.getLabel(),
+                        valueRep.findByAttributesAndObjEntity(attribute, object).getValue());
+            }
+            reviewList.add(new MessageConnector(tmpMap));
+        }
+        
+        return reviewList;
     }
 }

@@ -1,6 +1,7 @@
 package com.source.project.service;
 
 import com.source.project.domain.Attribute;
+import com.source.project.domain.Type;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ public interface AttributeService {
     Attribute findByLabel(String label);
     Attribute findById(Integer id);
     void removeByLabel(String label);
+    List<Attribute> findByObjectEntityType(Type type);
     List<Attribute> findAll();
     void save(String label, String labelType);
     void edit(Integer attributeId, String label, String labelType);

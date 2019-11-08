@@ -3,9 +3,13 @@ package com.source.project.controllers;
 import com.source.project.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Controller
@@ -16,11 +20,12 @@ public class MessagesController {
 
     @PostMapping("/main/{id}")
     public String saveMessage(
-            @RequestParam String message,
-            @RequestParam String userId,
-            @PathVariable("id") Integer id
+            @PathVariable("id") Integer id,
+            @RequestParam List<String> label,
+            @RequestParam List<String> value
     ) {
-        messageService.save(userId , id, message);
+        messageService.create(id, label, value);
+
         return "redirect:/main/{id}";
     }
 

@@ -7,14 +7,16 @@
     <title>NetFilms</title>
     <style><%@include file="../css/filmList.css"%></style>
     <style><%@include file="../css/bg.css"%></style>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body style="background-color: #151515;">
 
 <div class="container">
 
-    <div class="row bar">
+    <div class="row bar mt-2">
 
         <div class="col">
             <h3>NetFilms</h3>
@@ -40,6 +42,7 @@
                     <form class="form-inline "  action="${pageContext.request.contextPath}/login" method="get">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <input class="btn btn-dark mr-sm-2" type="submit" value="sign in">
+
                     </form>
                 </c:if>
             </div>
@@ -148,26 +151,62 @@
         </div>
 
     </div>
-
     <div class="row">
         <div class="col">
             <c:if test="${checkUser==true}">
+                <%--<a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Add new review
+                </a>
+                <div class="collapse" id="collapse"></div>--%>
                 <form class="mt-4 form-inline justify-content-center" action="/main/${id}" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                    <input type="hidden" name="userId" value="${userAccount.id}"/>
-                    <input class="form-control mr-2" style="width: 300px; height: 70px;" type="text" name="message">
-                    <button class="btn btn-dark mb-4" type="submit">Add new review</button>
+                    <c:forEach items="${attributesMessageType}" var="att">
+                        <c:choose>
+
+                            <c:when test="${att.label=='userId' || att.label=='refToObject'}">
+                                <input type="hidden" name="label" value="${att.label}">
+                                <input type="hidden" name="value" value="${userAccount.id}">
+                            </c:when>
+
+                            <c:when test="${att.label=='username'}">
+                                <input type="hidden" name="label" value="${att.label}">
+                                <input type="hidden" name="value" value="${userAccount.username}">
+                            </c:when>
+
+                            <c:otherwise>
+                                <input type="hidden" name="label" value="${att.label}">
+                                <input type="text" class="form-control mb-2 mr-2" name="value" placeholder="${att.label}">
+                            </c:otherwise>
+
+                        </c:choose>
+                    </c:forEach>
+                    <button class="btn btn-dark mb-2" type="submit">Add new review</button>
                 </form>
+
             </c:if>
 
             <c:forEach items="${userMessages}" var="mes">
                 <div class="mes mx-auto mt-4" style="width: 600px">
                 <tr>
-                    <td><span class="ml-2">${mes.getUsername()} : </span></td>
-                    <td><span class="ml-2">${mes.getMessage()} </span></td> <br/>
-                    <c:if test="${userAccount.username==mes.username || role=='[ADMIN]'}">
+                    <div class="ml-2">
+                    <c:forEach items="${mes.getAttributeValueMap()}" var="attValMap" >
+
+                        <c:if test="${attValMap.getKey()=='refToObject'}">
+                            <c:set var="messageId" value="${attValMap.getValue()}"/>
+                        </c:if>
+
+                        <c:if test="${attValMap.getKey()!='userId' && attValMap.getKey()!='refToObject'}">
+                            <td>${attValMap.getKey()} : </td>
+                            <td>${attValMap.getValue()}</td>
+                            ${messageId}
+                            <br/>
+                        </c:if>
+
+                    </c:forEach>
+                    </div>
+                    <c:if test="${ role=='[ADMIN]'}">
                         <td>
-                            <form action="/deleteMessage/${movie.id}/${mes.getIdo()}">
+                            <form action="/deleteMessage/${id}/${messageId}">
                                 <button class="mt-2 mb-1 ml-1 btn btn-dark" style="border-radius: 10px" type="submit">delete</button>
                             </form>
                         </td>

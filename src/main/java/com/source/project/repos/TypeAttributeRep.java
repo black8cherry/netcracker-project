@@ -17,6 +17,6 @@ public interface TypeAttributeRep extends
     List<TypeAttribute> findByType(Type type);
     List<TypeAttribute> findByTypeOrderByAttribute(Type type);
     TypeAttribute findByAttributeAndType(Attribute attribute, Type type);
-    void removeByAttribute(Attribute attribute);
     void removeByAttributeAndType(Attribute attribute, Type type);
+    Integer countByType(Type type);
 }

@@ -1,8 +1,6 @@
 package com.source.project.controllers;
 
 import com.source.project.service.AttributeService;
-import com.source.project.service.TypeAttributeService;
-import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

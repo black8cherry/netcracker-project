@@ -1,7 +1,7 @@
 package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
-import com.source.project.domain.resources.FilmList;
+import com.source.project.domain.resources.FilmListConnector;
 import com.source.project.repos.*;
 import com.source.project.service.ObjEntityService;
 import com.source.project.service.ValueService;
@@ -74,14 +74,14 @@ public class ObjEntityServiceImpl implements ObjEntityService {
         ObjEntity objEntity = objEntityRep.findById(id);
         List<Value> values = valueRep.findAllByObjEntity(objEntity);
 
-        List<FilmList> filmL = new ArrayList<FilmList>();
+        List<FilmListConnector> filmL = new ArrayList<FilmListConnector>();
         for(int i = 0; i < label.size(); i++) {
-            filmL.add(new FilmList(label.get(i), value.get(i)));
+            filmL.add(new FilmListConnector(label.get(i), value.get(i)));
         }
 
         if(!values.isEmpty()){
             objEntity.setName(objectName);
-            for (FilmList tmp: filmL
+            for (FilmListConnector tmp: filmL
             ) {
                 Value val = valueRep.findByAttributesAndObjEntity(
                         attributeRep.findByLabel(tmp.getLabel()),
@@ -92,7 +92,7 @@ public class ObjEntityServiceImpl implements ObjEntityService {
         }
         else {
             objEntity.setName(objectName);
-            for (FilmList tmp: filmL
+            for (FilmListConnector tmp: filmL
             ) {
                 values.add(new Value(objEntity, attributeRep.findByLabel(tmp.getLabel()) , tmp.getValue()));
             }
@@ -105,9 +105,9 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     }
 
     @Override
-    public List<FilmList> showAttributes(ObjEntity objEntity) {
+    public List<FilmListConnector> showAttributes(ObjEntity objEntity) {
         Integer childId = objEntity.getType().getId();
-        List<FilmList> filmList = new ArrayList<FilmList>();
+        List<FilmListConnector> filmListConnector = new ArrayList<FilmListConnector>();
         List<TypeAttribute> typeAttributes = new ArrayList<TypeAttribute>();
         List<Type> typeList = typeRep.findTreeFromChild(childId);
         for (Type type: typeList
@@ -122,10 +122,10 @@ public class ObjEntityServiceImpl implements ObjEntityService {
                 else {
                     value = valueRep.findByAttributesAndObjEntity(tp.getAttribute(), objEntity).getValue();
                 }
-                filmList.add(new FilmList(tp.getAttribute().getLabel(), value));
+                filmListConnector.add(new FilmListConnector(tp.getAttribute().getLabel(), value));
             }
         }
-        return filmList;
+        return filmListConnector;
     }
 
     @Override

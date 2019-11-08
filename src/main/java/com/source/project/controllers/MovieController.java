@@ -3,7 +3,7 @@ package com.source.project.controllers;
 import com.source.project.domain.ObjEntity;
 import com.source.project.domain.Type;
 import com.source.project.domain.User;
-import com.source.project.domain.resources.FilmList;
+import com.source.project.domain.resources.FilmListConnector;
 import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +37,8 @@ public class MovieController {
     private RatingService ratingService;
     @Autowired
     private FavoriteService favoriteService;
+    @Autowired
+    private AttributeService attributeService;
 
     @GetMapping("/main/{id}")
     public String moviePage(
@@ -62,6 +64,8 @@ public class MovieController {
 
         model.addAttribute("movieAttributes", objEntityService.showAttributes(objEntity));
 
+        model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(3)));
+
         model.addAttribute("userMessages", messageService.getListMessages(id));
 
         model.addAttribute("rate", ratingService.getRate(id));
@@ -80,11 +84,11 @@ public class MovieController {
             Model model
     ) {
         ObjEntity objEntity = objEntityService.findById(Integer.valueOf(id));
-        List<FilmList> filmList = objEntityService.showAttributes(objEntity);
+        List<FilmListConnector> filmListConnector = objEntityService.showAttributes(objEntity);
 
         model.addAttribute("objects", objEntity);
 
-        model.addAttribute("fl", filmList);
+        model.addAttribute("fl", filmListConnector);
         return "filmEdit";
     }
 
