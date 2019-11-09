@@ -82,10 +82,10 @@
         <div class="col float-left">
             <h5 class="ml-5">${movie.name}</h5>
             <table class="mt-4">
-                <c:forEach items="${movieAttributes}" var="fl">
+                <c:forEach items="${movieAttributes.attributeValueMap}" var="attributeValue">
                 <tr>
-                    <td><span>${fl.label} : </span></td>
-                    <td><span>${fl.value}</span></td>
+                    <td><span>${attributeValue.getKey()} : </span></td>
+                    <td><span>${attributeValue.getValue()}</span></td>
                 </tr>
                 </c:forEach>
             </table>

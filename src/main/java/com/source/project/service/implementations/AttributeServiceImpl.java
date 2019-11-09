@@ -3,6 +3,7 @@ package com.source.project.service.implementations;
 import com.source.project.domain.Attribute;
 import com.source.project.domain.Type;
 import com.source.project.domain.TypeAttribute;
+import com.source.project.domain.resources.MessageConnector;
 import com.source.project.repos.AttributeRep;
 import com.source.project.repos.TypeAttributeRep;
 import com.source.project.repos.TypeRep;
@@ -11,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AttributeServiceImpl implements AttributeService {
@@ -36,14 +39,17 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public List<Attribute> findByObjectEntityTypeOrderByLabel(Type type) {
-        List<Attribute> attributesList = new ArrayList<Attribute>();
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(type);
-        for (TypeAttribute ta: typeAttributes
-        ) {
-            attributesList.add(ta.getAttribute());
+    public List<Attribute> getListForRefactorAttributeValues(MessageConnector messageConnector) {
+
+        Map<String, String> tmpMap = messageConnector.getAttributeValueMap();
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+        for (String key: tmpMap.keySet()
+             ) {
+            attributes.add(attributeRep.findByLabel(key));
         }
-        return attributesList;
+
+        return attributes;
     }
 
     @Override

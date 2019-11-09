@@ -21,5 +21,6 @@ public interface ObjEntityRep extends
     List<ObjEntity> getObjEntitiesByTypeInOrderByName(Collection<Type> type);
     List<ObjEntity> findByNameIsContaining(String filter);
     ObjEntity findById(Integer id);
+    ObjEntity findByParentIdAndType(Integer id, Type type);
     void removeById(Integer id);
 }

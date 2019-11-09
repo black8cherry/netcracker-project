@@ -2,7 +2,9 @@ package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
 import com.source.project.domain.resources.FilmListConnector;
+import com.source.project.domain.resources.MessageConnector;
 import com.source.project.repos.*;
+import com.source.project.service.AttributeService;
 import com.source.project.service.ObjEntityService;
 import com.source.project.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     private AttributeRep attributeRep;
     @Autowired
     private ValueService valueService;
+    @Autowired
+    private AttributeService attributeService;
 
 
     @Override
@@ -40,11 +44,6 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     @Override
     public void removeById(Integer id) {
         objEntityRep.removeById(id);
-    }
-
-    @Override
-    public List<ObjEntity> findAll() {
-        return objEntityRep.findAll();
     }
 
     @Override
@@ -71,74 +70,60 @@ public class ObjEntityServiceImpl implements ObjEntityService {
 
     @Override
     public void edit(String objectName, List<String> label, List<String> value, Integer id) {
-        ObjEntity objEntity = objEntityRep.findById(id);
-        List<Value> values = valueRep.findAllByObjEntity(objEntity);
 
-        List<FilmListConnector> filmL = new ArrayList<FilmListConnector>();
+        ObjEntity object = objEntityRep.findById(id);
+        object.setName(objectName);
+
         for(int i = 0; i < label.size(); i++) {
-            filmL.add(new FilmListConnector(label.get(i), value.get(i)));
-        }
-
-        if(!values.isEmpty()){
-            objEntity.setName(objectName);
-            for (FilmListConnector tmp: filmL
+            if (valueRep.findByAttributesAndObjEntity(
+                    attributeRep.findByLabel(label.get(i)),
+                    object)!=null
             ) {
                 Value val = valueRep.findByAttributesAndObjEntity(
-                        attributeRep.findByLabel(tmp.getLabel()),
-                        objEntity);
+                        attributeRep.findByLabel(label.get(i)),
+                        object);
+                val.setValue(value.get(i));
+                valueService.save(val);
+            } else {
+                valueService.save(new Value(object, attributeRep.findByLabel(label.get(i)), value.get(i)));
+            }
+        }
 
-                val.setValue(tmp.getValue());
-                valueService.save(val);
-            }
-        }
-        else {
-            objEntity.setName(objectName);
-            for (FilmListConnector tmp: filmL
-            ) {
-                values.add(new Value(objEntity, attributeRep.findByLabel(tmp.getLabel()) , tmp.getValue()));
-            }
-            for (Value val: values
-            ) {
-                valueService.save(val);
-            }
-        }
-        objEntityRep.save(objEntity);
     }
 
     @Override
-    public List<FilmListConnector> showAttributes(ObjEntity objEntity) {
-        Integer childId = objEntity.getType().getId();
-        List<FilmListConnector> filmListConnector = new ArrayList<FilmListConnector>();
+    public MessageConnector showAttributes(ObjEntity objEntity) {
+
+        Map<String, String > attributeValue = new HashMap<String, String>();
+
+        List<Attribute> attributesList = new ArrayList<Attribute>();
         List<TypeAttribute> typeAttributes = new ArrayList<TypeAttribute>();
-        List<Type> typeList = typeRep.findTreeFromChild(childId);
+        List<Type> typeList = typeRep.findTreeFromChild(objEntity.getType().getId());
         for (Type type: typeList
-             ) {
-             typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(type);
-            for (TypeAttribute tp: typeAttributes
+        ) {
+            typeAttributes = typeAttributeRep.findByTypeOrderByAttribute(type);
+            for (TypeAttribute ta: typeAttributes
             ) {
-                String value;
-                if(valueRep.findByAttributesAndObjEntity(tp.getAttribute(), objEntity) == null) {
-                    value = " ";
-                }
-                else {
-                    value = valueRep.findByAttributesAndObjEntity(tp.getAttribute(), objEntity).getValue();
-                }
-                filmListConnector.add(new FilmListConnector(tp.getAttribute().getLabel(), value));
+                attributesList.add(ta.getAttribute());
             }
         }
-        return filmListConnector;
+
+        for (Attribute attribute: attributesList
+        ) {
+            if(valueRep.findByAttributesAndObjEntity(attribute, objEntity)==null)
+                attributeValue.put(attribute.getLabel()," ");
+            else
+                attributeValue.put(attribute.getLabel(),
+                        valueRep.findByAttributesAndObjEntity(attribute, objEntity).getValue());
+        }
+
+        return new MessageConnector(attributeValue);
     }
 
     @Override
     public List<ObjEntity> findByNameIsContaining(String filter) {
         return objEntityRep.findByNameIsContaining(filter);
     }
-
-    @Override
-    public List<ObjEntity> findAll(Sort sort) {
-        return objEntityRep.findAll(sort);
-    }
-
 
     @Override
     public List<ObjEntity> getObjEntitiesByTypeInOrderByName(Collection<Type> type) {

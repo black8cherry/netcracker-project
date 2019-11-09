@@ -16,17 +16,21 @@
             <input class="mb-2" type="text" name="objectName" value="${objects.name}"/>
             <input class="mb-2" type="hidden" name="objectId" value="${objects.id}"/>
             <br>
-            <c:forEach items="${fl}" var="fl">
-
-
-                    ${fl.label}
-                <input class="mb-2" type="hidden" name="label" value="${fl.label}"/>
+            <c:forEach items="${attributeValue.attributeValueMap}" var="attributeValue">
+                <c:forEach items="${objectAttributes}" var="att">
+                    <c:if test="${att.label==attributeValue.getKey()}">
+                        <c:set var="type" value="${att.labelType}"/>
+                    </c:if>
+                </c:forEach>
+                    ${attributeValue.getKey()}
+                <input class="mb-2" type="hidden" name="label" value="${attributeValue.getKey()}"/>
                 <input class="mb-2"
                        type="text"
                        id="values"
                        name="value"
-                       pattern="${=='numerical' ? '[0-9]+' : '[A-Za-z0-9]+'}" <!-- here error -->
-                       value="${fl.value}"/>
+                       pattern="${type=='numerical' ? '[0-9]+' : '[A-Za-z0-9]+'}"
+                       value="${attributeValue.getValue()}"
+                />
                 <span class="error" aria-live="polite"></span>
                 <br>
             </c:forEach>
