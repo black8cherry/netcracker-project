@@ -1,6 +1,7 @@
 create table attribute (
     id int4 not null,
     label varchar(16),
+    label_type varchar(16),
     primary key (id)
 );
 
@@ -132,15 +133,18 @@ alter table public.type_attribute_gen owner to postgres;
  * refToObj   2
  * review     3
  * rate       4
+ * username   5
  */
 
-insert into attribute(id, label) values ((select nextval('attribute_gen')), 'userId');
+insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'userId', 'numerical');
 
-insert into attribute(id, label) values ((select nextval('attribute_gen')), 'refToObject');
+insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'refToObject', 'numerical');
 
-insert into attribute(id, label) values ((select nextval('attribute_gen')), 'review');
+insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'review', 'char');
 
-insert into attribute(id, label) values ((select nextval('attribute_gen')), 'rate');
+insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'rate', 'numerical');
+
+insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'username', 'char');
 
 /* Types
  * video        1
@@ -159,13 +163,23 @@ insert into type(id, typename) values ((select nextval('type_gen')), 'rating');
 
 /* Type-Attributes */
 
+        /* favorite type */
+
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 2);
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 2, 2);
 
+        /* message type */
+
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 3);
 
+insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 2, 3);
+
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 3, 3);
+
+insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 5, 3);
+
+        /* rating type */
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 4);
 

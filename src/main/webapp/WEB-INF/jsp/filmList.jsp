@@ -175,7 +175,13 @@
 
                             <c:otherwise>
                                 <input type="hidden" name="label" value="${att.label}">
-                                <input type="text" class="form-control mb-2 mr-2" name="value" placeholder="${att.label}">
+                                <input type="text"
+                                       id="values"
+                                       class="form-control mb-2 mr-2"
+                                       pattern="${att.labelType=='numerical' ? '[0-9]+' : '[A-Za-z0-9]+'}"
+                                       name="value"
+                                       placeholder="${att.label}">
+                                <span class="error" aria-live="polite"></span>
                             </c:otherwise>
 
                         </c:choose>
@@ -218,5 +224,7 @@
     </div>
 
 </div>
+
+<script src="../js/filmList.js"></script>
 </body>
 </html>

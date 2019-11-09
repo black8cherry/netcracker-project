@@ -10,6 +10,7 @@ public interface AttributeService {
     Attribute findById(Integer id);
     void removeByLabel(String label);
     List<Attribute> findByObjectEntityType(Type type);
+    List<Attribute> findByObjectEntityTypeOrderByLabel(Type type);
     List<Attribute> findAll();
     void save(String label, String labelType);
     void edit(Integer attributeId, String label, String labelType);

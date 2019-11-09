@@ -55,7 +55,6 @@ public class MessageServiceImpl implements MessageService {
                 valueService.save(new Value(object,
                         attributeRep.findById(2),
                         String.valueOf(object.getId())));
-                System.out.println("it worked");
             }
             else
                 valueService.save(new Value(object,

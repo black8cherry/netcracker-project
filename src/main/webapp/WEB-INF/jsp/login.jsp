@@ -12,6 +12,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
     <form class="form-group mt-xl-5" action="${pageContext.request.contextPath}/login" method="post">
+        <input class="mb-2" type="hidden" name="_csrf" value="${_csrf.token}"/>
         <c:if test="${SPRING_SECURITY_LAST_EXCEPTION!=null && Session==null}">
             <div class="alert alert-danger" role="alert">
                     ${SPRING_SECURITY_LAST_EXCEPTION.message}
@@ -21,7 +22,7 @@
         <input class="form-control mb-2" type="text" name="username"/>
         <label> Password: </label>
         <input class="form-control mb-2" type="password" name="password"/>
-        <input class="mb-2" type="hidden" name="_csrf" value="${_csrf.token}"/>
+
         <button class="btn btn-lg btn-primary btn-block mb-2 " type="submit">Sign In</button>
         <a href="${pageContext.request.contextPath}/registration">add new user</a>
     </form>

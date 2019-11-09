@@ -87,7 +87,7 @@ public class MovieController {
         List<FilmListConnector> filmListConnector = objEntityService.showAttributes(objEntity);
 
         model.addAttribute("objects", objEntity);
-
+        model.addAttribute("objectAttributes", attributeService.findByObjectEntityType(objEntity.getType()));
         model.addAttribute("fl", filmListConnector);
         return "filmEdit";
     }

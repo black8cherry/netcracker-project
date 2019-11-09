@@ -17,7 +17,7 @@ public class ValueServiceImpl implements ValueService {
 
     @Override
     public void save(Value value) {
-        String labelType = value.getAttributes().getLabelType();
+        /*String labelType = value.getAttributes().getLabelType();
         String stringVal = value.getValue();
         if(labelType.equals("char")) {
                 valueRep.save(value);
@@ -29,9 +29,8 @@ public class ValueServiceImpl implements ValueService {
                 valueRep.save(value);
             }
         } else {
-            value.setValue("invalid attribute type");
+            value.setValue("invalid attribute type");*/
             valueRep.save(value);
-        }
     }
 
     @Override

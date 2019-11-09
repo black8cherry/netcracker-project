@@ -86,6 +86,7 @@ public class ObjEntityServiceImpl implements ObjEntityService {
                 Value val = valueRep.findByAttributesAndObjEntity(
                         attributeRep.findByLabel(tmp.getLabel()),
                         objEntity);
+
                 val.setValue(tmp.getValue());
                 valueService.save(val);
             }
