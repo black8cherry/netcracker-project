@@ -3,8 +3,6 @@ package com.source.project.controllers;
 import com.source.project.domain.ObjEntity;
 import com.source.project.domain.Type;
 import com.source.project.domain.User;
-import com.source.project.domain.resources.FilmListConnector;
-import com.source.project.domain.resources.MessageConnector;
 import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MovieController {
@@ -85,10 +84,10 @@ public class MovieController {
             Model model
     ) {
         ObjEntity objEntity = objEntityService.findById(Integer.valueOf(id));
-        MessageConnector messageConnector = objEntityService.showAttributes(objEntity);
+        Map<String, String> tmpMap = objEntityService.showAttributes(objEntity);
         model.addAttribute("objects", objEntity);
-        model.addAttribute("attributeValue", messageConnector);
-        model.addAttribute("objectAttributes", attributeService.getListForRefactorAttributeValues(messageConnector));
+        model.addAttribute("attributeValue", tmpMap);
+        model.addAttribute("objectAttributes", attributeService.getListForRefactorAttributeValues(tmpMap));
         return "filmEdit";
     }
 

@@ -1,7 +1,6 @@
 package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
-import com.source.project.domain.resources.MessageConnector;
 import com.source.project.repos.*;
 import com.source.project.service.MessageService;
 import com.source.project.service.ValueService;
@@ -70,7 +69,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessageConnector> getListMessages(Integer parentId) {
+    public List<Map<String, String>> getListMessages(Integer parentId) {
 
         Type messageType = typeRep.findById(3);
         List<ObjEntity> reviews = objEntityRep.findByTypeAndParentId(messageType, parentId);
@@ -81,8 +80,8 @@ public class MessageServiceImpl implements MessageService {
              ) {
             attributesList.add(ta.getAttribute());
         }
-        
-        List<MessageConnector> reviewList = new ArrayList<MessageConnector>();
+
+        List<Map<String, String>> reviewList = new ArrayList<Map<String, String>>();
 
         for (ObjEntity object: reviews
              ) {
@@ -95,7 +94,7 @@ public class MessageServiceImpl implements MessageService {
                     tmpMap.put(attribute.getLabel(),
                         valueRep.findByAttributesAndObjEntity(attribute, object).getValue());
             }
-            reviewList.add(new MessageConnector(tmpMap));
+            reviewList.add(tmpMap);
         }
         
         return reviewList;

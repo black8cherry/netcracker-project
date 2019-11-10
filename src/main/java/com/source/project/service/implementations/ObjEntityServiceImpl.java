@@ -1,14 +1,11 @@
 package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
-import com.source.project.domain.resources.FilmListConnector;
-import com.source.project.domain.resources.MessageConnector;
 import com.source.project.repos.*;
 import com.source.project.service.AttributeService;
 import com.source.project.service.ObjEntityService;
 import com.source.project.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -92,7 +89,7 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     }
 
     @Override
-    public MessageConnector showAttributes(ObjEntity objEntity) {
+    public Map<String, String> showAttributes(ObjEntity objEntity) {
 
         Map<String, String > attributeValue = new HashMap<String, String>();
 
@@ -117,7 +114,7 @@ public class ObjEntityServiceImpl implements ObjEntityService {
                         valueRep.findByAttributesAndObjEntity(attribute, objEntity).getValue());
         }
 
-        return new MessageConnector(attributeValue);
+        return attributeValue;
     }
 
     @Override

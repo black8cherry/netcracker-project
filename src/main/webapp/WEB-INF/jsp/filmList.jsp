@@ -82,7 +82,7 @@
         <div class="col float-left">
             <h5 class="ml-5">${movie.name}</h5>
             <table class="mt-4">
-                <c:forEach items="${movieAttributes.attributeValueMap}" var="attributeValue">
+                <c:forEach items="${movieAttributes}" var="attributeValue">
                 <tr>
                     <td><span>${attributeValue.getKey()} : </span></td>
                     <td><span>${attributeValue.getValue()}</span></td>
@@ -195,7 +195,7 @@
                 <div class="mes mx-auto mt-4" style="width: 600px">
                 <tr>
                     <div class="ml-2">
-                    <c:forEach items="${mes.getAttributeValueMap()}" var="attValMap" >
+                    <c:forEach items="${mes}" var="attValMap" >
 
                         <c:if test="${attValMap.getKey()=='refToObject'}">
                             <c:set var="messageId" value="${attValMap.getValue()}"/>

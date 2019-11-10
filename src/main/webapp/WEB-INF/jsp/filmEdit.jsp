@@ -16,7 +16,7 @@
             <input class="mb-2" type="text" name="objectName" value="${objects.name}"/>
             <input class="mb-2" type="hidden" name="objectId" value="${objects.id}"/>
             <br>
-            <c:forEach items="${attributeValue.attributeValueMap}" var="attributeValue">
+            <c:forEach items="${attributeValue}" var="attributeValue">
                 <c:forEach items="${objectAttributes}" var="att">
                     <c:if test="${att.label==attributeValue.getKey()}">
                         <c:set var="type" value="${att.labelType}"/>

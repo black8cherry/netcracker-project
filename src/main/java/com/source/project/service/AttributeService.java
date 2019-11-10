@@ -2,14 +2,14 @@ package com.source.project.service;
 
 import com.source.project.domain.Attribute;
 import com.source.project.domain.Type;
-import com.source.project.domain.resources.MessageConnector;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AttributeService {
     Attribute findByLabel(String label);
     Attribute findById(Integer id);
-    List<Attribute> getListForRefactorAttributeValues(MessageConnector messageConnector);
+    List<Attribute> getListForRefactorAttributeValues(Map<String, String> tmpMap);
     List<Attribute> findByObjectEntityType(Type type);
     List<Attribute> findAll();
     List<Attribute> attributesNotInObj(Integer typeId);

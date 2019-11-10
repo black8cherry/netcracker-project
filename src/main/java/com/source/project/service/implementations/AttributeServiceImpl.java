@@ -3,7 +3,6 @@ package com.source.project.service.implementations;
 import com.source.project.domain.Attribute;
 import com.source.project.domain.Type;
 import com.source.project.domain.TypeAttribute;
-import com.source.project.domain.resources.MessageConnector;
 import com.source.project.repos.AttributeRep;
 import com.source.project.repos.TypeAttributeRep;
 import com.source.project.repos.TypeRep;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +37,8 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public List<Attribute> getListForRefactorAttributeValues(MessageConnector messageConnector) {
+    public List<Attribute> getListForRefactorAttributeValues(Map<String, String> tmpMap) {
 
-        Map<String, String> tmpMap = messageConnector.getAttributeValueMap();
         List<Attribute> attributes = new ArrayList<Attribute>();
 
         for (String key: tmpMap.keySet()
