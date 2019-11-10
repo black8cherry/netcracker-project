@@ -210,13 +210,17 @@
 
                     </c:forEach>
                     </div>
-                    <c:if test="${ role=='[ADMIN]'}">
-                        <td>
-                            <form action="/deleteMessage/${id}/${messageId}">
-                                <button class="mt-2 mb-1 ml-1 btn btn-dark" style="border-radius: 10px" type="submit">delete</button>
-                            </form>
-                        </td>
-                    </c:if>
+                    <c:forEach items="${mes}" var="attValMap" >
+                        <c:if test="${attValMap.getKey()=='userId'}">
+                            <c:if test="${attValMap.getValue()==userAccount.id || role=='[ADMIN]'}">
+                                <td>
+                                    <form action="/deleteMessage/${id}/${messageId}">
+                                        <button class="mt-2 mb-1 ml-1 btn btn-dark" style="border-radius: 10px" type="submit">delete</button>
+                                    </form>
+                                </td>
+                            </c:if>
+                        </c:if>
+                    </c:forEach>
                 </tr>
                 </div>
             </c:forEach>
