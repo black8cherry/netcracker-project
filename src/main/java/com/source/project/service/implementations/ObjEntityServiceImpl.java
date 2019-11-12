@@ -44,7 +44,7 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     }
 
     @Override
-    public void save(String name,  Integer typeId, MultipartFile file, String uploadPath) throws IOException {
+    public Integer save(String name,  Integer typeId, MultipartFile file, String uploadPath) throws IOException {
         ObjEntity objEntity = new ObjEntity(name, typeRep.findById(typeId));
         if (file.getSize() != 0) {
             File uploadDir = new File(uploadPath);
@@ -63,6 +63,8 @@ public class ObjEntityServiceImpl implements ObjEntityService {
         }
 
         objEntityRep.save(objEntity);
+
+        return objEntity.getId();
     }
 
     @Override
@@ -108,7 +110,7 @@ public class ObjEntityServiceImpl implements ObjEntityService {
         for (Attribute attribute: attributesList
         ) {
             if(valueRep.findByAttributesAndObjEntity(attribute, objEntity)==null)
-                attributeValue.put(attribute.getLabel()," ");
+                attributeValue.put(attribute.getLabel(),"");
             else
                 attributeValue.put(attribute.getLabel(),
                         valueRep.findByAttributesAndObjEntity(attribute, objEntity).getValue());

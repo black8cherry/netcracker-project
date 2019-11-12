@@ -121,12 +121,11 @@ public class MovieController {
             @RequestParam Integer typeId,
             @RequestParam MultipartFile file
     ) throws IOException {
-
         if (name != null && typeId != null) {
-            objEntityService.save(name, typeId, file, uploadPath);
+            Integer id = objEntityService.save(name, typeId, file, uploadPath);
+            return "redirect:/main/"+id+"/edit";
         }
         return "redirect:/addFilm";
     }
-
 
 }

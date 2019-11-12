@@ -46,7 +46,7 @@
                 </c:when>
 
                 <c:when test="${checkUser==false}">
-                    <form class="form-inline "  action="${pageContext.request.contextPath}/login" method="get">
+                    <form class="form-inline "  action="${pageContext.request.contextPath}/login" method="post">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <input class="btn btn-dark mr-sm-2" type="submit" value="sign in">
                     </form>

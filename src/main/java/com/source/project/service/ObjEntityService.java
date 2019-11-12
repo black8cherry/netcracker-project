@@ -13,7 +13,7 @@ public interface ObjEntityService {
     ObjEntity findById(Integer id);
     List<ObjEntity> getObjEntitiesByTypeInOrderByName(Collection<Type> type);
     List<ObjEntity> findByNameIsContaining(String filter);
-    void save(String name, Integer typeId, MultipartFile file, String uploadPath) throws IOException;
+    Integer save(String name, Integer typeId, MultipartFile file, String uploadPath) throws IOException;
     void removeById(Integer id);
     void edit(String objectName, List<String> label, List<String> value, Integer id);
     Map<String, String> showAttributes(ObjEntity objEntity);

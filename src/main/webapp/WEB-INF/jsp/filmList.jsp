@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body style="background-color: #151515;">
 
@@ -132,6 +131,7 @@
                     </form>
 
                 </c:if>
+                <a href="#" id="button" class="btn btn-dark">Add</a>
             </c:if>
 
 
@@ -154,43 +154,41 @@
     <div class="row">
         <div class="col">
             <c:if test="${checkUser==true}">
-                <%--<a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Add new review
-                </a>
-                <div class="collapse" id="collapse"></div>--%>
-                <form class="mt-4 form-inline justify-content-center" action="/main/${id}" method="post">
-                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                    <c:forEach items="${attributesMessageType}" var="att">
-                        <c:choose>
+            <div class="bg-modal">
+                <div class="modal-content">
+                    <div class="close">+</div>
+                        <form class="mt-4 form-inline" action="/main/${id}" method="post">
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            <c:forEach items="${attributesMessageType}" var="att">
+                                <c:choose>
 
-                            <c:when test="${att.label=='userId' || att.label=='refToObject'}">
-                                <input type="hidden" name="label" value="${att.label}">
-                                <input type="hidden" name="value" value="${userAccount.id}">
-                            </c:when>
+                                    <c:when test="${att.label=='userId' || att.label=='refToObject'}">
+                                        <input type="hidden" name="label" value="${att.label}">
+                                        <input type="hidden" name="value" value="${userAccount.id}">
+                                    </c:when>
 
-                            <c:when test="${att.label=='username'}">
-                                <input type="hidden" name="label" value="${att.label}">
-                                <input type="hidden" name="value" value="${userAccount.username}">
-                            </c:when>
+                                    <c:when test="${att.label=='username'}">
+                                        <input type="hidden" name="label" value="${att.label}">
+                                        <input type="hidden" name="value" value="${userAccount.username}">
+                                    </c:when>
 
-                            <c:otherwise>
-                                <input type="hidden" name="label" value="${att.label}">
-                                <input type="text"
-                                       id="values"
-                                       class="form-control mb-2 mr-2"
-                                       pattern="${att.labelType=='numerical' ? '[0-9]+' : '[A-Za-z0-9]+'}"
-                                       name="value"
-                                       placeholder="${att.label}">
-                                <span class="error" aria-live="polite"></span>
-                            </c:otherwise>
-
-                        </c:choose>
-                    </c:forEach>
-                    <button class="btn btn-dark mb-2" type="submit">Add new review</button>
-                </form>
-
+                                    <c:otherwise>
+                                        <input type="hidden" name="label" value="${att.label}">
+                                        <input type="text"
+                                               id="values"
+                                               class="form-control mb-2 mr-2"
+                                               pattern="${att.labelType=='numerical' ? '[0-9]+' : '[A-Za-z0-9]+'}"
+                                               name="value"
+                                               placeholder="${att.label}">
+                                        <span class="error" aria-live="polite"></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <button class="btn btn-dark mb-2" type="submit">Add new review</button>
+                        </form>
+                </div>
+            </div>
             </c:if>
-
             <c:forEach items="${userMessages}" var="mes">
                 <div class="mes mx-auto mt-4" style="width: 600px">
                 <tr>

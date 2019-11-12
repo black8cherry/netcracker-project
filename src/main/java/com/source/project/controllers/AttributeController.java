@@ -32,13 +32,17 @@ public class AttributeController {
     @GetMapping("/editAttribute/edit")
     public String editAttribute(
             @RequestParam Integer attributeId,
-            @RequestParam(required = false) String label,
+            @RequestParam String label,
+            @RequestParam String oldLabelType,
             @RequestParam(required = false) String labelType,
-            @RequestParam Integer typeId
+            @RequestParam(required = false) Integer typeId
     ) {
-        attributeService.edit(attributeId, label, labelType);
+        if (labelType==null)
+            attributeService.edit(attributeId, label, oldLabelType);
+        else
+            attributeService.edit(attributeId, label, labelType);
         if(typeId!=null)
-            return "redirect:/objType?typeId={typeId}";
+            return "redirect:/objType?typeId="+ typeId;
         else
             return "redirect:/objType";
     }
@@ -47,21 +51,27 @@ public class AttributeController {
     @PostMapping("/editAttribute")
     public String saveAttribute(
             @RequestParam String label,
-            @RequestParam String labelType
+            @RequestParam String labelType,
+            @RequestParam(required = false) Integer typeId
     ) {
         attributeService.save(label, labelType);
-
-        return "redirect:/objType";
+        if (typeId==null)
+            return "redirect:/objType";
+        else
+            return "redirect:/objType?typeId="+typeId;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping("/editAttribute/delete/{label}")
     public String deleteAttribute(
-            @PathVariable("label") String label
+            @PathVariable("label") String label,
+            @RequestParam(required = false) Integer typeId
     ) {
-
         attributeService.removeByLabel(label);
-        return "redirect:/objType";
+        if (typeId==null)
+            return "redirect:/objType";
+        else
+            return "redirect:/objType?typeId="+typeId;
     }
 
 }

@@ -73,7 +73,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <h5 class="mt-5">Attributes which is not in ${attributesType.typename}</h5>
+        <h5 class="mt-5">Attributes which are not in ${attributesType.typename}</h5>
         <table class="mt-2 mx-auto">
             <c:forEach items="${attributesNotInObject}" var="att">
                 <tr>
@@ -87,6 +87,7 @@
     <div class="col mt-2 mr-2">
         <form class="my-2 my-lg-0" action="${pageContext.request.contextPath}/editAttribute" method="post" enctype="multipart/form-data">
             <input  type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <input type="hidden" name="typeId" value="${attributesType.id}">
             <input   class="form-control mt-4 mb-3 mr-sm-2 inp"  type="text" name="label" placeholder="label"/>
             <p><select   size="4" multiple name="labelType">
                 <option disabled>Choose limitations for attribute</option>
@@ -105,8 +106,12 @@
                             <input type="hidden" name="typeId" value="${attributesType.id}">
                             <input type="hidden" name="attributeId" value="${att.id}">
                             <td><input type="submit" value="${att.label}"></td>
-                            <td><a href="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">delete</a></td>
                         </form>
+                            <form action="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">
+                                <input type="hidden" name="typeId" value="${attributesType.id}">
+                            <td><input class="link-blue" type="submit" value="delete"></td>
+                            </form>
+
                 </tr>
             </c:forEach>
         </table>

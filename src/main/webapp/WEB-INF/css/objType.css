@@ -2,7 +2,7 @@ body, select, .dark-form {
     background-color: #151515;
 }
 
-label, h4, span, option, input {
+label, h5, span, option, input {
     color: aliceblue;
     background-color: #151515;
     border: 0;
@@ -13,6 +13,9 @@ form {
     width: 150px;
 }
 
+.link-blue {
+    color: #007bff;
+}
 
 .link  {
     color: aliceblue;

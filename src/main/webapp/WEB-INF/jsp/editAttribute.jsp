@@ -14,7 +14,12 @@
             <form action="${pageContext.request.contextPath}/editAttribute/edit">
                 <input type="hidden" name="attributeId" value="${attribute.id}"/>
                 <input class="mt-2 form-control inp" type="text" name="label" value="${attribute.label}"/>
-                <input class="mt-2 form-control inp" type="text" name="labelType" value="${attribute.labelType}"/>
+                <input type="hidden" name="oldLabelType" value="${attribute.labelType}"/>
+                <p><select style="background-color: #151515"  size="5" multiple name="labelType">
+                    <option disabled>Choose attribute type</option>
+                        <option style="color: aliceblue" value="char">char</option>
+                        <option style="color: aliceblue" value="numerical">numerical</option>
+                </select></p>
                 <input type="hidden" name="typeId" value="${typeId}"/>
                 <button class="btn btn-dark mt-2" type="submit">Save</button>
             </form>
