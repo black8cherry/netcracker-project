@@ -33,6 +33,9 @@
                 <c:choose>
                 <c:when  test="${checkUser==true}" >
                 <div class="form-inline">
+                    <div class="mb-3 mr-3">
+                        <span>${userAcc.username}</span>
+                    </div>
                     <form class="" action="${pageContext.request.contextPath}/logout" method="post">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <input class="btn btn-dark mr-sm-2" type="submit" value="sign out"/>

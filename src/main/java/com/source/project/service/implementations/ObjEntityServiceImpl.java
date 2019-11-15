@@ -40,6 +40,12 @@ public class ObjEntityServiceImpl implements ObjEntityService {
 
     @Override
     public void removeById(Integer id) {
+
+        for (Value val: valueRep.findAllByObjEntity(objEntityRep.findById(id))
+             ) {
+            valueRep.delete(val);
+        }
+
         objEntityRep.removeById(id);
     }
 

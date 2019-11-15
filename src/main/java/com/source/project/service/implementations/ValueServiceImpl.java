@@ -12,24 +12,9 @@ public class ValueServiceImpl implements ValueService {
 
     @Autowired
     private ValueRep valueRep;
-    @Autowired
-    private AttributeRep attributeRep;
 
     @Override
     public void save(Value value) {
-        /*String labelType = value.getAttributes().getLabelType();
-        String stringVal = value.getValue();
-        if(labelType.equals("char")) {
-                valueRep.save(value);
-        } else if(labelType.equals("numerical")) {
-            if (!stringVal.matches("[A-Za-z]+")) {
-                valueRep.save(value);
-            } else {
-                value.setValue("invalid attribute value");
-                valueRep.save(value);
-            }
-        } else {
-            value.setValue("invalid attribute type");*/
             valueRep.save(value);
     }
 

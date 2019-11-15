@@ -1,7 +1,12 @@
 package com.source.project.service.implementations;
 
+import com.source.project.domain.ObjEntity;
 import com.source.project.domain.Type;
+import com.source.project.domain.TypeAttribute;
+import com.source.project.repos.ObjEntityRep;
+import com.source.project.repos.TypeAttributeRep;
 import com.source.project.repos.TypeRep;
+import com.source.project.service.ObjEntityService;
 import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +18,12 @@ public class TypeServiceImpl implements TypeService {
 
     @Autowired
     private TypeRep typeRep;
+    @Autowired
+    private ObjEntityRep objEntityRep;
+    @Autowired
+    private TypeAttributeRep typeAttributeRep;
+    @Autowired
+    private ObjEntityService objEntityService;
 
     @Override
     public Type findById(Integer id) {
@@ -53,6 +64,14 @@ public class TypeServiceImpl implements TypeService {
         List<Type> typeList = typeRep.findTreeFromParent(id);
         for (Type type: typeList
              ) {
+            for (ObjEntity obj : objEntityRep.findByType(type)
+            ) {
+                objEntityService.removeById(obj.getId());
+            }
+            for (TypeAttribute tp: typeAttributeRep.findByType(type)
+                 ) {
+                typeAttributeRep.delete(tp);
+            }
             typeRep.delete(type);
         }
     }

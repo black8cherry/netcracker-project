@@ -1,22 +1,7 @@
+
 body {
     background-color: #151515;
 }
-
-span, form, h3, label {
-    color: aliceblue;
-}
-
-/* Validation */
-
-input:invalid{
-    border-color: #900;
-    background-color: #FDD;
-}
-
-input:focus:invalid {
-    outline: none;
-}
-
 
 .modal-content {
     height: 75%;
@@ -34,4 +19,13 @@ input:focus:invalid {
     justify-content: center;
     align-items: center;
 
+}
+
+input:invalid{
+    border-color: #900;
+    background-color: #FDD;
+}
+
+input:focus:invalid {
+    outline: none;
 }

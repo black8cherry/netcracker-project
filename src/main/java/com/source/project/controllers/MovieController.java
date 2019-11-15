@@ -53,7 +53,7 @@ public class MovieController {
             String role = userAccount.getRole().toString();
             checkUser = true;
 
-            model.addAttribute("checkRate", ratingService.findByObjectsAndUser(id, String.valueOf(userAccount.getId())));
+            model.addAttribute("checkRate", ratingService.check(id, String.valueOf(userAccount.getId())));
 
             model.addAttribute("userAccount", userAccount);
 
@@ -69,6 +69,10 @@ public class MovieController {
         model.addAttribute("userMessages", messageService.getListMessages(id));
 
         model.addAttribute("rate", ratingService.getRate(id));
+
+        model.addAttribute("checkRatingType", typeService.findById(4) != null);
+
+        model.addAttribute("checkFavoriteType", typeService.findById(2)!=null);
 
         model.addAttribute("checkUser", checkUser);
 
@@ -95,11 +99,12 @@ public class MovieController {
     @PostMapping("/main/{id}/edit")
     public String editMovie(
             @RequestParam String objectName,
-            @RequestParam List<String> label,
-            @RequestParam List<String> value,
+            @RequestParam(required = false) List<String> label,
+            @RequestParam(required = false) List<String> value,
             @RequestParam("objectId") Integer id
     ) {
-        objEntityService.edit(objectName, label, value, id);
+        if (label!=null)
+            objEntityService.edit(objectName, label, value, id);
         return "redirect:/main/{id}";
     }
 

@@ -44,23 +44,24 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void create(Integer parentId, List<String> label, List<String> value) {
+        try {
+            Type messageType = typeRep.findById(3);
+            ObjEntity object = new ObjEntity(parentId, messageType);
+            objEntityRep.save(object);
 
-        Type messageType = typeRep.findById(3);
-        ObjEntity object = new ObjEntity(parentId, messageType);
-        objEntityRep.save(object);
-
-        for(int i = 0; i < label.size(); i++) {
-            if(label.get(i).equals(attributeRep.findById(2).getLabel())) {
-                valueService.save(new Value(object,
-                        attributeRep.findById(2),
-                        String.valueOf(object.getId())));
+            for (int i = 0; i < label.size(); i++) {
+                if (label.get(i).equals(attributeRep.findById(2).getLabel())) {
+                    valueService.save(new Value(object,
+                            attributeRep.findById(2),
+                            String.valueOf(object.getId())));
+                } else
+                    valueService.save(new Value(object,
+                            attributeRep.findByLabel(label.get(i)),
+                            value.get(i)));
             }
-            else
-                valueService.save(new Value(object,
-                    attributeRep.findByLabel(label.get(i)),
-                    value.get(i)));
+        } catch (NullPointerException e) {
+            System.out.println("Message create exception : " + e.getMessage());
         }
-
     }
 
     @Override
@@ -70,33 +71,35 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Map<String, String>> getListMessages(Integer parentId) {
-
-        Type messageType = typeRep.findById(3);
-        List<ObjEntity> reviews = objEntityRep.findByTypeAndParentId(messageType, parentId);
-        
-        List<Attribute> attributesList = new ArrayList<Attribute>();
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(messageType);
-        for (TypeAttribute ta: typeAttributes
-             ) {
-            attributesList.add(ta.getAttribute());
-        }
-
         List<Map<String, String>> reviewList = new ArrayList<Map<String, String>>();
+        try {
+            Type messageType = typeRep.findById(3);
+            List<ObjEntity> reviews = objEntityRep.findByTypeAndParentId(messageType, parentId);
 
-        for (ObjEntity object: reviews
-             ) {
-            Map<String, String> tmpMap = new HashMap<>();
-            for (Attribute attribute: attributesList
-                 ) {
-                if(valueRep.findByAttributesAndObjEntity(attribute, object)==null)
-                    tmpMap.put(attribute.getLabel()," ");
-                else
-                    tmpMap.put(attribute.getLabel(),
-                        valueRep.findByAttributesAndObjEntity(attribute, object).getValue());
+            List<Attribute> attributesList = new ArrayList<Attribute>();
+            List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(messageType);
+            for (TypeAttribute ta : typeAttributes
+            ) {
+                attributesList.add(ta.getAttribute());
             }
-            reviewList.add(tmpMap);
+
+
+            for (ObjEntity object : reviews
+            ) {
+                Map<String, String> tmpMap = new HashMap<>();
+                for (Attribute attribute : attributesList
+                ) {
+                    if (valueRep.findByAttributesAndObjEntity(attribute, object) == null)
+                        tmpMap.put(attribute.getLabel(), " ");
+                    else
+                        tmpMap.put(attribute.getLabel(),
+                                valueRep.findByAttributesAndObjEntity(attribute, object).getValue());
+                }
+                reviewList.add(tmpMap);
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Message getListMessages exception : " + e.getMessage());
         }
-        
         return reviewList;
     }
 }

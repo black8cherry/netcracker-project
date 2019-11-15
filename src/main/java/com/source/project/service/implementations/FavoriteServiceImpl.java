@@ -34,85 +34,94 @@ public class FavoriteServiceImpl implements FavoriteService {
     private TypeRep typeRep;
     @Autowired
     private AttributeRep attributeRep;
+    @Autowired
+    private TypeAttributeRep typeAttributeRep;
 
     @Override
     public void save(String userId, String objectId) {
+        try {
+            Type favType = typeRep.findById(2);
+            Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(1), favType).getAttribute();
+            Attribute attRefToObj = typeAttributeRep.findByAttributeAndType(attributeRep.findById(2), favType).getAttribute();
+            Collection<ObjEntity> favoriteObjects = objEntityRep.findByType(favType);
 
-        Type favType = typeRep.findById(2);
-        Attribute attUserId = attributeRep.findById(1);
-        Attribute attRefToObj = attributeRep.findById(2);
-        Collection<ObjEntity> movies = objEntityRep.findByType(favType);
+            ObjEntity favoriteObject = valueRep.getValueByObjEntityInAndValueAndAttributes(favoriteObjects, userId, attUserId).get().getObjEntity();
+            valueRep.save(new Value(favoriteObject, attRefToObj, objectId));
 
-        if (!valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).isPresent()) {
-            ObjEntity savingObjEntity = new ObjEntity(favType);
-            ObjEntity obj = objEntityRep.save(savingObjEntity);
-
-            Value savingValueUser = new Value(obj, attUserId, userId);
-            valueRep.save(savingValueUser);
+        } catch (NullPointerException e) {
+            System.out.println("Favorite save exception : " + e.getMessage());
         }
-        ObjEntity objOfUser = valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).get().getObjEntity();
-        Value savingValueRef = new Value(objOfUser, attRefToObj, objectId);
-        valueRep.save(savingValueRef);
     }
 
     @Override
     public void delete(String userId, String objectId) {
+        try {
+            Type favType = typeRep.findById(2);
+            Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(1), favType).getAttribute();
+            Attribute attRefToObj = typeAttributeRep.findByAttributeAndType(attributeRep.findById(2), favType).getAttribute();
+            Collection<ObjEntity> favoriteObjects = objEntityRep.findByType(favType);
 
-        Type favType = typeRep.findById(2);
-        Attribute attUserId = attributeRep.findById(1);
-        Attribute attRefToObj = attributeRep.findById(2);
-        Collection<ObjEntity> movies = objEntityRep.findByType(favType);
+            ObjEntity favoriteObject = valueRep.getValueByObjEntityInAndValueAndAttributes(favoriteObjects, userId, attUserId).get().getObjEntity();
+            valueRep.removeByObjEntityAndAttributesAndValue(favoriteObject, attRefToObj, objectId);
 
-        ObjEntity objOfUser = valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).get().getObjEntity();
-        valueRep.removeByObjEntityAndAttributesAndValue(objOfUser, attRefToObj, objectId);
+        } catch (NullPointerException e) {
+            System.out.println("Favorite delete exception : " + e.getMessage());
+        }
     }
 
     @Override
     public boolean check(String userId, String movieId) {
         boolean checkObjEntity = false;
 
-        Type favType = typeRep.findById(2);
-        Attribute attUserId = attributeRep.findById(1);
-        Attribute attRefToObj = attributeRep.findById(2);
-        Collection<ObjEntity> movies = objEntityRep.findByType(favType);
+        try {
+            Type favType = typeRep.findById(2);
+            Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(1), favType).getAttribute();
+            Attribute attRefToObj = typeAttributeRep.findByAttributeAndType(attributeRep.findById(2), favType).getAttribute();
+            Collection<ObjEntity> favoriteObjects = objEntityRep.findByType(favType);
 
-        if (valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).isPresent()) {
-            ObjEntity objOfUser = valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).get().getObjEntity();
+            ObjEntity objOfUser = valueRep.getValueByObjEntityInAndValueAndAttributes(favoriteObjects, userId, attUserId).get().getObjEntity();
             if (valueRep.findByObjEntityAndAttributesAndValue(objOfUser, attRefToObj, movieId) != null)
                 checkObjEntity = true;
+
+        } catch (NullPointerException e) {
+            System.out.println("Favorite check exception : " + e.getMessage());
         }
-        return checkObjEntity;
+
+       return  checkObjEntity;
     }
 
     @Override
     public void create(String userId) {
-        Type favType = typeRep.findById(2);
-        Attribute attUserId = attributeRep.findById(1);
+        if (typeRep.findById(2)!=null && attributeRep.findById(1)!=null) {
+            Type favType = typeRep.findById(2);
+            Attribute attUserId = attributeRep.findById(1);
 
-        ObjEntity savingObjEntity = new ObjEntity(favType);
-        ObjEntity obj = objEntityRep.save(savingObjEntity);
-
-        Value savingValueUser = new Value(obj, attUserId, userId);
-        valueRep.save(savingValueUser);
+            ObjEntity object = objEntityRep.save(new ObjEntity(favType));
+            valueRep.save(new Value(object, attUserId, userId));
+        }
     }
 
     @Override
     public List<ObjEntity> get(String userId) {
-        List<ObjEntity> favList = new ArrayList<ObjEntity>();
+        List<ObjEntity> favoriteList = new ArrayList<ObjEntity>();
+        try {
+            Type favType = typeRep.findById(2);
+            Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(1), favType).getAttribute();
+            Attribute attRefToObj = typeAttributeRep.findByAttributeAndType(attributeRep.findById(2), favType).getAttribute();
+            Collection<ObjEntity> favoriteObjects = objEntityRep.findByType(favType);
 
-        Type favType = typeRep.findById(2);
-        Attribute attUserId = attributeRep.findById(1);
-        Attribute attRefToObj = attributeRep.findById(2);
+            ObjEntity objectOfUser = valueRep.getValueByObjEntityInAndValueAndAttributes(favoriteObjects, userId, attUserId).get().getObjEntity();
+            favoriteList = new ArrayList<ObjEntity>();
 
-        Collection<ObjEntity> movies = objEntityRep.findByType(favType);
-        if(valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).isPresent()) {
-            ObjEntity objFav = valueRep.getValueByObjEntityInAndValueAndAttributes(movies, userId, attUserId).get().getObjEntity();
-            List<Value> valRef = valueRep.findByObjEntityAndAttributes(objFav, attRefToObj);
-            for (Value val: valRef
+            for (Value value: valueRep.findByObjEntityAndAttributes(objectOfUser, attRefToObj)
                  ) {
-                favList.add(objEntityRep.findById(Integer.valueOf(val.getValue())));
+                favoriteList.add(objEntityRep.findById(Integer.valueOf(value.getValue())));
             }
+
+            return favoriteList;
+        } catch (NullPointerException e) {
+            System.out.println("Favorite get exception : " + e.getMessage());
         }
-        return favList;
+        return favoriteList;
     }
 }

@@ -1,8 +1,13 @@
 package com.source.project.controllers;
 
+import com.source.project.domain.User;
+import com.source.project.service.AttributeService;
 import com.source.project.service.MessageService;
+import com.source.project.service.TypeService;
+import com.source.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +22,12 @@ public class MessagesController {
 
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private AttributeService attributeService;
+    @Autowired
+    private TypeService typeService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/main/{id}")
     public String saveMessage(
@@ -38,4 +49,15 @@ public class MessagesController {
         return"redirect:/main/{id}";
     }
 
+    @RequestMapping("/main/messages/{id}")
+    public String createMessage(
+            Model model,
+            @PathVariable("id") Integer id
+    ) {
+        model.addAttribute("id",id);
+        model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(3)));
+        model.addAttribute("userAccount", userService.getUser());
+
+        return "messages";
+    }
 }

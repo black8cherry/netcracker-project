@@ -1,3 +1,5 @@
+/* Tables */
+
 create table attribute (
     id int4 not null,
     label varchar(16),
@@ -56,6 +58,8 @@ create table value (
     primary key (id)
 );
 
+/* References */
+
 alter table if exists obj_entity add constraint obj_type foreign key (type_id) references type on delete cascade on update cascade;
 
 alter table if exists rating add constraint rat_obj foreign key (obj_id) references obj_entity on delete cascade on update cascade;
@@ -72,7 +76,7 @@ alter table if exists value add constraint val_att foreign key (atr_id) referenc
 
 alter table if exists value add constraint val_objects foreign key (entity_id) references obj_entity on delete cascade on update cascade;
 
-/* Sequence */
+/* Sequences */
 
 create sequence public.attribute_gen
     minvalue 1
@@ -161,15 +165,15 @@ insert into type(id, typename) values ((select nextval('type_gen')), 'message');
 
 insert into type(id, typename) values ((select nextval('type_gen')), 'rating');
 
-/* Type-Attributes */
+/* Type-Attribute structure */
 
-        /* favorite type */
+        /* - favorite type */
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 2);
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 2, 2);
 
-        /* message type */
+        /* - message type */
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 3);
 
@@ -179,13 +183,13 @@ insert into type_attribute(id, att_id, type_id) values ((select nextval('type_at
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 5, 3);
 
-        /* rating type */
+        /* - rating type */
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 1, 4);
 
 insert into type_attribute(id, att_id, type_id) values ((select nextval('type_attribute_gen')), 4, 4);
 
-/* Administrator */
+/* Administrator account */
 
 insert into usr(id, password, username) values ((select nextval('user_gen')), 'root', 'root');
 

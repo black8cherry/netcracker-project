@@ -11,13 +11,14 @@
 <body class="text-center">
 <div class="container">
     <div class="row justify-content-md-center">
+
     <form class="form-group mt-xl-5" action="${pageContext.request.contextPath}/login" method="post">
         <input class="mb-2" type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <c:if test="${SPRING_SECURITY_LAST_EXCEPTION!=null && Session==null}">
-            <div class="alert alert-danger" role="alert">
-                    ${SPRING_SECURITY_LAST_EXCEPTION.message}
-            </div>
-        </c:if>
+        <%--<c:if test="${SPRING_SECURITY_LAST_EXCEPTION!=null }">
+           div class="alert alert-danger" role="alert">
+                   ${SPRING_SECURITY_LAST_EXCEPTION.message}
+           </div>
+       </c:if>--%>
         <label class=""> User Name : </label>
         <input class="form-control mb-2" type="text" name="username"/>
         <label> Password: </label>

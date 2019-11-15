@@ -7,9 +7,7 @@
     <title>NetFilms</title>
     <style><%@include file="../css/filmList.css"%></style>
     <style><%@include file="../css/bg.css"%></style>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 </head>
 <body style="background-color: #151515;">
 
@@ -24,7 +22,11 @@
         <div class="col" >
             <div class=" float-right ">
                 <c:if test="${checkUser==true}">
+
                     <div class="form-inline">
+                        <div class="mb-3 mr-3">
+                            <span>${userAccount.username}</span>
+                        </div>
                         <form class="" action="${pageContext.request.contextPath}/logout" method="post">
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button class="btn btn-dark mr-sm-2" type="submit">sign out</button>
@@ -38,7 +40,7 @@
                 </c:if>
                 <c:if test="${checkUser==false}">
 
-                    <form class="form-inline "  action="${pageContext.request.contextPath}/login" method="get">
+                    <form class="form-inline "  action="${pageContext.request.contextPath}/login" method="post">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <input class="btn btn-dark mr-sm-2" type="submit" value="sign in">
 
@@ -89,49 +91,51 @@
                 </c:forEach>
             </table>
             <br/>
-            <span>Rate of this movie :</span>
-            <c:if test="${rate == '0'}">
-                <span>No one has rated this movie yet</span>
-            </c:if>
-            <c:if test="${rate != '0'}">
-                <span>${rate}</span>
-            </c:if>
-            <br/>
-
-            <c:if test="${checkUser==true}">
-
-                <c:if test="${checkRate==true}">
-                    <span>You can rate this movie again</span>
+            <c:if test="${checkRatingType==true}">
+                <span>Rate of this movie :</span>
+                <c:if test="${rate == '0'}">
+                    <span>No one has rated this movie yet</span>
                 </c:if>
-
-                <c:if test="${checkRate==false}">
-                    <span>Rate the movie</span>
+                <c:if test="${rate != '0'}">
+                    <span>${rate}</span>
                 </c:if>
                 <br/>
-                <form action="/rate/${movie.id}/${userAccount.id}">
-                <fieldset class="rating">
-                    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                </fieldset>
-                    <button class="btn btn-dark" type="submit">rate</button>
-                </form>
+            </c:if>
+            <c:if test="${checkUser==true}">
+                <c:if test="${checkRatingType==true}">
+                    <c:if test="${checkRate==true}">
+                        <span>You can rate this movie again</span>
+                    </c:if>
 
-                <c:if test="${checkFilm==false}">
-                    <form action="${pageContext.request.contextPath}/main/${id}/${userAccount.id}/addFavorite">
-                        <button class="btn btn-dark mt-3" type="submit">add to favorite</button>
+                    <c:if test="${checkRate==false}">
+                        <span>Rate the movie</span>
+                    </c:if>
+                    <br/>
+                    <form action="/rate/${movie.id}/${userAccount.id}">
+                    <fieldset class="rating">
+                        <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                    </fieldset>
+                        <button class="btn btn-dark" type="submit">rate</button>
                     </form>
                 </c:if>
+                <c:if test="${checkFavoriteType==true}">
+                    <c:if test="${checkFilm==false}">
+                        <form action="${pageContext.request.contextPath}/main/${id}/${userAccount.id}/addFavorite">
+                            <button class="btn btn-dark mt-3" type="submit">add to favorite</button>
+                        </form>
+                    </c:if>
 
-                <c:if test="${checkFilm==true}">
-                    <form action="${pageContext.request.contextPath}/main/${id}/${userAccount.id}/removeFavorite">
-                        <button class="btn btn-dark mt-3" type="submit">remove from favorite</button>
-                    </form>
-
+                    <c:if test="${checkFilm==true}">
+                        <form action="${pageContext.request.contextPath}/main/${id}/${userAccount.id}/removeFavorite">
+                            <button class="btn btn-dark mt-3" type="submit">remove from favorite</button>
+                        </form>
+                    </c:if>
                 </c:if>
-                <a href="#" id="button" class="btn btn-dark">Add</a>
+                <a href="/main/messages/${id}" class="btn btn-dark"  >Add review</a>
             </c:if>
 
 
@@ -153,42 +157,6 @@
     </div>
     <div class="row">
         <div class="col">
-            <c:if test="${checkUser==true}">
-            <div class="bg-modal">
-                <div class="modal-content">
-                    <div class="close">+</div>
-                        <form class="mt-4 form-inline" action="/main/${id}" method="post">
-                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                            <c:forEach items="${attributesMessageType}" var="att">
-                                <c:choose>
-
-                                    <c:when test="${att.label=='userId' || att.label=='refToObject'}">
-                                        <input type="hidden" name="label" value="${att.label}">
-                                        <input type="hidden" name="value" value="${userAccount.id}">
-                                    </c:when>
-
-                                    <c:when test="${att.label=='username'}">
-                                        <input type="hidden" name="label" value="${att.label}">
-                                        <input type="hidden" name="value" value="${userAccount.username}">
-                                    </c:when>
-
-                                    <c:otherwise>
-                                        <input type="hidden" name="label" value="${att.label}">
-                                        <input type="text"
-                                               id="values"
-                                               class="form-control mb-2 mr-2"
-                                               pattern="${att.labelType=='numerical' ? '[0-9]+' : '[A-Za-z0-9]+'}"
-                                               name="value"
-                                               placeholder="${att.label}">
-                                        <span class="error" aria-live="polite"></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                            <button class="btn btn-dark mb-2" type="submit">Add new review</button>
-                        </form>
-                </div>
-            </div>
-            </c:if>
             <c:forEach items="${userMessages}" var="mes">
                 <div class="mes mx-auto mt-4" style="width: 600px">
                 <tr>
@@ -202,7 +170,6 @@
                         <c:if test="${attValMap.getKey()!='userId' && attValMap.getKey()!='refToObject'}">
                             <td>${attValMap.getKey()} : </td>
                             <td>${attValMap.getValue()}</td>
-                            ${messageId}
                             <br/>
                         </c:if>
 

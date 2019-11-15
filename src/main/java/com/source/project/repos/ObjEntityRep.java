@@ -23,4 +23,5 @@ public interface ObjEntityRep extends
     ObjEntity findById(Integer id);
     ObjEntity findByParentIdAndType(Integer id, Type type);
     void removeById(Integer id);
+    void deleteAllByType(Type type);
 }

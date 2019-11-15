@@ -3,9 +3,11 @@ package com.source.project.service.implementations;
 import com.source.project.domain.Attribute;
 import com.source.project.domain.Type;
 import com.source.project.domain.TypeAttribute;
+import com.source.project.domain.Value;
 import com.source.project.repos.AttributeRep;
 import com.source.project.repos.TypeAttributeRep;
 import com.source.project.repos.TypeRep;
+import com.source.project.repos.ValueRep;
 import com.source.project.service.AttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class AttributeServiceImpl implements AttributeService {
     private TypeAttributeRep typeAttributeRep;
     @Autowired
     private TypeRep typeRep;
+    @Autowired
+    private ValueRep valueRep;
 
     @Override
     public List<Attribute> findByObjectEntityType(Type type) {
@@ -133,6 +137,14 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public void removeByLabel(String label) {
+        for (Value val: valueRep.findAllByAttributes(attributeRep.findByLabel(label))
+             ) {
+            valueRep.delete(val);
+        }
+        for (TypeAttribute tp: typeAttributeRep.findAllByAttribute(attributeRep.findByLabel(label))
+             ) {
+            typeAttributeRep.delete(tp);
+        }
         attributeRep.removeByLabel(label);
     }
 

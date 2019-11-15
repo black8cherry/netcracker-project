@@ -7,25 +7,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.transaction.Transactional;
+
+@Transactional
 @Controller
 public class RatingController {
 
     @Autowired
     private RatingService ratingService;
 
-    @RequestMapping("rate/{ido}/{idu}")
+    @RequestMapping("rate/{objectId}/{userId}")
     public String rate(
-            @PathVariable("ido") Integer ido,
-            @PathVariable("idu") String idu,
+            @PathVariable("objectId") Integer objectId,
+            @PathVariable("userId") String userId,
             @RequestParam(required=false) Float rating
     ) {
         if(rating!=null) {
-            if(!ratingService.findByObjectsAndUser(ido, idu)) {
-                ratingService.save(idu, ido, rating);
-            } else {
-                ratingService.rerate(idu, ido, rating);
-            }
+            ratingService.rate(userId, objectId, rating);
         }
-        return "redirect:/main/{ido}";
+        return "redirect:/main/{objectId}";
     }
 }
