@@ -2,10 +2,16 @@ body, select, .dark-form {
     background-color: #151515;
 }
 
-label, h5, span, option, input {
+label, h5, span,input{
     color: aliceblue;
     background-color: #151515;
     border: 0;
+}
+
+ select, option  {
+    background-color: #5f9ea0;
+    border-radius: 3px;
+    color: aliceblue;
 }
 
 form {

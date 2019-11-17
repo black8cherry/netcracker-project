@@ -2,6 +2,7 @@ package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
 import com.source.project.repos.*;
+import com.source.project.service.Constants;
 import com.source.project.service.MessageService;
 import com.source.project.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,6 @@ import java.util.Map;
 @Service
 public class MessageServiceImpl implements MessageService {
 
-    /* Attributes
-     * userId     1
-     * refToObj   2
-     * review     3
-     * rate       4
-     *  Types
-     * video        1
-     * favorite     2
-     * message      3
-     * rating       4
-     */
-
     @Autowired
     private TypeAttributeRep typeAttributeRep;
     @Autowired
@@ -38,21 +27,19 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private AttributeRep attributeRep;
     @Autowired
-    private UserRep userRep;
-    @Autowired
     private ValueService valueService;
 
     @Override
     public void create(Integer parentId, List<String> label, List<String> value) {
         try {
-            Type messageType = typeRep.findById(3);
+            Type messageType = typeRep.findById(Constants.MESSAGE_TYPE_ID);
             ObjEntity object = new ObjEntity(parentId, messageType);
             objEntityRep.save(object);
 
             for (int i = 0; i < label.size(); i++) {
-                if (label.get(i).equals(attributeRep.findById(2).getLabel())) {
+                if (label.get(i).equals(attributeRep.findById(Constants.REFERENCE_TO_OBJECT_ATTRIBUTE).getLabel())) {
                     valueService.save(new Value(object,
-                            attributeRep.findById(2),
+                            attributeRep.findById(Constants.REFERENCE_TO_OBJECT_ATTRIBUTE),
                             String.valueOf(object.getId())));
                 } else
                     valueService.save(new Value(object,
@@ -73,7 +60,7 @@ public class MessageServiceImpl implements MessageService {
     public List<Map<String, String>> getListMessages(Integer parentId) {
         List<Map<String, String>> reviewList = new ArrayList<Map<String, String>>();
         try {
-            Type messageType = typeRep.findById(3);
+            Type messageType = typeRep.findById(Constants.MESSAGE_TYPE_ID);
             List<ObjEntity> reviews = objEntityRep.findByTypeAndParentId(messageType, parentId);
 
             List<Attribute> attributesList = new ArrayList<Attribute>();

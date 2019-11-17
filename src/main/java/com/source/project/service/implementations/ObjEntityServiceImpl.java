@@ -2,7 +2,6 @@ package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
 import com.source.project.repos.*;
-import com.source.project.service.AttributeService;
 import com.source.project.service.ObjEntityService;
 import com.source.project.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,6 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     private AttributeRep attributeRep;
     @Autowired
     private ValueService valueService;
-    @Autowired
-    private AttributeService attributeService;
 
 
     @Override

@@ -2,6 +2,7 @@ package com.source.project.service.implementations;
 
 import com.source.project.domain.*;
 import com.source.project.repos.*;
+import com.source.project.service.Constants;
 import com.source.project.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,18 +13,6 @@ import java.util.List;
 
 @Service
 public class RatingServiceImpl implements RatingService {
-
-    /* Attributes
-     * userId     1
-     * refToObj   2
-     * review     3
-     * rate       4
-     *  Types
-     * video        1
-     * favorite     2
-     * message      3
-     * rating       4
-     */
 
     @Autowired
     private ObjEntityRep objEntityRep;
@@ -40,9 +29,9 @@ public class RatingServiceImpl implements RatingService {
     public void rate(String userId, Integer parentId, Float value) {
         if(value != null) {
             try {
-                Type rateType = typeRep.findById(4);
-                Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(1), rateType).getAttribute();
-                Attribute attRate = typeAttributeRep.findByAttributeAndType(attributeRep.findById(4), rateType).getAttribute();
+                Type rateType = typeRep.findById(Constants.RATING_TYPE_ID);
+                Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(Constants.USER_ID_ATTRIBUTE), rateType).getAttribute();
+                Attribute attRate = typeAttributeRep.findByAttributeAndType(attributeRep.findById(Constants.RATE_ATTRIBUTE), rateType).getAttribute();
 
                 List<ObjEntity> rateList = objEntityRep.findByTypeAndParentId(rateType, parentId);
 
@@ -67,9 +56,9 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public void rerate(String userId, Integer parentId, Float value) {
         try {
-            Type rateType = typeRep.findById(4);
-            Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(1), rateType).getAttribute();
-            Attribute attRate = typeAttributeRep.findByAttributeAndType(attributeRep.findById(4), rateType).getAttribute();
+            Type rateType = typeRep.findById(Constants.RATING_TYPE_ID);
+            Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(Constants.USER_ID_ATTRIBUTE), rateType).getAttribute();
+            Attribute attRate = typeAttributeRep.findByAttributeAndType(attributeRep.findById(Constants.RATE_ATTRIBUTE), rateType).getAttribute();
 
             Collection<ObjEntity> rateObjects = objEntityRep.findByTypeAndParentId(rateType, parentId);
 
@@ -99,11 +88,11 @@ public class RatingServiceImpl implements RatingService {
         float result = 0;
         String res = "0";
         try {
-            List<ObjEntity> rateL = objEntityRep.findByTypeAndParentId(typeRep.findById(4), id);
+            List<ObjEntity> rateL = objEntityRep.findByTypeAndParentId(typeRep.findById(Constants.RATING_TYPE_ID), id);
 
             for (ObjEntity obj : rateL
             ) {
-                result += Float.parseFloat(valueRep.findByAttributesAndObjEntity(attributeRep.findById(4), obj).getValue());
+                result += Float.parseFloat(valueRep.findByAttributesAndObjEntity(attributeRep.findById(Constants.RATE_ATTRIBUTE), obj).getValue());
             }
 
             if (result != 0) {
@@ -120,14 +109,14 @@ public class RatingServiceImpl implements RatingService {
         boolean check = false;
         try {
             List<ObjEntity> rateL = objEntityRep.findByTypeAndParentId(
-                    typeRep.findById(4),
+                    typeRep.findById(Constants.RATING_TYPE_ID),
                     objId
             );
 
             if (valueRep.getValueByObjEntityInAndValueAndAttributes(
                     rateL,
                     userId,
-                    attributeRep.findById(1)).isPresent()) {
+                    attributeRep.findById(Constants.USER_ID_ATTRIBUTE)).isPresent()) {
                 check = true;
             }
         } catch (NullPointerException e) {
