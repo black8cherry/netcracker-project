@@ -70,9 +70,11 @@ public class MovieController {
 
         model.addAttribute("rate", ratingService.getRate(id));
 
-        model.addAttribute("checkRatingType", typeService.findById(4) != null);
+        model.addAttribute("checkRatingType", typeService.findById(Constants.RATING_TYPE_ID) != null);
 
-        model.addAttribute("checkFavoriteType", typeService.findById(2)!=null);
+        model.addAttribute("checkFavoriteType", typeService.findById(Constants.FAVORITE_TYPE_ID)!=null);
+
+        model.addAttribute("checkMessageType", typeService.findById(Constants.MESSAGE_TYPE_ID)!=null);
 
         model.addAttribute("checkUser", checkUser);
 

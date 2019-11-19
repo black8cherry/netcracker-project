@@ -52,8 +52,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void delete(Integer objId) {
-        objEntityRep.removeById(objId);
+    public void delete(Integer messageId) {
+        objEntityRep.removeById(messageId);
     }
 
     @Override
@@ -85,8 +85,28 @@ public class MessageServiceImpl implements MessageService {
                 reviewList.add(tmpMap);
             }
         } catch (NullPointerException e) {
-            System.out.println("Message getListMessages exception : " + e.getMessage());
+            System.out.println("Message getListMessage exception : " + e.getMessage());
         }
         return reviewList;
+    }
+
+    @Override
+    public void edit(Integer messageId, List<String> label, List<String> value) {
+        try {
+            Type messageType = typeRep.findById(Constants.MESSAGE_TYPE_ID);
+            Attribute refToObj = typeAttributeRep.findByAttributeAndType(attributeRep.findById(Constants.REFERENCE_TO_OBJECT_ATTRIBUTE), messageType).getAttribute();
+            ObjEntity message = objEntityRep.findById(messageId);
+
+            for(int i = 0; i < label.size(); i++) {
+                Value val = valueRep.findByAttributesAndObjEntity(
+                        attributeRep.findByLabel(label.get(i)),
+                        message);
+                val.setValue(value.get(i));
+                valueService.save(val);
+            }
+
+        } catch (NullPointerException e) {
+            System.out.println("Message editMessage exception : " + e.getMessage());
+        }
     }
 }

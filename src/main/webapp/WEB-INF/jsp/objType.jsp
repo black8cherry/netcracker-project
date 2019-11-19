@@ -18,7 +18,7 @@
             <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/objType" method="post">
                 <span>Choose type : </span>
                 <p><select style=" width: 200px;"  size="1" name="parentId">
-
+                    <option value="${null}">parent type</option>
                     <c:forEach items="${types}" var="type">
                         <option value="${type.getId()}">${type.getTypename()}</option>
                     </c:forEach>
@@ -92,8 +92,8 @@
             <input   class="form-control mt-4 mb-3 mr-sm-2 inp"  type="text" name="label" placeholder="label"/>
             <span>Choose type of attribute :</span>
             <p><select   size="1" style="width: 200px;" name="labelType">
-                <option  value="char">Text</option>
-                <option  value="numerical">Number</option>
+                <option  value="char">text</option>
+                <option  value="numerical">numerical</option>
             </select></p>
             <button class="btn btn-success mt-1 mr-sm-2" type="submit">Add attribute</button>
         </form>

@@ -11,4 +11,5 @@ public interface Constants {
     public static final Integer REFERENCE_TO_OBJECT_ATTRIBUTE = 2;
     public static final Integer REVIEW_ATTRIBUTE = 3;
     public static final Integer RATE_ATTRIBUTE = 4;
+    public static final Integer USERNAME_ATTRIBUTE = 5;
 }

@@ -1,20 +1,16 @@
 package com.source.project.controllers;
 
+import com.source.project.domain.ObjEntity;
 import com.source.project.domain.User;
-import com.source.project.service.AttributeService;
-import com.source.project.service.MessageService;
-import com.source.project.service.TypeService;
-import com.source.project.service.UserService;
+import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Controller
@@ -28,6 +24,8 @@ public class MessagesController {
     private TypeService typeService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ObjEntityService objEntityService;
 
     @PostMapping("/main/{id}")
     public String saveMessage(
@@ -59,5 +57,31 @@ public class MessagesController {
         model.addAttribute("userAccount", userService.getUser());
 
         return "messages";
+    }
+
+    @GetMapping("/editMessage/{id}/{messageId}")
+    public String editMessagePage(
+            @PathVariable("messageId") Integer messageId,
+            @PathVariable("id") Integer id,
+            Model model
+    ) {
+        ObjEntity objEntity = objEntityService.findById(messageId);
+        Map<String, String> tmpMap = objEntityService.showAttributes(objEntity);
+        model.addAttribute("id", id);
+        model.addAttribute("attributeValue", tmpMap);
+        model.addAttribute("objectAttributes", attributeService.getListForRefactorAttributeValues(tmpMap));
+        return "editMessage";
+    }
+
+    @PostMapping("/editMessage/{id}/{messageId}")
+    public String editMessage(
+            @PathVariable("messageId") Integer messageId,
+            @PathVariable("id") Integer id,
+            @RequestParam(required = false) List<String> label,
+            @RequestParam(required = false) List<String> value
+    ) {
+        if (label!=null)
+            messageService.edit(messageId, label, value);
+        return"redirect:/main/{id}";
     }
 }

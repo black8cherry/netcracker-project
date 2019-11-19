@@ -19,7 +19,6 @@ input:focus:invalid {
     outline: none;
 }
 
-/* Это стиль для сообщений об ошибке */
 .error {
     width  : 100%;
     padding: 0;
@@ -71,7 +70,7 @@ input:focus:invalid {
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 
-.rating > input:checked ~ label, /* show gold star when clicked */
+.rating > input:checked ~ label, /* gold star when clicked */
 .rating:not(:checked) > label:hover, /* hover current star */
 .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
 

@@ -157,43 +157,42 @@
     </div>
     <div class="row">
         <div class="col">
-            <c:forEach items="${userMessages}" var="mes">
-                <div class="mes mx-auto mt-4" style="width: 600px">
-                <tr>
-                    <div class="ml-2">
-                    <c:forEach items="${mes}" var="attValMap" >
+            <c:if test="${checkMessageType==true}">
+                <c:forEach items="${userMessages}" var="mes">
+                    <div class="mes mx-auto mt-4" style="width: 600px">
+                    <tr>
+                        <div class="ml-2">
+                        <c:forEach items="${mes}" var="attValMap" >
 
-                        <c:if test="${attValMap.getKey()=='refToObject'}">
-                            <c:set var="messageId" value="${attValMap.getValue()}"/>
-                        </c:if>
-
-                        <c:if test="${attValMap.getKey()!='userId' && attValMap.getKey()!='refToObject'}">
-                            <td>${attValMap.getKey()} : </td>
-                            <td>${attValMap.getValue()}</td>
-                            <br/>
-                        </c:if>
-
-                    </c:forEach>
-                    </div>
-                    <c:forEach items="${mes}" var="attValMap" >
-                        <c:if test="${attValMap.getKey()=='userId'}">
-                            <c:if test="${attValMap.getValue()==userAccount.id || role=='[ADMIN]'}">
-                                <td>
-                                    <form action="/deleteMessage/${id}/${messageId}">
-                                        <button class="mt-2 mb-1 ml-1 btn btn-dark" style="border-radius: 10px" type="submit">delete</button>
-                                    </form>
-                                </td>
+                            <c:if test="${attValMap.getKey()=='refToObject'}">
+                                <c:set var="messageId" value="${attValMap.getValue()}"/>
                             </c:if>
-                        </c:if>
-                    </c:forEach>
-                </tr>
-                </div>
-            </c:forEach>
+
+                            <c:if test="${attValMap.getKey()!='userId' && attValMap.getKey()!='refToObject'}">
+                                <td>${attValMap.getKey()} : </td>
+                                <td>${attValMap.getValue()}</td>
+                                <br/>
+                            </c:if>
+
+                        </c:forEach>
+                        </div>
+                        <c:forEach items="${mes}" var="attValMap" >
+                            <c:if test="${attValMap.getKey()=='userId'}">
+                                <c:if test="${attValMap.getValue()==userAccount.id || role=='[ADMIN]'}">
+                                    <div class="text-center"><td>
+                                        <a href="/deleteMessage/${id}/${messageId}" class="mt-2 mb-1 ml-1 btn btn-dark" type="submit">Delete</a>
+                                        <a href="/editMessage/${id}/${messageId}" class="mt-2 mb-1 ml-1 btn btn-dark" type="submit">Edit</a>
+                                    </td></div>
+                                </c:if>
+                            </c:if>
+                        </c:forEach>
+                    </tr>
+                    </div>
+                </c:forEach>
+            </c:if>
         </div>
     </div>
-
 </div>
-
 <script src="../js/filmList.js"></script>
 </body>
 </html>
