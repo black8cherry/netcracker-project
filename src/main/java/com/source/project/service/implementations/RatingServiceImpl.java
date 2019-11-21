@@ -1,6 +1,9 @@
 package com.source.project.service.implementations;
 
-import com.source.project.domain.*;
+import com.source.project.domain.Attribute;
+import com.source.project.domain.ObjEntity;
+import com.source.project.domain.Type;
+import com.source.project.domain.Value;
 import com.source.project.repos.*;
 import com.source.project.service.Constants;
 import com.source.project.service.RatingService;

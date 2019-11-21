@@ -1,7 +1,6 @@
 package com.source.project.service.implementations;
 
 import com.source.project.domain.Value;
-import com.source.project.repos.AttributeRep;
 import com.source.project.repos.ValueRep;
 import com.source.project.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;

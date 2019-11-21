@@ -93,8 +93,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void edit(Integer messageId, List<String> label, List<String> value) {
         try {
-            Type messageType = typeRep.findById(Constants.MESSAGE_TYPE_ID);
-            Attribute refToObj = typeAttributeRep.findByAttributeAndType(attributeRep.findById(Constants.REFERENCE_TO_OBJECT_ATTRIBUTE), messageType).getAttribute();
             ObjEntity message = objEntityRep.findById(messageId);
 
             for(int i = 0; i < label.size(); i++) {

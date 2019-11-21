@@ -13,6 +13,7 @@
     <div class="modal-content mt-5" style="width: 500px; background-color: #5f9ea0">
         <form class="mt-5 mx-2 form-group" action="${pageContext.request.contextPath}/main/${id}/edit" method="post" >
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            movie name
             <input class="mb-2 form-control" type="text" name="objectName" value="${objects.name}"/>
             <input class="mb-2" type="hidden" name="objectId" value="${objects.id}"/>
             <br>
