@@ -135,7 +135,9 @@
                         </form>
                     </c:if>
                 </c:if>
-                <a href="/main/messages/${id}" class="btn btn-dark"  >Add review</a>
+                <c:if test="${checkMessageType==true}">
+                    <a href="/main/messages/${id}" class="btn btn-dark"  >Add review</a>
+                </c:if>
             </c:if>
 
 

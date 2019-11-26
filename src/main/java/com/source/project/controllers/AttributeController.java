@@ -54,7 +54,8 @@ public class AttributeController {
             @RequestParam String labelType,
             @RequestParam(required = false) Integer typeId
     ) {
-        attributeService.save(label, labelType);
+        if (!label.isEmpty())
+            attributeService.save(label, labelType);
         if (typeId==null)
             return "redirect:/objType";
         else

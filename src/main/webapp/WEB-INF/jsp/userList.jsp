@@ -18,10 +18,10 @@
     </div>
 
     <span>Name : ${user.getUsername()}</span><br/>
-    <span>Your status : ${user.getRole()}</span>
+    <span>Your status : ${user.getRole()=="[USER]" ? "user" : "administrator"}</span>
 
     <div class="text-center">
-        Your favorites movies
+        <h5>Your favorites movies</h5>
     </div>
 
 
