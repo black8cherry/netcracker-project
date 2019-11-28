@@ -21,8 +21,12 @@ public class FavoritesController {
             @PathVariable("id") String objectId,
             @PathVariable("uid") String userId
     ) {
+        try {
             favoriteService.save(userId, objectId);
-        return "redirect:/main/{id}";
+            return "redirect:/main/{id}";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @RequestMapping("/main/{id}/{uid}/removeFavorite")
@@ -30,7 +34,11 @@ public class FavoritesController {
             @PathVariable("id") String objectId,
             @PathVariable("uid") String userId
     ) {
+        try {
             favoriteService.delete(userId, objectId);
-        return "redirect:/main/{id}";
+            return "redirect:/main/{id}";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 }

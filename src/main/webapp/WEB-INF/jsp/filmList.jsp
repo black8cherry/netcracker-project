@@ -7,6 +7,7 @@
     <title>NetFilms</title>
     <style><%@include file="../css/filmList.css"%></style>
     <style><%@include file="../css/bg.css"%></style>
+    <script><%@include file="../js/filmList.js"%></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body style="background-color: #151515;">
@@ -39,12 +40,8 @@
                     </div>
                 </c:if>
                 <c:if test="${checkUser==false}">
+                    <a href="${pageContext.request.contextPath}/login" class="btn btn-dark mr-sm-2" type="submit">Sign in</a>
 
-                    <form class="form-inline "  action="${pageContext.request.contextPath}/login" method="post">
-                        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                        <input class="btn btn-dark mr-sm-2" type="submit" value="sign in">
-
-                    </form>
                 </c:if>
             </div>
         </div>
@@ -77,17 +74,24 @@
     <div class="row mt-5">
         <div class="col-lg-5 " >
             <img class="float-right" style="height: 225px; width: 225px; display: block;"
-                    src="../img/${movie.filename}"/>
+                 src="../img/${Image.value}"/>
         </div>
 
         <div class="col float-left">
             <h5 class="ml-5">${movie.name}</h5>
             <table class="mt-4">
                 <c:forEach items="${movieAttributes}" var="attributeValue">
-                <tr>
-                    <td><span>${attributeValue.getKey()} : </span></td>
-                    <td><span>${attributeValue.getValue()}</span></td>
-                </tr>
+                    <c:forEach items="${tmpMovieAttributes}" var="att">
+                        <c:if test="${att.label==attributeValue.getKey()}">
+                            <c:set var="type" value="${att.labelType}"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${type!='image'}">
+                        <tr>
+                            <td><span>${attributeValue.getKey()} : </span></td>
+                            <td><span>${attributeValue.getValue()}</span></td>
+                        </tr>
+                    </c:if>
                 </c:forEach>
             </table>
             <br/>
@@ -195,6 +199,6 @@
         </div>
     </div>
 </div>
-<script src="../js/filmList.js"></script>
+
 </body>
 </html>

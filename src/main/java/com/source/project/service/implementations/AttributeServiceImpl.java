@@ -31,10 +31,14 @@ public class AttributeServiceImpl implements AttributeService {
     @Override
     public List<Attribute> findByObjectEntityType(Type type) {
         List<Attribute> attributesList = new ArrayList<Attribute>();
-        List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(type);
-        for (TypeAttribute ta: typeAttributes
-        ) {
-            attributesList.add(ta.getAttribute());
+
+        for (Type tp: typeRep.findTreeFromChild(type.getId())
+             ) {
+            List<TypeAttribute> typeAttributes = typeAttributeRep.findByType(tp);
+            for (TypeAttribute ta: typeAttributes
+            ) {
+                attributesList.add(ta.getAttribute());
+            }
         }
 
         return attributesList;
@@ -51,6 +55,11 @@ public class AttributeServiceImpl implements AttributeService {
         }
 
         return attributes;
+    }
+
+    @Override
+    public Attribute findByLabelType(String type) {
+        return attributeRep.findByLabelType(type);
     }
 
     @Override

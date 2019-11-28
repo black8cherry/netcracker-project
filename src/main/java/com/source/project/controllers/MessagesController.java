@@ -33,9 +33,13 @@ public class MessagesController {
             @RequestParam List<String> label,
             @RequestParam List<String> value
     ) {
+        try {
         messageService.create(id, label, value);
 
         return "redirect:/main/{id}";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @RequestMapping("/deleteMessage/{id}/{messageId}")
@@ -43,8 +47,12 @@ public class MessagesController {
             @PathVariable("messageId") Integer messageId,
             @PathVariable("id") Integer id
     ) {
+        try {
         messageService.delete(messageId);
         return"redirect:/main/{id}";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @RequestMapping("/main/messages/{id}")
@@ -52,11 +60,15 @@ public class MessagesController {
             Model model,
             @PathVariable("id") Integer id
     ) {
+        try {
         model.addAttribute("id",id);
         model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(3)));
         model.addAttribute("userAccount", userService.getUser());
 
         return "messages";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @GetMapping("/editMessage/{id}/{messageId}")
@@ -65,12 +77,16 @@ public class MessagesController {
             @PathVariable("id") Integer id,
             Model model
     ) {
+        try {
         ObjEntity objEntity = objEntityService.findById(messageId);
         Map<String, String> tmpMap = objEntityService.showAttributes(objEntity);
         model.addAttribute("id", id);
         model.addAttribute("attributeValue", tmpMap);
         model.addAttribute("objectAttributes", attributeService.getListForRefactorAttributeValues(tmpMap));
         return "editMessage";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @PostMapping("/editMessage/{id}/{messageId}")
@@ -80,8 +96,12 @@ public class MessagesController {
             @RequestParam(required = false) List<String> label,
             @RequestParam(required = false) List<String> value
     ) {
-        if (label!=null)
-            messageService.edit(messageId, label, value);
-        return"redirect:/main/{id}";
+        try {
+            if (label!=null)
+                messageService.edit(messageId, label, value);
+            return"redirect:/main/{id}";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 }

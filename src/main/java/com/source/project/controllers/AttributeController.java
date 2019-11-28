@@ -23,9 +23,13 @@ public class AttributeController {
         @RequestParam(required = false) Integer typeId,
         Model model
     ) {
-        model.addAttribute("attribute", attributeService.findById(attributeId));
-        model.addAttribute("typeId", typeId);
-        return "editAttribute";
+        try {
+            model.addAttribute("attribute", attributeService.findById(attributeId));
+            model.addAttribute("typeId", typeId);
+            return "editAttribute";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -37,14 +41,18 @@ public class AttributeController {
             @RequestParam(required = false) String labelType,
             @RequestParam(required = false) Integer typeId
     ) {
-        if (labelType==null)
-            attributeService.edit(attributeId, label, oldLabelType);
-        else
-            attributeService.edit(attributeId, label, labelType);
-        if(typeId!=null)
-            return "redirect:/objType?typeId="+ typeId;
-        else
-            return "redirect:/objType";
+        try {
+            if (labelType==null)
+                attributeService.edit(attributeId, label, oldLabelType);
+            else
+                attributeService.edit(attributeId, label, labelType);
+            if(typeId!=null)
+                return "redirect:/objType?typeId="+ typeId;
+            else
+                return "redirect:/objType";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -54,12 +62,16 @@ public class AttributeController {
             @RequestParam String labelType,
             @RequestParam(required = false) Integer typeId
     ) {
-        if (!label.isEmpty())
-            attributeService.save(label, labelType);
-        if (typeId==null)
-            return "redirect:/objType";
-        else
-            return "redirect:/objType?typeId="+typeId;
+        try {
+            if (!label.isEmpty())
+                attributeService.save(label, labelType);
+            if (typeId==null)
+                return "redirect:/objType";
+            else
+                return "redirect:/objType?typeId="+typeId;
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -68,11 +80,15 @@ public class AttributeController {
             @PathVariable("label") String label,
             @RequestParam(required = false) Integer typeId
     ) {
-        attributeService.removeByLabel(label);
-        if (typeId==null)
-            return "redirect:/objType";
-        else
-            return "redirect:/objType?typeId="+typeId;
+        try {
+            attributeService.removeByLabel(label);
+            if (typeId==null)
+                return "redirect:/objType";
+            else
+                return "redirect:/objType?typeId="+typeId;
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
 }

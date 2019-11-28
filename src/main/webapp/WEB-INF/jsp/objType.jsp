@@ -91,9 +91,11 @@
             <input type="hidden" name="typeId" value="${attributesType.id}">
             <input   class="form-control mt-4 mb-3 mr-sm-2 inp"  type="text" name="label" placeholder="label"/>
             <span>Choose type of attribute :</span>
-            <p><select   size="1" style="width: 200px;" name="labelType">
-                <option  value="char">text</option>
-                <option  value="numerical">numerical</option>
+            <p><select  size="1" style="width: 200px;" name="labelType">
+                <option value="char">text</option>
+                <option value="numerical">numerical</option>
+                <option value="date">date</option>
+                <option value="image">image</option>
             </select></p>
             <button class="btn btn-success mt-1 mr-sm-2" type="submit">Add attribute</button>
         </form>

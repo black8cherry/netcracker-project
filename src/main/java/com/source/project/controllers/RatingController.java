@@ -22,9 +22,13 @@ public class RatingController {
             @PathVariable("userId") String userId,
             @RequestParam(required=false) Float rating
     ) {
-        if(rating!=null) {
-            ratingService.rate(userId, objectId, rating);
+        try {
+            if(rating!=null) {
+                ratingService.rate(userId, objectId, rating);
+            }
+            return "redirect:/main/{objectId}";
+        } catch (Exception e) {
+            return "errorPage";
         }
-        return "redirect:/main/{objectId}";
     }
 }

@@ -86,8 +86,12 @@
             <c:forEach  items="${movie}" var ="movie">
             <div class="col-md-3">
                 <div class="card mb-3 shadow-sm" style="background-color: #151515">
-                    <img class="card-img-top" style="height: 225px; width: 100%; display: block;"
-                         src="img/${movie.filename}">
+                    <c:forEach items="${listImages}" var="listImg">
+                        <c:if test="${listImg.objEntity==movie}">
+                            <img class="card-img-top" style="height: 225px; width: 100%; display: block;"
+                                 src="img/${listImg.value}">
+                        </c:if>
+                    </c:forEach>
                     <div class="card-body  mx-auto">
                         <p class="card-text">
                             <a href="/main/${movie.id}">${movie.name}</a>

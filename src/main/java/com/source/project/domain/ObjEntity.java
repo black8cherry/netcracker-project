@@ -17,8 +17,6 @@ public class ObjEntity {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    private String filename;
-
     public ObjEntity() {
 
     }
@@ -49,14 +47,6 @@ public class ObjEntity {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
     }
 
     public Type getType() {

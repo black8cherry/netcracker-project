@@ -11,7 +11,7 @@
 <body class="">
 <div class="bg-modal">
     <div class="modal-content mt-5" style="width: 500px; background-color: #5f9ea0">
-        <form class="mt-5 mx-2 form-group" action="${pageContext.request.contextPath}/main/${id}/edit" method="post" >
+        <form class="mt-5 mx-2 form-group" action="${pageContext.request.contextPath}/main/${id}/edit" method="post" enctype="multipart/form-data" >
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             movie name
             <input class="mb-2 form-control" type="text" name="objectName" value="${objects.name}"/>
@@ -25,6 +25,20 @@
                 </c:forEach>
                     ${attributeValue.getKey()}
                 <input class="mb-2" type="hidden" name="label" value="${attributeValue.getKey()}"/>
+                <c:if test="${type=='date'}">
+                    <input class="mb-2 form-control"
+                           type="date"
+                           name="value"
+                           value="${attributeValue.getValue()}"
+                    />
+                </c:if>
+                <c:if test="${type=='image'}">
+                <div class="upload-btn-wrapper">
+                    <input type="file" name="file"/>
+                </div>
+                    <input type="hidden" name="value" value="extraSpace"/>
+                </c:if>
+                <c:if test="${type!='date' && type!='image'}">
                 <input class="mb-2 form-control"
                        type="text"
                        id="values"
@@ -33,6 +47,7 @@
                        value="${attributeValue.getValue()}"
                 />
                 <span class="error" aria-live="polite"></span>
+                </c:if>
                 <br>
             </c:forEach>
 

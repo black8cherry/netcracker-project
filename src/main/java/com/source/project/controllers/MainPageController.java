@@ -3,9 +3,7 @@ package com.source.project.controllers;
 import com.source.project.domain.ObjEntity;
 import com.source.project.domain.Type;
 import com.source.project.domain.User;
-import com.source.project.service.ObjEntityService;
-import com.source.project.service.TypeService;
-import com.source.project.service.UserService;
+import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -29,6 +27,10 @@ public class MainPageController {
     private UserService userService;
     @Autowired
     private TypeService typeService;
+    @Autowired
+    private ValueService valueService;
+    @Autowired
+    private AttributeService attributeService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/administratorPanel")
@@ -59,7 +61,8 @@ public class MainPageController {
             model.addAttribute("userAcc", userAcc);
             model.addAttribute("role", role);
         }
-
+        model.addAttribute("listImages", valueService.
+                getValuesByObjEntityInAndAttributes(movies, attributeService.findByLabelType("image")));
         model.addAttribute("checkUser", checkUser);
         model.addAttribute("movie", movies);
         model.addAttribute("filter", filter);
@@ -71,8 +74,12 @@ public class MainPageController {
     public String deleteObj(
             @PathVariable("id") Integer id
     ) {
-        objEntityService.removeById(id);
-        return "redirect:/main";
+        try {
+            objEntityService.removeById(id);
+            return "redirect:/main";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
 }

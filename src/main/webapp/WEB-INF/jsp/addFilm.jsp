@@ -12,9 +12,9 @@
 <div class="container">
     <div class="row">
     <div class="col-5">
-        <form  action="${pageContext.request.contextPath}/addFilm" method="post" enctype="multipart/form-data">
+        <form  action="${pageContext.request.contextPath}/addFilm" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input style="background-color: #151515"  class="form-control" type="text" name="name" placeholder="Name"/><hr>
+            <input class="form-control" type="text" name="name" placeholder="Name"/><hr>
 
 
             <p><select style="background-color: #151515"  size="5" multiple name="typeId">
@@ -23,13 +23,6 @@
                     <option style="color: aliceblue" value="${type.id}">${type.getTypename()}</option>
                 </c:forEach>
             </select></p>
-
-
-
-            <div class="upload-btn-wrapper">
-                <button class="btn-up ">Upload a file</button>
-                <input type="file" name="file" />
-            </div> <br/>
 
             <button class="mt-3 btn btn-dark mr-sm-2" type="submit">Add</button>
         </form>
@@ -48,8 +41,12 @@
             <c:forEach  items="${movie}" var ="movie">
                 <div class="col-md-3">
                     <div style="background-color: #151515" class="card mb-3 shadow-sm">
-                        <img class="card-img-top" style="height: 225px; width: 100%; display: block;"
-                             src="img/${movie.filename}">
+                        <c:forEach items="${listImages}" var="listImg">
+                            <c:if test="${listImg.objEntity==movie}">
+                                <img class="card-img-top" style="height: 225px; width: 100%; display: block;"
+                                     src="img/${listImg.value}">
+                            </c:if>
+                        </c:forEach>
                         <div class="card-body  mx-auto">
                             <p class="card-text">
                                 <span>Id : ${movie.id}</span><hr>

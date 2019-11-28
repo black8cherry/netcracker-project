@@ -47,23 +47,8 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     }
 
     @Override
-    public Integer save(String name,  Integer typeId, MultipartFile file, String uploadPath) throws IOException {
+    public Integer save(String name,  Integer typeId) {
         ObjEntity objEntity = new ObjEntity(name, typeRep.findById(typeId));
-        if (file.getSize() != 0) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-
-            objEntity.setFilename(resultFilename);
-        } else {
-            objEntity.setFilename("no-image.jpg");
-        }
 
         objEntityRep.save(objEntity);
 
@@ -71,11 +56,10 @@ public class ObjEntityServiceImpl implements ObjEntityService {
     }
 
     @Override
-    public void edit(String objectName, List<String> label, List<String> value, Integer id) {
+    public void edit(String objectName, List<String> label, List<String> value, Integer id, MultipartFile file, String uploadPath) throws IOException {
 
         ObjEntity object = objEntityRep.findById(id);
         object.setName(objectName);
-
         for(int i = 0; i < label.size(); i++) {
             if (valueRep.findByAttributesAndObjEntity(
                     attributeRep.findByLabel(label.get(i)),
@@ -84,10 +68,37 @@ public class ObjEntityServiceImpl implements ObjEntityService {
                 Value val = valueRep.findByAttributesAndObjEntity(
                         attributeRep.findByLabel(label.get(i)),
                         object);
-                val.setValue(value.get(i));
+                if (attributeRep.findByLabel(label.get(i)).getLabelType().equals("image")) {
+                    if (file.getSize() != 0) {
+                        File uploadDir = new File(uploadPath);
+
+                        String uuidFile = UUID.randomUUID().toString();
+                        String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+                        file.transferTo(new File(uploadPath + "/" + resultFilename));
+                        val.setValue(resultFilename);
+                    }
+                } else {
+                    val.setValue(value.get(i));
+                }
                 valueService.save(val);
             } else {
-                valueService.save(new Value(object, attributeRep.findByLabel(label.get(i)), value.get(i)));
+                if (attributeRep.findByLabel(label.get(i)).getLabelType().equals("image")) {
+                    if (file.getSize() != 0) {
+                        File uploadDir = new File(uploadPath);
+
+                        String uuidFile = UUID.randomUUID().toString();
+                        String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+                        file.transferTo(new File(uploadPath + "/" + resultFilename));
+
+                        valueService.save(new Value(object, attributeRep.findByLabel(label.get(i)), resultFilename));
+                    } else {
+                        valueService.save(new Value(object, attributeRep.findByLabel(label.get(i)), "no-image.jpg"));
+                    }
+                } else {
+                    valueService.save(new Value(object, attributeRep.findByLabel(label.get(i)), value.get(i)));
+                }
             }
         }
 

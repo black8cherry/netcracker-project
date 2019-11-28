@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AttributeRep extends
         CrudRepository<Attribute, Long>,
@@ -13,4 +15,5 @@ public interface AttributeRep extends
     Attribute findByLabel(String label);
     void removeByLabel(String label);
     Attribute findById(Integer id);
+    Attribute findByLabelType(String type);
 }

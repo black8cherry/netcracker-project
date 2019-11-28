@@ -39,48 +39,58 @@ public class MovieController {
     private FavoriteService favoriteService;
     @Autowired
     private AttributeService attributeService;
+    @Autowired
+    private ValueService valueService;
 
     @GetMapping("/main/{id}")
     public String moviePage(
             Model model,
             @PathVariable Integer id
     ) {
-        ObjEntity objEntity = objEntityService.findById(id);
+        try {
+            ObjEntity objEntity = objEntityService.findById(id);
 
-        User userAccount = userService.getUser();
-        Boolean checkUser = false;
-        if(userAccount != null) {
-            String role = userAccount.getRole().toString();
-            checkUser = true;
+            User userAccount = userService.getUser();
+            Boolean checkUser = false;
+            if (userAccount != null) {
+                String role = userAccount.getRole().toString();
+                checkUser = true;
 
-            model.addAttribute("checkRate", ratingService.check(id, String.valueOf(userAccount.getId())));
+                model.addAttribute("checkRate", ratingService.check(id, String.valueOf(userAccount.getId())));
 
-            model.addAttribute("userAccount", userAccount);
+                model.addAttribute("userAccount", userAccount);
 
-            model.addAttribute("role", role);
+                model.addAttribute("role", role);
 
-            model.addAttribute("checkFilm", favoriteService.check(String.valueOf(userAccount.getId()), String.valueOf(id)));
+                model.addAttribute("checkFilm", favoriteService.check(String.valueOf(userAccount.getId()), String.valueOf(id)));
+            }
+
+            model.addAttribute("movieAttributes", objEntityService.showAttributes(objEntity));
+
+            model.addAttribute( "tmpMovieAttributes", attributeService.findByObjectEntityType(objEntity.getType()));
+
+            model.addAttribute( "Image", valueService.findByAttributesAndObjEntity(attributeService.findByLabelType("image"), objEntity));
+
+            model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(Constants.MESSAGE_TYPE_ID)));
+
+            model.addAttribute("userMessages", messageService.getListMessages(id));
+
+            model.addAttribute("rate", ratingService.getRate(id));
+
+            model.addAttribute("checkRatingType", typeService.findById(Constants.RATING_TYPE_ID) != null);
+
+            model.addAttribute("checkFavoriteType", typeService.findById(Constants.FAVORITE_TYPE_ID) != null);
+
+            model.addAttribute("checkMessageType", typeService.findById(Constants.MESSAGE_TYPE_ID) != null);
+
+            model.addAttribute("checkUser", checkUser);
+
+            model.addAttribute("movie", objEntity);
+
+            return "filmList";
+        } catch (Exception e) {
+            return "errorPage";
         }
-
-        model.addAttribute("movieAttributes", objEntityService.showAttributes(objEntity));
-
-        model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(3)));
-
-        model.addAttribute("userMessages", messageService.getListMessages(id));
-
-        model.addAttribute("rate", ratingService.getRate(id));
-
-        model.addAttribute("checkRatingType", typeService.findById(Constants.RATING_TYPE_ID) != null);
-
-        model.addAttribute("checkFavoriteType", typeService.findById(Constants.FAVORITE_TYPE_ID)!=null);
-
-        model.addAttribute("checkMessageType", typeService.findById(Constants.MESSAGE_TYPE_ID)!=null);
-
-        model.addAttribute("checkUser", checkUser);
-
-        model.addAttribute("movie", objEntity);
-
-        return "filmList";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -89,12 +99,16 @@ public class MovieController {
             @PathVariable String id,
             Model model
     ) {
+        try {
         ObjEntity objEntity = objEntityService.findById(Integer.valueOf(id));
         Map<String, String> tmpMap = objEntityService.showAttributes(objEntity);
         model.addAttribute("objects", objEntity);
         model.addAttribute("attributeValue", tmpMap);
         model.addAttribute("objectAttributes", attributeService.getListForRefactorAttributeValues(tmpMap));
         return "filmEdit";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -103,11 +117,16 @@ public class MovieController {
             @RequestParam String objectName,
             @RequestParam(required = false) List<String> label,
             @RequestParam(required = false) List<String> value,
+            @RequestParam(required = false) MultipartFile file,
             @RequestParam("objectId") Integer id
     ) {
+        try {
         if (label!=null)
-            objEntityService.edit(objectName, label, value, id);
+            objEntityService.edit(objectName, label, value, id, file, uploadPath);
         return "redirect:/main/{id}";
+        } catch (Exception e) {
+            return "errorPage";
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -116,8 +135,11 @@ public class MovieController {
             Model model
     ) {
         List<Type> typeList = typeService.findTreeFromParent(1);
-        model.addAttribute("types", typeService.findAll());
-        model.addAttribute("movie", objEntityService.getObjEntitiesByTypeInOrderByName(typeList));
+        List<ObjEntity> movies = objEntityService.getObjEntitiesByTypeInOrderByName(typeList);
+        model.addAttribute("listImages", valueService.
+                getValuesByObjEntityInAndAttributes(movies, attributeService.findByLabelType("image")));
+        model.addAttribute("types", typeService.findTreeFromParent(Constants.VIDEO_OBJECT_TYPE_ID));
+        model.addAttribute("movie", movies);
         return "addFilm";
     }
 
@@ -125,11 +147,10 @@ public class MovieController {
     @PostMapping("/addFilm")
     public String addingMovie(
             @RequestParam String name,
-            @RequestParam Integer typeId,
-            @RequestParam MultipartFile file
-    ) throws IOException {
-        if (name != null && typeId != null) {
-            Integer id = objEntityService.save(name, typeId, file, uploadPath);
+            @RequestParam Integer typeId
+    ) {
+        if (!name.isEmpty() && typeId != null) {
+            Integer id = objEntityService.save(name, typeId);
             return "redirect:/main/"+id+"/edit";
         }
         return "redirect:/addFilm";

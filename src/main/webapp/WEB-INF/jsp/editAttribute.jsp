@@ -19,6 +19,8 @@
                     <option disabled>Choose attribute type</option>
                         <option style="color: aliceblue" value="char">char</option>
                         <option style="color: aliceblue" value="numerical">numerical</option>
+                        <option style="color: aliceblue" value="date">date</option>
+                        <option style="color: aliceblue" value="image">image</option>
                 </select></p>
                 <input type="hidden" name="typeId" value="${typeId}"/>
                 <button class="btn btn-dark mt-2" type="submit">Save</button>
