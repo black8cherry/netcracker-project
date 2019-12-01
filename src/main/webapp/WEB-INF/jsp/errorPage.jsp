@@ -12,6 +12,7 @@
 </head>
 <body class="text-center">
     <h3>Ooops, smth gone wrong</h3>
+    <span>It seems u r trying to get access to nonexistent film.<br/> U should return to main page and try find movie again.<br/></span>
     <a href="${pageContext.request.contextPath}/main">return on main page</a>
 </body>
 </html>

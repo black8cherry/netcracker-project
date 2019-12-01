@@ -16,6 +16,6 @@ public interface AttributeService {
     List<Attribute> getParentAtt(Integer typeId);
     void save(String label, String labelType);
     void edit(Integer attributeId, String label, String labelType);
-    void removeByLabel(String label);
+    void removeById(Integer id);
     Attribute findByLabelType(String type);
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +46,8 @@ public class MovieController {
             Model model,
             @PathVariable Integer id
     ) {
+        if (!objEntityService.checkObjectForPage(id))
+            return "errorPage";
         try {
             ObjEntity objEntity = objEntityService.findById(id);
 
@@ -69,7 +70,7 @@ public class MovieController {
 
             model.addAttribute( "tmpMovieAttributes", attributeService.findByObjectEntityType(objEntity.getType()));
 
-            model.addAttribute( "Image", valueService.findByAttributesAndObjEntity(attributeService.findByLabelType("image"), objEntity));
+            model.addAttribute( "Image", valueService.getMainImage(objEntity));
 
             model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(Constants.MESSAGE_TYPE_ID)));
 
@@ -96,11 +97,14 @@ public class MovieController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/main/{id}/edit")
     public String editMoviePage(
-            @PathVariable String id,
+            @PathVariable Integer id,
             Model model
     ) {
+        if (!objEntityService.checkObjectForPage(id))
+            return "errorPage";
+
         try {
-        ObjEntity objEntity = objEntityService.findById(Integer.valueOf(id));
+        ObjEntity objEntity = objEntityService.findById(id);
         Map<String, String> tmpMap = objEntityService.showAttributes(objEntity);
         model.addAttribute("objects", objEntity);
         model.addAttribute("attributeValue", tmpMap);
@@ -117,9 +121,11 @@ public class MovieController {
             @RequestParam String objectName,
             @RequestParam(required = false) List<String> label,
             @RequestParam(required = false) List<String> value,
-            @RequestParam(required = false) MultipartFile file,
+            @RequestParam(required = false) List<MultipartFile> file,
             @RequestParam("objectId") Integer id
     ) {
+        if (!objEntityService.checkObjectForPage(id))
+            return "errorPage";
         try {
         if (label!=null)
             objEntityService.edit(objectName, label, value, id, file, uploadPath);
@@ -136,8 +142,7 @@ public class MovieController {
     ) {
         List<Type> typeList = typeService.findTreeFromParent(1);
         List<ObjEntity> movies = objEntityService.getObjEntitiesByTypeInOrderByName(typeList);
-        model.addAttribute("listImages", valueService.
-                getValuesByObjEntityInAndAttributes(movies, attributeService.findByLabelType("image")));
+        model.addAttribute("listImages", valueService.getMainImages(movies));
         model.addAttribute("types", typeService.findTreeFromParent(Constants.VIDEO_OBJECT_TYPE_ID));
         model.addAttribute("movie", movies);
         return "addFilm";

@@ -110,7 +110,7 @@
                             <input type="hidden" name="attributeId" value="${att.id}">
                             <td><input type="submit" value="${att.label}"></td>
                         </form>
-                            <form action="${pageContext.request.contextPath}/editAttribute/delete/${att.label}">
+                            <form action="${pageContext.request.contextPath}/editAttribute/delete/${att.id}">
                                 <input type="hidden" name="typeId" value="${attributesType.id}">
                             <td><input class="link-blue" type="submit" value="delete"></td>
                             </form>

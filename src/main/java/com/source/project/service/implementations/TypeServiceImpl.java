@@ -61,8 +61,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public void delete(Integer id) {
-        List<Type> typeList = typeRep.findTreeFromParent(id);
-        for (Type type: typeList
+        for (Type type: typeRep.findTreeFromParent(id)
              ) {
             for (ObjEntity obj : objEntityRep.findByType(type)
             ) {

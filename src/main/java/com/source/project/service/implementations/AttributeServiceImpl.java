@@ -145,16 +145,16 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public void removeByLabel(String label) {
-        for (Value val: valueRep.findAllByAttributes(attributeRep.findByLabel(label))
+    public void removeById(Integer id) {
+        for (TypeAttribute tp: typeAttributeRep.findAllByAttribute(attributeRep.findById(id))
+        ) {
+            typeAttributeRep.delete(tp);
+        }
+        for (Value val: valueRep.findAllByAttributes(attributeRep.findById(id))
              ) {
             valueRep.delete(val);
         }
-        for (TypeAttribute tp: typeAttributeRep.findAllByAttribute(attributeRep.findByLabel(label))
-             ) {
-            typeAttributeRep.delete(tp);
-        }
-        attributeRep.removeByLabel(label);
+        attributeRep.removeById(id);
     }
 
     @Override

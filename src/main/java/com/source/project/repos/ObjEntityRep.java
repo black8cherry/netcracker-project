@@ -18,6 +18,7 @@ public interface ObjEntityRep extends
     Float countByTypeAndParentId(Type type, Integer id);
     List<ObjEntity> findByTypeAndParentId(Type type, Integer id);
     List<ObjEntity> findByType(Type type);
+    List<ObjEntity> findByParentId(Integer id);
     List<ObjEntity> getObjEntitiesByTypeInOrderByName(Collection<Type> type);
     List<ObjEntity> findByNameIsContaining(String filter);
     ObjEntity findById(Integer id);

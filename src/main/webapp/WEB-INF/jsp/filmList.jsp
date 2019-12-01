@@ -94,6 +94,21 @@
                     </c:if>
                 </c:forEach>
             </table>
+            <div class="row">
+                <c:forEach items="${movieAttributes}" var="attributeValue">
+                    <c:forEach items="${tmpMovieAttributes}" var="att">
+                        <c:if test="${att.label==attributeValue.getKey()}">
+                            <c:set var="type" value="${att.labelType}"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${type=='image'}">
+                        <div class="column">
+                        <img class="" style="height: 105px; width: 105px; display: block;"
+                             src="../img/${attributeValue.getValue().isEmpty()||attributeValue.getValue()==null ? 'no-image.jpg' : attributeValue.getValue()}"/>
+                        </div>
+                            </c:if>
+                </c:forEach>
+            </div>
             <br/>
             <c:if test="${checkRatingType==true}">
                 <span>Rate of this movie :</span>

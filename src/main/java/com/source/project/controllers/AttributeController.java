@@ -75,13 +75,13 @@ public class AttributeController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping("/editAttribute/delete/{label}")
+    @RequestMapping("/editAttribute/delete/{id}")
     public String deleteAttribute(
-            @PathVariable("label") String label,
+            @PathVariable("id") Integer id,
             @RequestParam(required = false) Integer typeId
     ) {
         try {
-            attributeService.removeByLabel(label);
+            attributeService.removeById(id);
             if (typeId==null)
                 return "redirect:/objType";
             else

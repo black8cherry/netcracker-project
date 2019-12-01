@@ -1,6 +1,10 @@
 package com.source.project.controllers;
 
+import com.source.project.domain.Type;
+import com.source.project.service.Constants;
+import com.source.project.service.ObjEntityService;
 import com.source.project.service.RatingService;
+import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +19,10 @@ public class RatingController {
 
     @Autowired
     private RatingService ratingService;
+    @Autowired
+    private TypeService typeService;
+    @Autowired
+    private ObjEntityService objEntityService;
 
     @RequestMapping("rate/{objectId}/{userId}")
     public String rate(
@@ -22,6 +30,8 @@ public class RatingController {
             @PathVariable("userId") String userId,
             @RequestParam(required=false) Float rating
     ) {
+        if (!objEntityService.checkObjectForPage(objectId))
+            return "errorPage";
         try {
             if(rating!=null) {
                 ratingService.rate(userId, objectId, rating);

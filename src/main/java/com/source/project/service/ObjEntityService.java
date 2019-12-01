@@ -15,7 +15,7 @@ public interface ObjEntityService {
     List<ObjEntity> findByNameIsContaining(String filter);
     Integer save(String name, Integer typeId);
     void removeById(Integer id);
-    void edit(String objectName, List<String> label, List<String> value, Integer id, MultipartFile file, String uploadPath) throws IOException;
+    void edit(String objectName, List<String> label, List<String> value, Integer id, List<MultipartFile> file, String uploadPath) throws IOException;
     Map<String, String> showAttributes(ObjEntity objEntity);
-
+    boolean checkObjectForPage(Integer id);
 }

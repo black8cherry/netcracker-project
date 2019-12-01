@@ -1,6 +1,7 @@
 package com.source.project.controllers;
 
 import com.source.project.domain.ObjEntity;
+import com.source.project.domain.Type;
 import com.source.project.domain.User;
 import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +61,11 @@ public class MessagesController {
             Model model,
             @PathVariable("id") Integer id
     ) {
+        if (!objEntityService.checkObjectForPage(id))
+            return "errorPage";
         try {
         model.addAttribute("id",id);
-        model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(3)));
+        model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(Constants.MESSAGE_TYPE_ID)));
         model.addAttribute("userAccount", userService.getUser());
 
         return "messages";
@@ -77,6 +80,8 @@ public class MessagesController {
             @PathVariable("id") Integer id,
             Model model
     ) {
+        if (!objEntityService.checkObjectForPage(id))
+            return "errorPage";
         try {
         ObjEntity objEntity = objEntityService.findById(messageId);
         Map<String, String> tmpMap = objEntityService.showAttributes(objEntity);

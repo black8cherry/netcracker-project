@@ -19,6 +19,18 @@ input:focus:invalid {
     outline: none;
 }
 
+.column {
+    float: left;
+    width: 25%;
+    padding: 5px;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 .error {
     width  : 100%;
     padding: 0;

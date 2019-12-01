@@ -9,7 +9,6 @@ create table attribute (
 
 create table obj_entity (
     id int4 not null,
-    filename varchar(64),
     name varchar(32),
     parent_id int4,
     type_id int4,

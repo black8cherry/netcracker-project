@@ -29,8 +29,6 @@ public class MainPageController {
     private TypeService typeService;
     @Autowired
     private ValueService valueService;
-    @Autowired
-    private AttributeService attributeService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/administratorPanel")
@@ -43,7 +41,7 @@ public class MainPageController {
             @RequestParam(required=false) String filter,
             Model model
     ) {
-        List<Type> typeList = typeService.findTreeFromParent(1); // 1 - video
+        List<Type> typeList = typeService.findTreeFromParent(Constants.VIDEO_OBJECT_TYPE_ID);
         List<ObjEntity> movies;
 
         if (filter != null && !filter.isEmpty()) {
@@ -61,8 +59,7 @@ public class MainPageController {
             model.addAttribute("userAcc", userAcc);
             model.addAttribute("role", role);
         }
-        model.addAttribute("listImages", valueService.
-                getValuesByObjEntityInAndAttributes(movies, attributeService.findByLabelType("image")));
+        model.addAttribute("listImages", valueService.getMainImages(movies));
         model.addAttribute("checkUser", checkUser);
         model.addAttribute("movie", movies);
         model.addAttribute("filter", filter);

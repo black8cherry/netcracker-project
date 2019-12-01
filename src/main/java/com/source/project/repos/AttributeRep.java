@@ -13,7 +13,7 @@ public interface AttributeRep extends
         JpaRepository<Attribute, Long>
 {
     Attribute findByLabel(String label);
-    void removeByLabel(String label);
+    void removeById(Integer id);
     Attribute findById(Integer id);
     Attribute findByLabelType(String type);
 }
