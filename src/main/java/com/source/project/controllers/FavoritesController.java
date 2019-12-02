@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
-import java.util.NoSuchElementException;
 
 @Transactional
 @Controller
@@ -24,7 +23,7 @@ public class FavoritesController {
         try {
             favoriteService.save(userId, objectId);
             return "redirect:/main/{id}";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }
@@ -37,7 +36,7 @@ public class FavoritesController {
         try {
             favoriteService.delete(userId, objectId);
             return "redirect:/main/{id}";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }

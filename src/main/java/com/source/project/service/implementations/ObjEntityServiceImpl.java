@@ -135,11 +135,11 @@ public class ObjEntityServiceImpl implements ObjEntityService {
 
         for (Attribute attribute: attributesList
         ) {
-            if(valueRep.findByAttributesAndObjEntity(attribute, objEntity)==null)
-                attributeValue.put(attribute.getLabel(),"");
-            else
-                attributeValue.put(attribute.getLabel(),
-                        valueRep.findByAttributesAndObjEntity(attribute, objEntity).getValue());
+                if (valueRep.findByAttributesAndObjEntity(attribute, objEntity) == null)
+                    attributeValue.put(attribute.getLabel(), "");
+                else
+                    attributeValue.put(attribute.getLabel(),
+                            valueRep.findByAttributesAndObjEntity(attribute, objEntity).getValue());
         }
 
         return attributeValue;
@@ -164,7 +164,7 @@ public class ObjEntityServiceImpl implements ObjEntityService {
                 if (objEntityRep.findById(id).getType() == type)
                     checkTypeForPage = true;
             }
-        } catch (Exception e) {}
+        } catch (NullPointerException e) {}
         return checkTypeForPage;
     }
 }

@@ -17,5 +17,4 @@ public interface AttributeService {
     void save(String label, String labelType);
     void edit(Integer attributeId, String label, String labelType);
     void removeById(Integer id);
-    Attribute findByLabelType(String type);
 }

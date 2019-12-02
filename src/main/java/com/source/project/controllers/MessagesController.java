@@ -1,8 +1,6 @@
 package com.source.project.controllers;
 
 import com.source.project.domain.ObjEntity;
-import com.source.project.domain.Type;
-import com.source.project.domain.User;
 import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +36,7 @@ public class MessagesController {
         messageService.create(id, label, value);
 
         return "redirect:/main/{id}";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }
@@ -51,7 +49,7 @@ public class MessagesController {
         try {
         messageService.delete(messageId);
         return"redirect:/main/{id}";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }
@@ -69,7 +67,7 @@ public class MessagesController {
         model.addAttribute("userAccount", userService.getUser());
 
         return "messages";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }
@@ -89,7 +87,7 @@ public class MessagesController {
         model.addAttribute("attributeValue", tmpMap);
         model.addAttribute("objectAttributes", attributeService.getListForRefactorAttributeValues(tmpMap));
         return "editMessage";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }
@@ -105,7 +103,7 @@ public class MessagesController {
             if (label!=null)
                 messageService.edit(messageId, label, value);
             return"redirect:/main/{id}";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }

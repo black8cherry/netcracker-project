@@ -64,9 +64,13 @@ public class ObjectEntityTypeController {
     public String deleteObjectType(
             @PathVariable("id") Integer id
     ) {
-        if (typeService.findById(id) != null) {
-            typeService.delete(id);
+        try {
+            if (typeService.findById(id) != null) {
+                typeService.delete(id);
+            }
+            return "redirect:/objType";
+        } catch (NullPointerException e) {
+            return "errorPage";
         }
-        return "redirect:/objType";
     }
 }

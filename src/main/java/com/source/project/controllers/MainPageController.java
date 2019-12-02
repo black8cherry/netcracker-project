@@ -74,7 +74,7 @@ public class MainPageController {
         try {
             objEntityService.removeById(id);
             return "redirect:/main";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }

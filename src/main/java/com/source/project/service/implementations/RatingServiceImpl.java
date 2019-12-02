@@ -57,36 +57,6 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void rerate(String userId, Integer parentId, Float value) {
-        try {
-            Type rateType = typeRep.findById(Constants.RATING_TYPE_ID);
-            Attribute attUserId = typeAttributeRep.findByAttributeAndType(attributeRep.findById(Constants.USER_ID_ATTRIBUTE), rateType).getAttribute();
-            Attribute attRate = typeAttributeRep.findByAttributeAndType(attributeRep.findById(Constants.RATE_ATTRIBUTE), rateType).getAttribute();
-
-            Collection<ObjEntity> rateObjects = objEntityRep.findByTypeAndParentId(rateType, parentId);
-
-            ObjEntity objOfUser = valueRep.getValueByObjEntityInAndValueAndAttributes(rateObjects, userId, attUserId).get().getObjEntity();
-
-            Value usr = valueRep.findByAttributesAndObjEntity(attUserId, objOfUser);
-            Value rat = valueRep.findByAttributesAndObjEntity(attRate, objOfUser);
-
-            valueRep.removeById(usr.getId());
-            valueRep.removeById(rat.getId());
-            objEntityRep.removeById(objOfUser.getId());
-
-            objOfUser = new ObjEntity(parentId, rateType);
-            usr = new Value(objOfUser, attUserId, userId);
-            rat = new Value(objOfUser, attRate, String.valueOf(value));
-
-            objEntityRep.save(objOfUser);
-            valueRep.save(usr);
-            valueRep.save(rat);
-        } catch (NullPointerException e) {
-            System.out.println("Rating rerate exception : " + e.getMessage());
-        }
-    }
-
-    @Override
     public String getRate(Integer id) {
         float result = 0;
         String res = "0";

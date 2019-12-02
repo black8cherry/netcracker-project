@@ -9,9 +9,8 @@ public interface Constants {
     // Attributes
     public static final Integer USER_ID_ATTRIBUTE = 1;
     public static final Integer REFERENCE_TO_OBJECT_ATTRIBUTE = 2;
-    // public static final Integer REVIEW_ATTRIBUTE = 3;
     public static final Integer RATE_ATTRIBUTE = 4;
-    // public static final Integer USERNAME_ATTRIBUTE = 5;
+    public static final Integer MAIN_IMAGE_ID = 6;
     // Attribute type
     public static final String IMAGE_ATTRIBUTE_TYPE = "image";
     // No-image

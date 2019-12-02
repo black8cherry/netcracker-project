@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,11 +68,13 @@ public class MovieController {
                 model.addAttribute("checkFilm", favoriteService.check(String.valueOf(userAccount.getId()), String.valueOf(id)));
             }
 
-            model.addAttribute("movieAttributes", objEntityService.showAttributes(objEntity));
+            HashMap<String, String> movieAttributes = (HashMap<String, String>) objEntityService.showAttributes(objEntity);
+            movieAttributes.remove(attributeService.findById(Constants.MAIN_IMAGE_ID).getLabel());
+            model.addAttribute("movieAttributes", movieAttributes);
 
             model.addAttribute( "tmpMovieAttributes", attributeService.findByObjectEntityType(objEntity.getType()));
 
-            model.addAttribute( "Image", valueService.getMainImage(objEntity));
+            model.addAttribute( "image", valueService.getMainImage(objEntity));
 
             model.addAttribute("attributesMessageType", attributeService.findByObjectEntityType(typeService.findById(Constants.MESSAGE_TYPE_ID)));
 
@@ -89,7 +93,7 @@ public class MovieController {
             model.addAttribute("movie", objEntity);
 
             return "filmList";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }
@@ -110,7 +114,7 @@ public class MovieController {
         model.addAttribute("attributeValue", tmpMap);
         model.addAttribute("objectAttributes", attributeService.getListForRefactorAttributeValues(tmpMap));
         return "filmEdit";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }
@@ -130,7 +134,7 @@ public class MovieController {
         if (label!=null)
             objEntityService.edit(objectName, label, value, id, file, uploadPath);
         return "redirect:/main/{id}";
-        } catch (Exception e) {
+        } catch (NullPointerException | IOException e) {
             return "errorPage";
         }
     }

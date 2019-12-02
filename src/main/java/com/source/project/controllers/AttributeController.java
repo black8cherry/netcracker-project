@@ -69,7 +69,7 @@ public class AttributeController {
                 return "redirect:/objType";
             else
                 return "redirect:/objType?typeId="+typeId;
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }
@@ -86,7 +86,7 @@ public class AttributeController {
                 return "redirect:/objType";
             else
                 return "redirect:/objType?typeId="+typeId;
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }

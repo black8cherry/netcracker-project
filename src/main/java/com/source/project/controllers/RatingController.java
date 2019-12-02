@@ -1,10 +1,7 @@
 package com.source.project.controllers;
 
-import com.source.project.domain.Type;
-import com.source.project.service.Constants;
 import com.source.project.service.ObjEntityService;
 import com.source.project.service.RatingService;
-import com.source.project.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +16,6 @@ public class RatingController {
 
     @Autowired
     private RatingService ratingService;
-    @Autowired
-    private TypeService typeService;
     @Autowired
     private ObjEntityService objEntityService;
 
@@ -37,7 +32,7 @@ public class RatingController {
                 ratingService.rate(userId, objectId, rating);
             }
             return "redirect:/main/{objectId}";
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "errorPage";
         }
     }

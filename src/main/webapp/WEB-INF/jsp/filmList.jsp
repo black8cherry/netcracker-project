@@ -74,7 +74,7 @@
     <div class="row mt-5">
         <div class="col-lg-5 " >
             <img class="float-right" style="height: 225px; width: 225px; display: block;"
-                 src="../img/${Image.value}"/>
+                 src="../img/${image.value==null ? 'no-image.jpg' : image.value}"/>
         </div>
 
         <div class="col float-left">
@@ -94,7 +94,6 @@
                     </c:if>
                 </c:forEach>
             </table>
-            <div class="row">
                 <c:forEach items="${movieAttributes}" var="attributeValue">
                     <c:forEach items="${tmpMovieAttributes}" var="att">
                         <c:if test="${att.label==attributeValue.getKey()}">
@@ -102,13 +101,10 @@
                         </c:if>
                     </c:forEach>
                     <c:if test="${type=='image'}">
-                        <div class="column">
-                        <img class="" style="height: 105px; width: 105px; display: block;"
+                        <img class="mt-2" style="height: 105px; width: 105px; display: block;"
                              src="../img/${attributeValue.getValue().isEmpty()||attributeValue.getValue()==null ? 'no-image.jpg' : attributeValue.getValue()}"/>
-                        </div>
                             </c:if>
                 </c:forEach>
-            </div>
             <br/>
             <c:if test="${checkRatingType==true}">
                 <span>Rate of this movie :</span>

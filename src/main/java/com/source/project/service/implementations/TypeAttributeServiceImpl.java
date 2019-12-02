@@ -1,8 +1,10 @@
 package com.source.project.service.implementations;
 
-import com.source.project.domain.*;
+import com.source.project.domain.Attribute;
+import com.source.project.domain.ObjEntity;
+import com.source.project.domain.Type;
+import com.source.project.domain.TypeAttribute;
 import com.source.project.repos.*;
-import com.source.project.domain.Value;
 import com.source.project.service.Constants;
 import com.source.project.service.TypeAttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +36,6 @@ public class TypeAttributeServiceImpl implements TypeAttributeService {
     }
 
     @Override
-    public TypeAttribute findByAttributeAndType(Attribute attribute, Type type) {
-        return typeAttributeRep.findByAttributeAndType(attribute, type);
-    }
-
-    @Override
     public void removeByAttributeAndType(Attribute attribute, Type type) {
         for (ObjEntity obj: objEntityRep.findByType(type)
              ) {
@@ -52,11 +49,6 @@ public class TypeAttributeServiceImpl implements TypeAttributeService {
             }
         }
         typeAttributeRep.removeByAttributeAndType(attribute, type);
-    }
-
-    @Override
-    public List<TypeAttribute> findAll(Sort sort) {
-        return typeAttributeRep.findAll(sort);
     }
 
     @Override

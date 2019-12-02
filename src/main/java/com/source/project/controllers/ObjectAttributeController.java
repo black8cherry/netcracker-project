@@ -55,9 +55,13 @@ public class ObjectAttributeController {
             @PathVariable("typeId") Integer typeId,
             @PathVariable("label") String label
     ) {
-        typeAttributeService.removeByAttributeAndType(
-                attributeService.findByLabel(label),
-                typeService.findById(typeId));
-        return "redirect:/objType?typeId={typeId}";
+        try {
+            typeAttributeService.removeByAttributeAndType(
+                    attributeService.findByLabel(label),
+                    typeService.findById(typeId));
+            return "redirect:/objType?typeId={typeId}";
+        } catch (NullPointerException e) {
+            return "errorPage";
+        }
     }
 }

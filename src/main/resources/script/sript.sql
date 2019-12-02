@@ -137,6 +137,7 @@ alter table public.type_attribute_gen owner to postgres;
  * review     3
  * rate       4
  * username   5
+ * mainImage  6
  */
 
 insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'userId', 'numerical');
@@ -148,6 +149,8 @@ insert into attribute(id, label, label_type) values ((select nextval('attribute_
 insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'rate', 'numerical');
 
 insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'username', 'char');
+
+insert into attribute(id, label, label_type) values ((select nextval('attribute_gen')), 'mainImage', 'image');
 
 /* Types
  * video        1

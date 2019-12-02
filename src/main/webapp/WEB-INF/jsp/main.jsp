@@ -89,7 +89,7 @@
                     <c:forEach items="${listImages}" var="listImg">
                         <c:if test="${listImg.objEntity==movie}">
                             <img class="card-img-top" style="height: 225px; width: 100%; display: block;"
-                                 src="img/${listImg.value}">
+                                 src="img/${listImg.value==null ? 'no-image.jpg' : listImg.value}">
                         </c:if>
                     </c:forEach>
                     <div class="card-body  mx-auto">
