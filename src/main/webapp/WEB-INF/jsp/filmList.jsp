@@ -176,7 +176,7 @@
         <div class="col">
             <c:if test="${checkMessageType==true}">
                 <c:forEach items="${userMessages}" var="mes">
-                    <div class="mes mx-auto mt-4" style="width: 600px">
+                    <div class="mes mx-auto mt-4 pt-1" style="width: 600px">
                     <tr>
                         <div class="ml-2">
                         <c:forEach items="${mes}" var="attValMap" >
@@ -186,8 +186,19 @@
                             </c:if>
 
                             <c:if test="${attValMap.getKey()!='userId' && attValMap.getKey()!='refToObject'}">
+                                    <c:forEach items="${attributesMessageType}" var="att">
+                                        <c:if test="${att.label==attValMap.getKey()}">
+                                            <c:set var="typeMes" value="${att.labelType}"/>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:if test="${typeMes=='image'}">
+                                        <img class="mt-2" style="height: 105px; width: 105px; display: block;"
+                                             src="../img/${attValMap.getValue()==null ? 'no-image.jpg' : attValMap.getValue()}"/>
+                                    </c:if>
+                            <c:if test="${typeMes!='image'}">
                                 <td>${attValMap.getKey()} : </td>
                                 <td>${attValMap.getValue()}</td>
+                            </c:if>
                                 <br/>
                             </c:if>
 

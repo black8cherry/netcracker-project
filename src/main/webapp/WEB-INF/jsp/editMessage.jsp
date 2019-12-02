@@ -11,7 +11,7 @@
 <body class="">
 <div class="bg-modal">
     <div class="modal-content mt-5" style="width: 500px; background-color: #5f9ea0">
-        <form class="mt-5 mx-2 form-group" action="${pageContext.request.contextPath}/editMessage/${id}/${messageId}" method="post" >
+        <form class="mt-5 mx-2 form-group" action="${pageContext.request.contextPath}/editMessage/${id}/${messageId}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <br>
             <c:forEach items="${attributeValue}" var="attributeValue">
@@ -24,6 +24,14 @@
                     </c:if>
                 </c:forEach>
                 ${attributeValue.getKey()}
+                <c:if test="${type=='image'}">
+                    <div class="upload-btn-wrapper">
+                        <input class="mb-2" type="file" name="file"/>
+                    </div>
+                    <input type="hidden" name="label" value="${attributeValue.getKey()}">
+                    <input type="hidden" name="value" value="extraSpace"/>
+                </c:if>
+                <c:if test="${type!='image'}">
                 <input class="mb-2" type="hidden" name="label" value="${attributeValue.getKey()}"/>
                 <input class="mb-2 form-control"
                        type="text"
@@ -33,6 +41,7 @@
                        value="${attributeValue.getValue()}"
                 />
                 <span class="error" aria-live="polite"></span>
+                </c:if>
                 <br>
                 </c:if>
             </c:forEach>

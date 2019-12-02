@@ -3,9 +3,11 @@ package com.source.project.controllers;
 import com.source.project.domain.ObjEntity;
 import com.source.project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.Map;
 @Controller
 public class MessagesController {
 
+    @Value("${upload.path}")
+    private String uploadPath;
     @Autowired
     private MessageService messageService;
     @Autowired
@@ -30,10 +34,11 @@ public class MessagesController {
     public String saveMessage(
             @PathVariable("id") Integer id,
             @RequestParam List<String> label,
-            @RequestParam List<String> value
+            @RequestParam List<String> value,
+            @RequestParam(required = false) List<MultipartFile> file
     ) {
         try {
-        messageService.create(id, label, value);
+        messageService.create(id, label, value, file, uploadPath);
 
         return "redirect:/main/{id}";
         } catch (NullPointerException e) {
@@ -97,11 +102,12 @@ public class MessagesController {
             @PathVariable("messageId") Integer messageId,
             @PathVariable("id") Integer id,
             @RequestParam(required = false) List<String> label,
-            @RequestParam(required = false) List<String> value
+            @RequestParam(required = false) List<String> value,
+            @RequestParam(required = false) List<MultipartFile> file
     ) {
         try {
             if (label!=null)
-                messageService.edit(messageId, label, value);
+                messageService.edit(messageId, label, value, file, uploadPath);
             return"redirect:/main/{id}";
         } catch (NullPointerException e) {
             return "errorPage";

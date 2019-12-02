@@ -10,7 +10,7 @@
 <div class="bg-modal">
     <div class="modal-content" style="width: 400px; background-color: #5f9ea0">
 
-        <form class="mt-4 mx-2" action="/main/${id}" method="post">
+        <form class="mt-4 mx-2" action="/main/${id}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <c:forEach items="${attributesMessageType}" var="att">
                 <c:choose>
@@ -23,6 +23,14 @@
                     <c:when test="${att.label=='username'}">
                         <input type="hidden" name="label" value="${att.label}">
                         <input type="hidden" name="value" value="${userAccount.username}">
+                    </c:when>
+
+                    <c:when test="${att.labelType=='image'}">
+                        <div class="upload-btn-wrapper">
+                            <input type="file" name="file"/>
+                        </div>
+                        <input type="hidden" name="label" value="${att.label}">
+                        <input type="hidden" name="value" value="111"/>
                     </c:when>
 
                     <c:otherwise>

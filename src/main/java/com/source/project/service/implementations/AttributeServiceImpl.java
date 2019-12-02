@@ -58,11 +58,6 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public Attribute findByLabelType(String type) {
-        return attributeRep.findByLabelType(type);
-    }
-
-    @Override
     public List<Attribute> attributesNotInObj(Integer typeId) {
         List<Attribute> attributesAll = attributeRep.findAll();
         List<Attribute> attributesNotInObj = new ArrayList<Attribute>();
